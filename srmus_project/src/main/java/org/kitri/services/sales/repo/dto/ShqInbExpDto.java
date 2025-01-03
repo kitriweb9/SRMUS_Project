@@ -1,6 +1,6 @@
 package org.kitri.services.sales.repo.dto;
 
-public class StoreInboundDto {
+public class ShqInbExpDto {
 	private String inboundId;
 	private String storeId;
 	private String storeName;
@@ -14,7 +14,7 @@ public class StoreInboundDto {
 		return inboundId;
 	}
 
-	public StoreInboundDto setInboundId(String inboundId) {
+	public ShqInbExpDto setInboundId(String inboundId) {
 		this.inboundId = inboundId;
 		return this;
 	}
@@ -23,7 +23,7 @@ public class StoreInboundDto {
 		return storeId;
 	}
 
-	public StoreInboundDto setStoreId(String storeId) {
+	public ShqInbExpDto setStoreId(String storeId) {
 		this.storeId = storeId;
 		return this;
 	}
@@ -32,7 +32,7 @@ public class StoreInboundDto {
 		return inboundDate;
 	}
 
-	public StoreInboundDto setInboundDate(String inboundDate) {
+	public ShqInbExpDto setInboundDate(String inboundDate) {
 		this.inboundDate = inboundDate;
 		return this;
 	}
@@ -41,7 +41,7 @@ public class StoreInboundDto {
 		return goodsId;
 	}
 
-	public StoreInboundDto setGoodsId(String goodsId) {
+	public ShqInbExpDto setGoodsId(String goodsId) {
 		this.goodsId = goodsId;
 		return this;
 	}
@@ -50,7 +50,7 @@ public class StoreInboundDto {
 		return inboundQuantity;
 	}
 
-	public StoreInboundDto setInboundQuantity(int inboundQuantity) {
+	public ShqInbExpDto setInboundQuantity(int inboundQuantity) {
 		this.inboundQuantity = inboundQuantity;
 		return this;
 	}
@@ -59,7 +59,7 @@ public class StoreInboundDto {
 		return confirm;
 	}
 
-	public StoreInboundDto setConfirm(String confirm) {
+	public ShqInbExpDto setConfirm(String confirm) {
 		this.confirm = confirm;
 		return this;
 	}
@@ -68,7 +68,7 @@ public class StoreInboundDto {
 		return storeName;
 	}
 
-	public StoreInboundDto setStoreName(String storeName) {
+	public ShqInbExpDto setStoreName(String storeName) {
 		this.storeName = storeName;
 		return this;
 	}
@@ -77,7 +77,7 @@ public class StoreInboundDto {
 		return goodsName;
 	}
 
-	public StoreInboundDto setGoodsName(String goodsName) {
+	public ShqInbExpDto setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
 		return this;
 	}

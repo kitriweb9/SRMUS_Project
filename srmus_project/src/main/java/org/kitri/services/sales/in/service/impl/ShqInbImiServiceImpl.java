@@ -7,7 +7,7 @@ import java.util.List;
 import org.kitri.services.sales.in.dao.ShqInbImiDao;
 import org.kitri.services.sales.in.entity.IntegrationInbound;
 import org.kitri.services.sales.in.service.ShqInbImiService;
-import org.kitri.services.sales.repo.dto.IntegrationInboundDto;
+import org.kitri.services.sales.repo.dto.ShqInbImiDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -23,13 +23,13 @@ public class ShqInbImiServiceImpl implements ShqInbImiService{
 	}
 	
 	@Override
-	public List<IntegrationInboundDto> getIncomingInbound(){
+	public List<ShqInbImiDto> getIncomingInbound(){
 		List<IntegrationInbound> entity = dao.findByStatus("N");
-		List<IntegrationInboundDto> dto = new ArrayList<>();
+		List<ShqInbImiDto> dto = new ArrayList<>();
 		
 		for (IntegrationInbound i : entity) {
 			System.out.println(i.getUpdateDate());
-			dto.add(new IntegrationInboundDto()
+			dto.add(new ShqInbImiDto()
 					.setInboundDate(i.getInboundDate())
 					.setGoodsId(i.getGoodsId())
 					.setInboundQty(i.getInboundQty())
@@ -42,13 +42,13 @@ public class ShqInbImiServiceImpl implements ShqInbImiService{
 	}
 	
 	@Override
-	public List<IntegrationInboundDto> getApproveInbound(){
+	public List<ShqInbImiDto> getApproveInbound(){
 		List<IntegrationInbound> entity = dao.findByStatus("Y");
-		List<IntegrationInboundDto> dto = new ArrayList<>();
+		List<ShqInbImiDto> dto = new ArrayList<>();
 		
 		for (IntegrationInbound i : entity) {
 			System.out.println(i.getUpdateDate());
-			dto.add(new IntegrationInboundDto()
+			dto.add(new ShqInbImiDto()
 					.setInboundDate(i.getInboundDate())
 					.setGoodsId(i.getGoodsId())
 					.setInboundQty(i.getInboundQty())
@@ -61,7 +61,7 @@ public class ShqInbImiServiceImpl implements ShqInbImiService{
 	}
 
 	@Override
-	public boolean updateIncomingStocks(IntegrationInboundDto updateDto) {
+	public boolean updateIncomingStocks(ShqInbImiDto updateDto) {
 		
 		int updateCol = 0;
 		IntegrationInbound entity = new IntegrationInbound();
@@ -77,7 +77,7 @@ public class ShqInbImiServiceImpl implements ShqInbImiService{
 	}
 
 	@Override
-	public void approveStock(IntegrationInboundDto updateDto) {
+	public void approveStock(ShqInbImiDto updateDto) {
 		IntegrationInbound entity = new IntegrationInbound();
 		entity.setInboundDate(Timestamp.valueOf(updateDto.getInboundDate()))
 			  .setGoodsId(updateDto.getGoodsId())
@@ -87,13 +87,13 @@ public class ShqInbImiServiceImpl implements ShqInbImiService{
 	}
 	
 	@Override
-	public List<IntegrationInboundDto> getInbounds() {
+	public List<ShqInbImiDto> getInbounds() {
 		List<IntegrationInbound> entity = dao.findAll();
-		List<IntegrationInboundDto> dto = new ArrayList<>();
+		List<ShqInbImiDto> dto = new ArrayList<>();
 		
 		for (IntegrationInbound i : entity) {
 			System.out.println(i.getUpdateDate());
-			dto.add(new IntegrationInboundDto()
+			dto.add(new ShqInbImiDto()
 					.setInboundDate(i.getInboundDate())
 					.setGoodsId(i.getGoodsId())
 					.setInboundQty(i.getInboundQty())

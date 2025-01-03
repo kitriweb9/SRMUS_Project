@@ -1,7 +1,7 @@
 package org.kitri.services.sales.in.controller;
 
 import org.kitri.services.sales.in.service.ShqInbImiService;
-import org.kitri.services.sales.repo.dto.StoreInboundDto;
+import org.kitri.services.sales.repo.dto.ShqInbExpDto;
 import org.kitri.services.sales.in.service.ShqInbExpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ public class ShqInbExpRegController {
 	
 	@PostMapping("/create")
 	public String createStoreInbound(@ModelAttribute
-									  StoreInboundDto storeInboudDto,
+									  ShqInbExpDto storeInboudDto,
 									 @RequestParam(name="hqInboundDate")
 									 String hqInboundDate) {
 		storeSvc.addStoreInbound(storeInboudDto, hqInboundDate);

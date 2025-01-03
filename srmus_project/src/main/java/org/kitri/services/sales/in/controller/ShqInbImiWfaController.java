@@ -1,7 +1,7 @@
 package org.kitri.services.sales.in.controller;
 
 import org.kitri.services.sales.in.service.ShqInbImiService;
-import org.kitri.services.sales.repo.dto.IntegrationInboundDto;
+import org.kitri.services.sales.repo.dto.ShqInbImiDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class ShqInbImiWfaController {
 	
 	@PostMapping("/update")
 	public String updatIncomingStocks(Model model,
-									  @ModelAttribute IntegrationInboundDto reqDto){
+									  @ModelAttribute ShqInbImiDto reqDto){
 		System.out.println(reqDto);
 		System.out.println(reqDto.getInboundDate());
 		svc.updateIncomingStocks(reqDto);

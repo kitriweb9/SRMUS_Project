@@ -3,7 +3,7 @@ package org.kitri.services.sales.repo.dto;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-public class IntegrationInboundDto {
+public class ShqInbImiDto {
 	private String inboundDate;
 	private String goodsId;
 	private String goodsName;
@@ -13,7 +13,7 @@ public class IntegrationInboundDto {
 	private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	
-	public IntegrationInboundDto setInboundDate(Timestamp inboundDate) {
+	public ShqInbImiDto setInboundDate(Timestamp inboundDate) {
         this.inboundDate = inboundDate != null ? formatter.format(inboundDate) : null;
 		return this;
 	}
@@ -26,7 +26,7 @@ public class IntegrationInboundDto {
 		return goodsId;
 	}
 
-	public IntegrationInboundDto setGoodsId(String goodsId) {
+	public ShqInbImiDto setGoodsId(String goodsId) {
 		this.goodsId = goodsId;
 		return this;
 	}
@@ -35,7 +35,7 @@ public class IntegrationInboundDto {
 		return inboundQty;
 	}
 
-	public IntegrationInboundDto setInboundQty(int inboundQty) {
+	public ShqInbImiDto setInboundQty(int inboundQty) {
 		this.inboundQty = inboundQty;
 		return this;
 	}
@@ -44,7 +44,7 @@ public class IntegrationInboundDto {
 		return confirmStatus;
 	}
 
-	public IntegrationInboundDto setConfirmStatus(String confirmStatus) {
+	public ShqInbImiDto setConfirmStatus(String confirmStatus) {
 		this.confirmStatus = confirmStatus;
 		return this;
 	}
@@ -53,7 +53,7 @@ public class IntegrationInboundDto {
         return updateDate;
     }
 
-	public IntegrationInboundDto setUpdateDate(Timestamp updateDate) {
+	public ShqInbImiDto setUpdateDate(Timestamp updateDate) {
         this.updateDate = updateDate != null ? formatter.format(updateDate) : null;
 		return this;
 	}
@@ -62,7 +62,7 @@ public class IntegrationInboundDto {
 		return goodsName;
 	}
 
-	public IntegrationInboundDto setGoodsName(String goodsName) {
+	public ShqInbImiDto setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
 		return this;
 	}

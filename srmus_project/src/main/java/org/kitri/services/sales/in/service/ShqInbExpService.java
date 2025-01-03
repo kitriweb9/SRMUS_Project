@@ -2,18 +2,18 @@ package org.kitri.services.sales.in.service;
 
 import java.util.List;
 
-import org.kitri.services.sales.repo.dto.StoreInboundDto;
+import org.kitri.services.sales.repo.dto.ShqInbExpDto;
 
 public interface ShqInbExpService {
 
-	boolean addStoreInbound(StoreInboundDto inboundDto, String hqInboundDate);
+	boolean addStoreInbound(ShqInbExpDto inboundDto, String hqInboundDate);
 
-	List<StoreInboundDto> findAll();
+	List<ShqInbExpDto> findAll();
 
-	List<StoreInboundDto> findById(String storeId);
+	List<ShqInbExpDto> findById(String storeId);
 
-	void approve(StoreInboundDto dto);
+	void approve(ShqInbExpDto dto);
 
-	void update(StoreInboundDto dto);
+	void update(ShqInbExpDto dto);
 
 }
