@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Goods">
+
+	<resultMap
+		type="org.kitri.services.sales.repo.dto.ShqPdtPdiChkDto"
+		id="goodsInfo">
+		<result property="goodsId" column="GOODS_ID" />
+		<result property="goodsCategoryId" column="GOODS_CATEGORY_ID" />
+		<result property="goodsCategoryName"
+			column="GOODS_CATEGORY_NAME" />
+		<result property="factoryId" column="FACTORY_ID" />
+		<result property="goodsName" column="GOODS_NAME" />
+		<result property="goodsCostPrice" column="GOODS_COST_PRICE" />
+		<result property="goodsMarketPrice" column="GOODS_MARKET_PRICE" />
+		<result property="goodsCustomerPrice"
+			column="GOODS_CUSTOMER_PRICE" />
+		<result property="goodsUnit" column="GOODS_UNIT" />
+	</resultMap>
+
+	<select id="readGoodsList" resultMap="goodsInfo">
+		select g.GOODS_ID,
+		g.GOODS_CATEGORY_ID, c.GOODS_CATEGORY_NAME, g.FACTORY_ID,
+		g.GOODS_NAME,
+		g.GOODS_COST_PRICE, g.GOODS_MARKET_PRICE,
+		g.GOODS_CUSTOMER_PRICE, g.GOODS_UNIT
+		from TB_SHQ_GOODS g, TB_SHQ_GOODS_CATEGORY
+		c
+		where g.GOODS_CATEGORY_ID = c.GOODS_CATEGORY_ID
+	</select>
+
+	<update id="updateGoodsInfo"
+		parameterType="org.kitri.services.sales.repo.dto.ShqPdtPdiChgDto">
+		UPDATE tb_goods
+		SET
+		GOODS_CATEGORY_ID =
+		#{goodsCategoryId},
+		FACTORY_ID = #{factoryId},
+		GOODS_NAME =
+		#{goodsName},
+		GOODS_COST_PRICE = #{goodsCostPrice},
+		GOODS_MARKET_PRICE =
+		#{goodsMarketPrice},
+		GOODS_CUSTOMER_PRICE = #{goodsCustomerPrice},
+		GOODS_UNIT = #{goodsUnit}
+		WHERE GOODS_ID = #{goodsId}
+	</update>
+
+	<insert id="registGoods"
+		parameterType="org.kitri.services.sales.repo.dto.ShqPdtPdiChgDto">
+		INSERT INTO tb_goods (
+		GOODS_ID,
+		GOODS_CATEGORY_ID,
+		FACTORY_ID,
+		GOODS_NAME,
+		GOODS_COST_PRICE,
+		GOODS_MARKET_PRICE,
+		GOODS_CUSTOMER_PRICE,
+		GOODS_UNIT
+		) VALUES (
+		#{goodsId},
+		#{goodsCategoryId},
+		#{factoryId},
+		#{goodsName},
+		#{goodsCostPrice},
+		#{goodsMarketPrice},
+		#{goodsCustomerPrice},
+		#{goodsUnit}
+		)
+	</insert>
+
+
+</mapper>

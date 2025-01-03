@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ServiceAssignMapper">
+
+	<resultMap
+		type="org.kitri.services.common.data.pageauth.ServiceAssignDT"
+		id="serviceAssign">
+		<result property="serviceGroupId" column="SERVICE_GROUP_ID" />
+		<result property="serviceId" column="SERVICE_ID" />
+	</resultMap>
+
+	<select id="readAssignByGroupId" resultMap="serviceAssign"
+		parameterType="String">
+		SELECT SERVICE_GROUP_ID, SERVICE_ID
+		FROM
+			TB_SHQ_SERVICE_ASSIGN
+		WHERE
+			SERVICE_GROUP_ID = #{groupId}
+	</select>
+	
+	<select id="readOnlyAssignByGroupId" resultType="String"
+		parameterType="String">
+		SELECT SERVICE_ID
+		FROM
+			TB_SHQ_SERVICE_ASSIGN
+		WHERE
+			SERVICE_GROUP_ID = #{groupId}
+	</select>
+
+	<insert id="registerAssign">
+		INSERT INTO TB_SHQ_SERVICE_ASSIGN (SERVICE_GROUP_ID, SERVICE_ID)
+		VALUES (#{serviceGroupId}, #{serviceId})
+	</insert>
+
+</mapper>

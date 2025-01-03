@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="employee">
+	<resultMap id="SvcComEmpResult" type="org.kitri.services.sales.employee.dto.SvcComEmpDto">
+		<result property="employeeId" column="EMPLOYEE_ID" />
+		<result property="employeePassword" column="EMPLOYEE_PASSWORD" />
+		<result property="employeeName" column="EMPLOYEE_NAME" />
+		<result property="employeeContact" column="EMPLOYEE_CONTACT" />
+		<result property="employeeEmail" column="EMPLOYEE_EMAIL" />
+		<result property="positionId" column="POSITION_ID" />
+		<result property="positionName" column="POSITION_NAME" />
+		<result property="roleId" column="ROLE_ID" />
+		<result property="roleName" column="ROLE_NAME" />
+		<result property="temporaryRoleId" column="EMPLOYEE_TEMPORARY_ROLE_ID" />
+		<result property="departmentId" column="DEPARTMENT_ID" />
+		<result property="departmentName" column="DEPARTMENT_NAME" />
+		<result property="serviceGroupId" column="SERVICE_GROUP_ID" />
+	</resultMap>
+	
+	<select id="inquiryOfAllEmp" resultMap="SvcComEmpResult">
+		SELECT e.employee_id, p.position_name, r.role_name, d.department_name,
+    			e.employee_name, e.employee_contact, e.employee_email
+		FROM TB_SHQ_employee e
+		JOIN TB_SHQ_position p ON e.position_id = p.position_id
+		JOIN TB_SHQ_role r ON e.role_id = r.role_id
+		JOIN TB_SHQ_department d ON e.department_id = d.department_id
+	</select>
+	<select id="inquiryByPositionId" resultMap="SvcComEmpResult">
+		SELECT e.employee_id, p.position_name, r.role_name, d.department_name,
+    	e.employee_name, e.employee_contact, e.employee_email
+		FROM TB_SHQ_employee e
+		JOIN TB_SHQ_position p ON e.position_id = p.position_id
+		JOIN TB_SHQ_role r ON e.role_id = r.role_id
+		JOIN TB_SHQ_department d ON e.department_id = d.department_id
+		WHERE e.position_id = #{positionId}
+	</select>
+	<select id="inquiryByRoleId" resultMap="SvcComEmpResult">
+		SELECT e.employee_id, p.position_name, r.role_name, d.department_name,
+    	e.employee_name, e.employee_contact, e.employee_email
+		FROM TB_SHQ_employee e
+		JOIN TB_SHQ_position p ON e.position_id = p.position_id
+		JOIN TB_SHQ_role r ON e.role_id = r.role_id
+		JOIN TB_SHQ_department d ON e.department_id = d.department_id
+		WHERE e.role_id = #{roleId}
+	</select>
+	<select id="inquiryByDepartmentId" resultMap="SvcComEmpResult">
+		SELECT e.employee_id, p.position_name, r.role_name, d.department_name,
+    	e.employee_name, e.employee_contact, e.employee_email
+		FROM TB_SHQ_employee e
+		JOIN TB_SHQ_position p ON e.position_id = p.position_id
+		JOIN TB_SHQ_role r ON e.role_id = r.role_id
+		JOIN TB_SHQ_department d ON e.department_id = d.department_id
+		WHERE e.department_id = #{departmentId}
+	</select>
+	<select id="inquiryByPositionRoleId" resultMap="SvcComEmpResult">
+		SELECT e.employee_id, p.position_name, r.role_name, d.department_name,
+    	e.employee_name, e.employee_contact, e.employee_email
+		FROM TB_SHQ_employee e
+		JOIN TB_SHQ_position p ON e.position_id = p.position_id
+		JOIN TB_SHQ_role r ON e.role_id = r.role_id
+		JOIN TB_SHQ_department d ON e.department_id = d.department_id
+		WHERE e.position_id = #{positionId} And e.role_id = #{roleId}
+	</select>
+	<select id="inquiryByPositionDepartId" resultMap="SvcComEmpResult">
+		SELECT e.employee_id, p.position_name, r.role_name, d.department_name,
+    	e.employee_name, e.employee_contact, e.employee_email
+		FROM TB_SHQ_employee e
+		JOIN TB_SHQ_position p ON e.position_id = p.position_id
+		JOIN TB_SHQ_role r ON e.role_id = r.role_id
+		JOIN TB_SHQ_department d ON e.department_id = d.department_id
+		WHERE e.position_id = #{positionId} And e.department_id = #{departmentId}
+	</select>
+	<select id="inquiryByRoleDepartId" resultMap="SvcComEmpResult">
+		SELECT e.employee_id, p.position_name, r.role_name, d.department_name,
+    	e.employee_name, e.employee_contact, e.employee_email
+		FROM TB_SHQ_employee e
+		JOIN TB_SHQ_position p ON e.position_id = p.position_id
+		JOIN TB_SHQ_role r ON e.role_id = r.role_id
+		JOIN TB_SHQ_department d ON e.department_id = d.department_id
+		WHERE e.role_id = #{roleId} And e.department_id = #{departmentId}
+	</select>
+	<select id="inquiryByPosRoleDepartId" resultMap="SvcComEmpResult">
+		SELECT e.employee_id, p.position_name, r.role_name, d.department_name,
+    	e.employee_name, e.employee_contact, e.employee_email
+		FROM TB_SHQ_employee e
+		JOIN TB_SHQ_position p ON e.position_id = p.position_id
+		JOIN TB_SHQ_role r ON e.role_id = r.role_id
+		JOIN TB_SHQ_department d ON e.department_id = d.department_id
+		WHERE e.position_id = #{positionId} And e.role_id = #{roleId} And e.department_id = #{departmentId}
+	</select>
+	<select id="inquiryByEmpNum" resultMap="SvcComEmpResult">
+		SELECT e.employee_id, p.position_name, r.role_name, d.department_name,
+			   e.employee_password, e.employee_name, e.employee_contact, e.employee_email
+		FROM TB_SHQ_employee e
+		JOIN TB_SHQ_position p ON e.position_id = p.position_id
+		JOIN TB_SHQ_role r ON e.role_id = r.role_id
+		JOIN TB_SHQ_department d ON e.department_id = d.department_id
+		WHERE e.employee_id = #{employeeId}
+	</select>
+
+	<select id="servicegroupRegistration" resultType="String">
+	select service_group_id
+	from TB_SHQ_service_group
+	where department_id = #{departmentId}
+	and employee_position = #{positionId}
+	and employee_role = #{roleId}
+	</select>
+	
+	
+	<insert id="employeeRegistration" parameterType="org.kitri.services.sales.employee.dto.SvcComEmpDto">
+		INSERT INTO TB_SHQ_employee
+			(employee_id, employee_password, employee_name, employee_contact, 
+			 employee_email, position_id, role_id, employee_temporary_role_id, 
+			 department_id, service_group_id)
+		VALUES
+			(#{employeeId}, #{employeePassword}, #{employeeName}, #{employeeContact},
+			 #{employeeEmail}, #{positionId}, #{roleId}, #{temporaryRoleId},
+			 #{departmentId},#{serviceGroupId})
+	</insert>
+	
+
+	<update id="changByEmpPwd" parameterType="org.kitri.services.sales.employee.dto.SvcComEmpChaDto">
+		update TB_SHQ_employee
+		set employee_password = #{employeeNewPassword}
+		where employee_id = #{employeeId}
+		and employee_password = #{employeePassword}
+	</update>
+</mapper>

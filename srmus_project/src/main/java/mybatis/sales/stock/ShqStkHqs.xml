@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="goodsStock">
+	<resultMap id="goodsStockResult" type="org.kitri.services.sales.stock.entity.GoodsStock">
+	    <result property="goodsId" column="GOODS_ID"/>
+	    <result property="goodsName" column="GOODS_NAME"/>
+	    <result property="qty" column="GOODS_STOCK_QUANTITY"/>
+	    <result property="updateDate" column="GOODS_STOCK_UPDATE_DATE"/>
+	</resultMap>
+	
+	<select id="findAll" resultMap="goodsStockResult">
+		SELECT
+			s.GOODS_ID, s.GOODS_STOCK_QUANTITY,
+			g.GOODS_NAME, s.GOODS_STOCK_UPDATE_DATE
+		FROM
+			TB_SHQ_GOODS_STOCK s, TB_SHQ_GOODS g
+		WHERE
+			s.goods_id = g.goods_id
+	</select>
+	
+	<select id="findByName" resultMap="goodsStockResult">
+		SELECT
+			s.GOODS_ID, s.GOODS_STOCK_QUANTITY,
+			g.GOODS_NAME, s.GOODS_STOCK_UPDATE_DATE
+		FROM
+			TB_SHQ_GOODS_STOCK s, TB_SHQ_GOODS g
+		WHERE
+			s.goods_id = g.goods_id
+		AND
+			g.goods_NAME = #{value}
+	</select>
+	
+	<select id="checkGoodsExist" resultType="int"
+			parameterType="org.kitri.services.sales.stock.entity.GoodsStock">
+		SELECT
+			COUNT(*)
+		FROM 
+			TB_SHQ_GOODS_STOCK
+		WHERE
+			GOODS_ID = #{goodsId}
+	</select>
+	
+	<insert id="newGoodsStock"
+		    parameterType="org.kitri.services.sales.stock.entity.GoodsStock">
+	    INSERT INTO "TB_SHQ_GOODS_STOCK"
+	    	(GOODS_ID, GOODS_STOCK_QUANTITY, GOODS_STOCK_UPDATE_DATE)
+	    VALUES (#{goodsId}, #{qty}, SYSDATE)
+	</insert>
+	
+	<update id="addStock"
+			parameterType="org.kitri.services.sales.stock.entity.GoodsStock">
+		UPDATE "TB_SHQ_GOODS_STOCK"
+		SET
+			GOODS_STOCK_QUANTITY = GOODS_STOCK_QUANTITY + #{qty},
+			GOODS_STOCK_UPDATE_DATE = SYSDATE
+		WHERE
+			GOODS_ID = #{goodsId}
+	</update>
+	
+	<update id="changeStock"
+			parameterType="org.kitri.services.sales.stock.entity.GoodsStock">
+		UPDATE "TB_SHQ_GOODS_STOCK"
+		SET
+			GOODS_STOCK_QUANTITY = #{qty},
+			GOODS_STOCK_UPDATE_DATE = SYSDATE
+		WHERE
+			GOODS_ID = #{goodsId}
+	</update>
+
+</mapper>
