@@ -1,6 +1,6 @@
 package org.kitri.services.sales.repo.dto;
 
-public class GoodsStockDto {
+public class ShqStkHqsDto {
 	private String goodsId;
 	private String goodsName;
 	private int qty;
@@ -10,7 +10,7 @@ public class GoodsStockDto {
 		return goodsId;
 	}
 
-	public GoodsStockDto setGoodsId(String goodsId) {
+	public ShqStkHqsDto setGoodsId(String goodsId) {
 		this.goodsId = goodsId;
 		return this;
 	}
@@ -19,7 +19,7 @@ public class GoodsStockDto {
 		return qty;
 	}
 
-	public GoodsStockDto setQty(int qty) {
+	public ShqStkHqsDto setQty(int qty) {
 		this.qty = qty;
 		return this;
 	}
@@ -28,7 +28,7 @@ public class GoodsStockDto {
 		return goodsName;
 	}
 
-	public GoodsStockDto setGoodsName(String goodsName) {
+	public ShqStkHqsDto setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
 		return this;
 	}
@@ -37,7 +37,7 @@ public class GoodsStockDto {
 		return updateDate;
 	}
 
-	public GoodsStockDto setUpdateDate(String updateDate) {
+	public ShqStkHqsDto setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 		return this;
 	}

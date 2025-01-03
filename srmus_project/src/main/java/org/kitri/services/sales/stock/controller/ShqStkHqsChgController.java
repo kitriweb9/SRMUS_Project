@@ -1,6 +1,6 @@
 package org.kitri.services.sales.stock.controller;
 
-import org.kitri.services.sales.repo.dto.GoodsStockDto;
+import org.kitri.services.sales.repo.dto.ShqStkHqsDto;
 import org.kitri.services.sales.stock.service.ShqStkHqsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class ShqStkHqsChgController {
 	
 	@PostMapping("/goods/stock/change")
 	@ResponseBody
-	public String changeGoodsStock(@ModelAttribute GoodsStockDto dto) {
+	public String changeGoodsStock(@ModelAttribute ShqStkHqsDto dto) {
 		svc.changeStock(dto);
 		return "true";
 	}
