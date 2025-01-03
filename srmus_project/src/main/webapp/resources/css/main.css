@@ -1,0 +1,75 @@
+/* 메인 CSS */
+
+/* 공통 바디 배경 */
+body {
+    background-color: #f8f9fa;
+    font-family: '맑은 고딕', sans-serif;
+    margin: 0; 
+    padding: 0;
+}
+
+/* 사이드바 스타일 */
+.custom-sidebar {
+    width: 220px;
+    min-height: 100vh;
+    padding: 0;
+}
+
+.sidebar-item {
+    font-size: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar-item a.sidebar-link {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #333;
+}
+
+.sidebar-item a.sidebar-link:hover {
+    background-color: #f9f9f9;
+}
+
+.sidebar-item.active a.sidebar-link {
+    background-color: #e9ecef;
+    font-weight: 600;
+}
+
+/* 메인 컨텐츠 영역 */
+.main-content {
+    flex: 1;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* 예시 차트 플레이스홀더 */
+.chart-placeholder {
+    background-color: #f0f4ff;
+    border-radius: 8px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6c757d;
+}
+
+/* 프로젝트 상태 배지 */
+.badge-status {
+    padding: .3rem .6rem;
+    border-radius: .25rem;
+    color: #fff;
+    font-size: 0.8rem;
+}
+.badge-status.progress {
+    background-color: #0d6efd; /* 진행 */
+}
+.badge-status.done {
+    background-color: #198754; /* 완료 */
+}
+.badge-status.hold {
+    background-color: #ffc107; /* 보류 */
+}
+.badge-status.cancel {
+    background-color: #dc3545; /* 취소 */
+}

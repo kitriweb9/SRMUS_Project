@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Store">
+
+	<resultMap type="org.kitri.services.sales.store.entity.Store"
+		id="store">
+		<result property="storeId" column="STORE_ID" />
+		<result property="employeeId" column="EMPLOYEE_ID" />
+		<result property="storeName" column="STORE_NAME" />
+		<result property="storeAddress" column="STORE_ADDRESS" />
+		<result property="storeContact" column="STORE_CONTACT" />
+	</resultMap>
+
+	<select id="readStoreList" resultMap="store">
+		select STORE_ID,
+		EMPLOYEE_ID, STORE_NAME, STORE_ADDRESS, STORE_CONTACT
+		from TB_STORE
+	</select>
+
+	<update id="updateStoreInfo"
+		parameterType="org.kitri.services.sales.repo.dto.ShqMktMkiChgDto">
+		UPDATE tb_store
+		SET
+		store_name = #{storeName},
+		employee_id
+		= #{employeeId},
+		store_address = #{storeAddress},
+		store_contact =
+		#{storeContact}
+		WHERE store_id = #{storeId}
+	</update>
+
+	<insert id="registStore"
+		parameterType="org.kitri.services.sales.repo.dto.ShqMktMkiChgDto">
+		INSERT INTO tb_store (
+		store_id,
+		store_name,
+		employee_id,
+		store_address,
+		store_contact
+		) VALUES (
+		#{storeId},
+		#{storeName},
+		#{employeeId},
+		#{storeAddress},
+		#{storeContact}
+		)
+	</insert>
+
+</mapper>

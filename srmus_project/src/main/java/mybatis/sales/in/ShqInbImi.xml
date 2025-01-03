@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="hqinbound">
+	<resultMap id="hqInboundResult" type="org.kitri.services.sales.in.entity.IntegrationInbound">
+	    <result property="inboundDate" column="INBOUND_DATE"/>
+	    <result property="goodsId" column="GOODS_ID"/>
+	    <result property="goodsName" column="GOODS_NAME"/>
+	    <result property="inboundQty" column="INBOUND_QUANTITY"/>
+	    <result property="confirmStatus" column="CONFIRM_STATUS"/>
+	    <result property="updateDate" column="UPDATE_DATE"/>
+	</resultMap>
+	<select id="findAll" resultMap="hqInboundResult">
+		SELECT i.INBOUND_DATE, i.GOODS_ID, i.INBOUND_QUANTITY,
+			   i.CONFIRM_STATUS, i.UPDATE_DATE,
+			   g.GOODS_NAME
+		FROM
+			TB_SHQ_INTEGRATION_INBOUND i, TB_SHQ_GOODS g
+		WHERE
+			i.GOODS_ID = g.GOODS_ID
+		ORDER BY INBOUND_DATE
+	</select>
+	
+	<select id="findById" resultMap="hqInboundResult">
+		SELECT i.INBOUND_DATE, i.GOODS_ID, i.INBOUND_QUANTITY,
+			   i.CONFIRM_STATUS, i.UPDATE_DATE,
+			   g.GOODS_NAME
+		FROM TB_SHQ_INTEGRATION_INBOUND i, TB_SHQ_GOODS g
+		WHERE
+			i.INBOUND_DATE = #{inboundDate}
+		AND
+			i.GOODS_ID = g.GOODS_ID
+		AND
+			i.GOODS_ID = #{goodsId}
+		ORDER BY i.INBOUND_DATE
+			
+	</select>
+	<select id="findByGoodsId" resultMap="hqInboundResult">
+		SELECT i.INBOUND_DATE, i.GOODS_ID, i.INBOUND_QUANTITY,
+			   i.CONFIRM_STATUS, i.UPDATE_DATE,
+			   g.GOODS_NAME
+		FROM TB_SHQ_INTEGRATION_INBOUND i, TB_SHQ_GOODS g
+		WHERE
+			i.GOODS_ID = #{goodsId}
+		AND
+			i.GOODS_ID = g.GOODS_ID
+		ORDER BY i.INBOUND_DATE
+			
+	</select>
+	<select id="findByStatus" resultMap="hqInboundResult">
+		SELECT i.INBOUND_DATE, i.GOODS_ID, i.INBOUND_QUANTITY,
+			   i.CONFIRM_STATUS, i.UPDATE_DATE,
+			   g.GOODS_NAME
+		FROM TB_SHQ_INTEGRATION_INBOUND i, TB_SHQ_GOODS g
+		WHERE
+			i.CONFIRM_STATUS = #{value}
+		AND
+			i.GOODS_ID = g.GOODS_ID
+		ORDER BY i.INBOUND_DATE
+	</select>
+	
+	<update id="update" parameterType="org.kitri.services.sales.in.entity.IntegrationInbound">
+		UPDATE "TB_SHQ_INTEGRATION_INBOUND" SET
+			UPDATE_DATE = SYSDATE,
+			INBOUND_QUANTITY = #{inboundQty},
+			CONFIRM_STATUS = #{confirmStatus}
+		WHERE
+			INBOUND_DATE = #{inboundDate}
+		AND
+			GOODS_ID = #{goodsId}
+	</update>
+	
+	<update id="approve" parameterType="org.kitri.services.sales.in.entity.IntegrationInbound">
+		UPDATE "TB_SHQ_INTEGRATION_INBOUND" SET
+			CONFIRM_STATUS = 'Y',
+			UPDATE_DATE = SYSTIMESTAMP
+		WHERE
+			INBOUND_DATE = #{inboundDate}
+		AND
+			GOODS_ID = #{goodsId}
+	</update>
+	
+	<update id="ship" parameterType="org.kitri.services.sales.in.entity.IntegrationInbound">
+		UPDATE "TB_SHQ_INTEGRATION_INBOUND" SET
+			CONFIRM_STATUS = 'C',
+			UPDATE_DATE = SYSTIMESTAMP
+		WHERE
+			INBOUND_DATE = #{inboundDate}
+		AND
+			GOODS_ID = #{goodsId}
+	</update>
+	
+	<insert id="save" parameterType="org.kitri.services.sales.in.entity.IntegrationInbound">
+		INSERT INTO "TB_SHQ_INTEGRATION_INBOUND" (INBOUND_DATE, GOODS_ID, INBOUND_QUANTITY, CONFIRM_STATUS) 
+		VALUES (SYSDATE, #{goodsId}, #{inboundQty}, #{confirmStatus})
+	</insert> 
+	
+
+</mapper>

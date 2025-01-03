@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="storeStock">
+	<resultMap id="storeStockResult" type="org.kitri.services.sales.stock.entity.StoreStock">
+	    <result property="storeId" column="STORE_ID"/>
+	    <result property="goodsId" column="GOODS_ID"/>
+	    <result property="goodsName" column="GOODS_NAME"/>
+	    <result property="qty" column="STOCK_QUANTITY"/>
+	    <result property="updateDate" column="STORE_STOCK_UPDATE_DATE"/>
+	</resultMap>
+	
+	<select id="findAll" resultMap="storeStockResult">
+		SELECT
+			s.STORE_ID, s.GOODS_ID, s.STOCK_QUANTITY,
+			g.GOODS_NAME, s.STORE_STOCK_UPDATE_DATE
+		FROM
+			TB_SHQ_STORE_STOCK s, TB_SHQ_GOODS g
+		WHERE
+			s.goods_id = g.goods_id
+	</select>
+	
+	<select id="findByStoreId" resultMap="storeStockResult">
+		SELECT
+			s.STORE_ID, s.GOODS_ID, s.STOCK_QUANTITY,
+			g.GOODS_NAME, s.STORE_STOCK_UPDATE_DATE
+		FROM
+			TB_SHQ_STORE_STOCK s, TB_SHQ_GOODS g
+		WHERE
+			s.goods_id = g.goods_id
+		AND
+			s.STORE_ID = #{value}
+	</select>
+	
+	<select id="checkGoodsExist" resultType="int"
+			parameterType="org.kitri.services.sales.stock.entity.StoreStock">
+		SELECT
+			COUNT(*)
+		FROM 
+			TB_SHQ_STORE_STOCK
+		WHERE
+			GOODS_ID = #{goodsId}
+		AND
+			STORE_ID = #{storeId}
+	</select>
+	
+	<insert id="newGoodsStock"
+		    parameterType="org.kitri.services.sales.stock.entity.StoreStock">
+	    INSERT INTO "TB_SHQ_STORE_STOCK"
+	    	(STORE_ID, GOODS_ID, STOCK_QUANTITY, STORE_STOCK_UPDATE_DATE)
+	    VALUES (#{storeId}, #{goodsId}, #{qty}, SYSDATE)
+	</insert>
+	
+	<update id="addStock"
+			parameterType="org.kitri.services.sales.stock.entity.StoreStock">
+		UPDATE "TB_SHQ_STORE_STOCK"
+		SET
+			STOCK_QUANTITY = STOCK_QUANTITY + #{qty},
+			STORE_STOCK_UPDATE_DATE = SYSDATE
+		WHERE
+			GOODS_ID = #{goodsId}
+		AND
+			STORE_ID = #{storeId}
+	</update>
+	
+	<update id="changeStock"
+			parameterType="org.kitri.services.sales.stock.entity.StoreStock">
+		UPDATE "TB_SHQ_STORE_STOCK"
+		SET
+			STOCK_QUANTITY = #{qty},
+			STORE_STOCK_UPDATE_DATE = SYSDATE
+		WHERE
+			GOODS_ID = #{goodsId}
+		AND
+			STORE_ID = #{storeId}
+	</update>
+
+</mapper>

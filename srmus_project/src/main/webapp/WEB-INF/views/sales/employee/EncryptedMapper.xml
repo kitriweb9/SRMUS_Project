@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EncryptedMapper">
+	<insert id="insertEncryptedDataSsm"
+		parameterType="org.kitri.system.dualdata.ssm.SsmEncryptedDto">
+		INSERT INTO customer (
+		customer_id, customer_password,
+		customer_name, customer_address,
+		customer_contact, customer_email,
+		customer_grade)
+		VALUES (
+		#{customer_id}, #{customer_password},
+		#{customer_name},
+		#{customer_address}, #{customer_contact},
+		#{customer_email}, #{customer_grade}
+		)
+	</insert>
+	<insert id="insertEncryptedDataShq"
+		parameterType="org.kitri.system.dualdata.shq.ShqEncryptedDto">
+	    INSERT INTO "TB_STORE_INBOUND" (
+	        INBOUND_ID, STORE_ID, STORE_INBOUND_DATE, GOODS_ID, STORE_INBOUND_QUANTITY, STORE_INBOUND_CONFIRM
+	    )
+	    SELECT 
+	        TO_CHAR(SYSDATE, 'YYYYMMDD') || 
+	        #{storeId} || 
+	        LPAD(SEQ_INTEGRATION_ORDER_ID.NEXTVAL, 3, '0') || 
+	        'RCV',
+	        #{storeId}, #{inboundDate}, #{goodsId}, #{inboundQuantity}, 'N'
+	    FROM DUAL
+	</insert>
+</mapper>
+

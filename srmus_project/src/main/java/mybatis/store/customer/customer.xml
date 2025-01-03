@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Customer">
+    
+    <select id="findCustomerLoginById" parameterType="String" resultType="org.kitri.services.store.repo.dto.CustomerDto">
+    <![CDATA[
+    SELECT customer_id as id, customer_password as pwd, customer_name as name, customer_address as address, customer_contact as contact,
+    customer_email as email, customer_grade as grade
+    FROM TB_SSM_customer
+    WHERE customer_id = #{id}
+    ]]>
+    </select>
+    
+    <insert id="insertCustomer" parameterType="org.kitri.services.store.repo.dto.CustomerDto">
+    <![CDATA[
+    INSERT TB_SSM_customer(customer_id as id, customer_password as password, customer_name as name, customer_address as address, customer_contact as contact,
+	customer_email as email, customer_grade as grade)
+    VALUES (#{id}, #{password}, #{name}, #{address}, #{contact}, #{email}, #{grade})
+    ]]>
+    </insert>
+    
+</mapper>

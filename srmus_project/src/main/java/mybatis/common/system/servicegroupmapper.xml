@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ServiceGroupMapper">
+
+	<resultMap
+		type="org.kitri.services.common.data.pageauth.ServiceGroupDT"
+		id="serviceGroup">
+		<result property="serviceGroupId" column="SERVICE_GROUP_ID" />
+		<result property="departmentId" column="DEPARTMENT_ID" />
+		<result property="employeePosition" column="EMPLOYEE_POSITION" />
+		<result property="employeeRole" column="EMPLOYEE_ROLE" />
+		<result property="serviceGroupName" column="SERVICE_GROUP_NAME" />
+	</resultMap>
+
+	<select id="readServiceGroupById" resultMap="serviceGroup"
+		parameterType="String">
+		select SERVICE_GROUP_ID, DEPARTMENT_ID,
+		EMPLOYEE_POSITION, EMPLOYEE_ROLE, SERVICE_GROUP_NAME
+		from
+		TB_SHQ_SERVICE_GROUP
+		where SERVICE_GROUP_ID = #{serviceGroupId}
+	</select>
+
+	<insert id="registerSerivceGroup">
+		INSERT INTO TB_SHQ_SERVICE_GROUP (SERVICE_GROUP_ID,
+		DEPARTMENT_ID, EMPLOYEE_POSITION, EMPLOYEE_ROLE, SERVICE_GROUP_NAME)
+		VALUES (#{serviceGroupId}, #{departmentId}, #{employeePosition},
+		#{employeeRole}, #{serviceGroupName})
+	</insert>
+
+</mapper>
