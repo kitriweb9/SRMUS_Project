@@ -9,7 +9,7 @@ import org.kitri.services.sales.in.dao.ShqInbImiDao;
 import org.kitri.services.sales.in.entity.IntegrationInbound;
 import org.kitri.services.sales.in.entity.StoreInbound;
 import org.kitri.services.sales.in.service.ShqInbExpService;
-import org.kitri.services.sales.repo.dto.StoreInboundDto;
+import org.kitri.services.sales.repo.dto.ShqInbExpDto;
 import org.kitri.system.dualdata.shq.IShqDualDataModule;
 import org.kitri.system.dualdata.shq.IShqDualDataModuleFactory;
 import org.kitri.system.dualdata.shq.ShqEncryptedDto;
@@ -34,7 +34,7 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 	}
 	
 	@Override
-	public boolean addStoreInbound(StoreInboundDto inboundDto, String hqInboundDate) {
+	public boolean addStoreInbound(ShqInbExpDto inboundDto, String hqInboundDate) {
 		StoreInbound entity = toEntityFromDto(addTime(inboundDto));
 		IShqDualDataModule saveModule = moduleFactory.createModule(entity, encryptEntity(entity));
 		saveModule.saveDualData();
@@ -45,9 +45,9 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 	}
 
 	@Override
-	public List<StoreInboundDto> findAll(){
+	public List<ShqInbExpDto> findAll(){
 		List<StoreInbound> entitys = dao.findAll();
-		List<StoreInboundDto> dto = new ArrayList<>();
+		List<ShqInbExpDto> dto = new ArrayList<>();
 		for (StoreInbound entity : entitys) {
 			dto.add(toDtoFromEntity(entity));
 		}
@@ -56,9 +56,9 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 
 
 	@Override
-	public List<StoreInboundDto> findById(String storeId){
+	public List<ShqInbExpDto> findById(String storeId){
 		List<StoreInbound> entitys = dao.findById(storeId);
-		List<StoreInboundDto> dto = new ArrayList<>();
+		List<ShqInbExpDto> dto = new ArrayList<>();
 		for (StoreInbound entity : entitys) {
 			dto.add(toDtoFromEntity(entity));
 		}
@@ -66,13 +66,13 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 	}
 	
 	@Override
-	public void approve(StoreInboundDto dto) {
+	public void approve(ShqInbExpDto dto) {
 		dao.approve(toEntityFromDto(dto));
 		
 	}
 
 	@Override
-	public void update(StoreInboundDto dto) {
+	public void update(ShqInbExpDto dto) {
 		dao.update(toEntityFromDto(dto));
 	}
 
@@ -96,8 +96,8 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 			return null;
 		}
 	}
-	private StoreInboundDto toDtoFromEntity(StoreInbound entity) {
-		return new StoreInboundDto()
+	private ShqInbExpDto toDtoFromEntity(StoreInbound entity) {
+		return new ShqInbExpDto()
 				  .setInboundId(entity.getInboundId())
 				  .setStoreId(entity.getStoreId())
 				  .setStoreName(entity.getStoreName())
@@ -108,11 +108,11 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 				  .setConfirm(entity.getConfirm());
 	}
 
-	private StoreInboundDto addTime(StoreInboundDto inboundDto) {
+	private ShqInbExpDto addTime(ShqInbExpDto inboundDto) {
 		inboundDto.setInboundDate(inboundDto.getInboundDate() + " 00:00:00");
 		return inboundDto;
 	}
-	private StoreInbound toEntityFromDto(StoreInboundDto inboundDto) {
+	private StoreInbound toEntityFromDto(ShqInbExpDto inboundDto) {
 		Timestamp timestamp = null;
 		if(inboundDto.getInboundDate() != null) {
 			timestamp = Timestamp.valueOf(inboundDto.getInboundDate());

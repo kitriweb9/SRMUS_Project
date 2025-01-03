@@ -2,18 +2,18 @@ package org.kitri.services.sales.in.service;
 
 import java.util.List;
 
-import org.kitri.services.sales.repo.dto.IntegrationInboundDto;
+import org.kitri.services.sales.repo.dto.ShqInbImiDto;
 
 public interface ShqInbImiService {
 
-	List<IntegrationInboundDto> getIncomingInbound();
+	List<ShqInbImiDto> getIncomingInbound();
 	
-	List<IntegrationInboundDto> getInbounds();
+	List<ShqInbImiDto> getInbounds();
 
-	boolean updateIncomingStocks(IntegrationInboundDto updateDto);
+	boolean updateIncomingStocks(ShqInbImiDto updateDto);
 
-	void approveStock(IntegrationInboundDto reqDto);
+	void approveStock(ShqInbImiDto reqDto);
 
-	List<IntegrationInboundDto> getApproveInbound();
+	List<ShqInbImiDto> getApproveInbound();
 
 }

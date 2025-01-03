@@ -1,7 +1,7 @@
 package org.kitri.services.sales.in.controller;
 
 import org.kitri.services.sales.in.service.ShqInbExpService;
-import org.kitri.services.sales.repo.dto.StoreInboundDto;
+import org.kitri.services.sales.repo.dto.ShqInbExpDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +20,13 @@ public class ShqInbExpAprController {
 	}
 	
 	@PostMapping("/inbound/store/approve")
-	public String approveStoreInbound(@ModelAttribute StoreInboundDto dto){
+	public String approveStoreInbound(@ModelAttribute ShqInbExpDto dto){
 		storeSvc.approve(dto);
 		return "sales/in/ShqInbExpChk";
 	}
 	
 	@PostMapping("/inbound/store/update")
-	public String updateStoreInbound(@ModelAttribute StoreInboundDto dto){
+	public String updateStoreInbound(@ModelAttribute ShqInbExpDto dto){
 		storeSvc.update(dto);
 		return "sales/in/ShqInbExpChk";
 	}
