@@ -3,15 +3,15 @@ package org.kitri.services.sales.stock.service;
 import java.util.List;
 
 import org.kitri.services.sales.repo.dto.GoodsStockDto;
-import org.kitri.services.sales.repo.dto.StoreStockDto;
+import org.kitri.services.sales.repo.dto.ShqStkMksDto;
 
 public interface ShqStkMksService {
-	public void addStock(StoreStockDto dto);
+	public void addStock(ShqStkMksDto dto);
 
-	List<StoreStockDto> findAll();
+	List<ShqStkMksDto> findAll();
 
-	public void changeStock(StoreStockDto dto);
+	public void changeStock(ShqStkMksDto dto);
 
-	public List<StoreStockDto> findByStoreId(String storeId);
+	public List<ShqStkMksDto> findByStoreId(String storeId);
 
 }
