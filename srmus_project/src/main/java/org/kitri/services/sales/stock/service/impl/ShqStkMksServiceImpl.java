@@ -3,7 +3,7 @@ package org.kitri.services.sales.stock.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kitri.services.sales.repo.dto.StoreStockDto;
+import org.kitri.services.sales.repo.dto.ShqStkMksDto;
 import org.kitri.services.sales.stock.dao.ShqStkMksDao;
 import org.kitri.services.sales.stock.entity.StoreStock;
 import org.kitri.services.sales.stock.service.ShqStkMksService;
@@ -17,15 +17,15 @@ public class ShqStkMksServiceImpl implements ShqStkMksService {
 		this.dao = dao;
 	}
 	@Override
-	public void addStock(StoreStockDto dto) {
+	public void addStock(ShqStkMksDto dto) {
 		StoreStock entity = toEntityFromDto(dto);
 		dao.addStock(entity);
 	}
 	
 	@Override
-	public List<StoreStockDto> findAll(){
+	public List<ShqStkMksDto> findAll(){
 		List<StoreStock> entitys = dao.findAll();
-		List<StoreStockDto> dtos = new ArrayList<StoreStockDto>();
+		List<ShqStkMksDto> dtos = new ArrayList<ShqStkMksDto>();
 		for (StoreStock e : entitys) {
 			dtos.add(toDtoFromEntity(e));
 		}
@@ -33,9 +33,9 @@ public class ShqStkMksServiceImpl implements ShqStkMksService {
 	}
 	
 	@Override
-	public List<StoreStockDto> findByStoreId(String storeId) {
+	public List<ShqStkMksDto> findByStoreId(String storeId) {
 		List<StoreStock> entitys = dao.findByStoreId(storeId);
-		List<StoreStockDto> dtos = new ArrayList<StoreStockDto>();
+		List<ShqStkMksDto> dtos = new ArrayList<ShqStkMksDto>();
 		for (StoreStock e : entitys) {
 			dtos.add(toDtoFromEntity(e));
 		}
@@ -43,12 +43,12 @@ public class ShqStkMksServiceImpl implements ShqStkMksService {
 	}
 	
 	@Override
-	public void changeStock(StoreStockDto dto) {
+	public void changeStock(ShqStkMksDto dto) {
 		dao.changeStock(toEntityFromDto(dto));
 	}
 
-	private StoreStockDto toDtoFromEntity(StoreStock e) {
-		return new StoreStockDto()
+	private ShqStkMksDto toDtoFromEntity(StoreStock e) {
+		return new ShqStkMksDto()
 				.setStoreId(e.getStoreId())
 				.setGoodsId(e.getGoodsId())
 				.setGoodsName(e.getGoodsName())
@@ -56,7 +56,7 @@ public class ShqStkMksServiceImpl implements ShqStkMksService {
 				.setUpdateDate(e.getUpdateDate().toString());
 	}
 
-	private StoreStock toEntityFromDto(StoreStockDto dto) {
+	private StoreStock toEntityFromDto(ShqStkMksDto dto) {
 		return new StoreStock()
 				.setStoreId(dto.getStoreId())
 				.setGoodsId(dto.getGoodsId())
