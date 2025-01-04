@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StockMapper">
+
+    <!-- 재고 목록 조회 -->
+    <select id="selectAllStocks" resultType="org.kitri.services.store.stock.entity.Stock">
+        SELECT
+            goods_id AS goodsId,
+            store_id AS storeId,
+            stock_quantity AS stockQuantity,
+            stock_safety_quantity AS stockSafetyQuantity
+        FROM TB_SSM_STOCK
+    </select>
+
+    <!-- 재고 수정 -->
+    <update id="updateStock">
+        UPDATE TB_SSM_STOCK
+        SET
+            stock_quantity = #{stockQuantity},
+            stock_safety_quantity = #{stockSafetyQuantity}
+        WHERE goods_id = #{goodsId} AND store_id = #{storeId}
+    </update>
+
+</mapper>
