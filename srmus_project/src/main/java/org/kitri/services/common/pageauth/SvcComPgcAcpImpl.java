@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.kitri.services.sales.repo.dto.SvcComEmpRegDto;
+import org.kitri.services.sales.employee.dto.SvcComEmpDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +23,8 @@ public class SvcComPgcAcpImpl implements SvcComPgcAcp {
 	}
 
 	@Override
-	public String handleAuthorizedPage(SvcComEmpRegDto svcComEmpRegDto, String serviceId) {
-		if (hasAuthority(svcComEmpRegDto, serviceId)) {
+	public String handleAuthorizedPage(SvcComEmpDto svcComEmpDto, String serviceId) {
+		if (hasAuthority(svcComEmpDto, serviceId)) {
 			return createRequestPage(serviceId);
 		} else {
 			return ERRORPAGE;
@@ -32,24 +32,25 @@ public class SvcComPgcAcpImpl implements SvcComPgcAcp {
 	}
 
 	// 모든 권한 체크
-	private boolean hasAuthority(SvcComEmpRegDto svcComEmpRegDto, String serviceId) {
-		if (isAdmin(svcComEmpRegDto)) {
+	@Override
+	public boolean hasAuthority(SvcComEmpDto svcComEmpDto, String serviceId) {
+		if (isAdmin(svcComEmpDto)) {
 			return true;
 		}
 
-		if (isCached(svcComEmpRegDto.getEmployeeId(), serviceId)) {
+		if (isCached(svcComEmpDto.getEmployeeId(), serviceId)) {
 			return true;
 		}
 
-		if (isAuthorized(svcComEmpRegDto, serviceId)) {
+		if (isAuthorized(svcComEmpDto, serviceId)) {
 			return true;
 		}
 		return false;
 	}
 
 	// 임시직책권한이 있는지 체크
-	private boolean isAdmin(SvcComEmpRegDto svcComEmpRegDto) {
-		return EMPLOYEE_TEMPORARY_ROLE_ID.equals(svcComEmpRegDto.getEmployeeTemporaryRoleId());
+	private boolean isAdmin(SvcComEmpDto svcComEmpDto) {
+		return EMPLOYEE_TEMPORARY_ROLE_ID.equals(svcComEmpDto.getTemporaryRoleId());
 	}
 
 	// 캐시에 저장되어 있는지 체크
@@ -70,11 +71,11 @@ public class SvcComPgcAcpImpl implements SvcComPgcAcp {
 	}
 
 	// 데이터베이스에 저장되어 있는지 체크
-	private boolean isAuthorized(SvcComEmpRegDto svcComEmpRegDto, String serviceId) {
+	private boolean isAuthorized(SvcComEmpDto svcComEmpDto, String serviceId) {
 		try {
-			List<String> serviceIds = svcComPgcRepos.findServiceOnlyByGroupId(svcComEmpRegDto.getServiceGroupId());
+			List<String> serviceIds = svcComPgcRepos.findServiceOnlyByGroupId(svcComEmpDto.getServiceGroupId());
 			if (serviceIds != null && serviceIds.contains(serviceId)) {
-				author.put(svcComEmpRegDto.getEmployeeId(), serviceIds);
+				author.put(svcComEmpDto.getEmployeeId(), serviceIds);
 				return true;
 			}
 			return false;
