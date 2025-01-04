@@ -6,6 +6,7 @@ public class ShqDecryptedDto {
 	private String storeInboundDate;
 	private String goodsId;
 	private int storeInboundQuantity;
+	private String confirm;
 
 	public ShqDecryptedDto(String inboundId, String storeId, String storeInboundDate, String goodsId,
 			int storeInboundQuantity) {
@@ -55,6 +56,14 @@ public class ShqDecryptedDto {
 
 	public void setStoreInboundQuantity(int storeInboundQuantity) {
 		this.storeInboundQuantity = storeInboundQuantity;
+	}
+
+	public String getConfirm() {
+		return confirm;
+	}
+
+	public void setConfirm(String confirm) {
+		this.confirm = confirm;
 	}
 
 }
