@@ -2,13 +2,18 @@ package org.kitri.services.store.order.service.impl;
 
 import java.util.List;
 
+import org.kitri.services.common.file.txttoimg.SvcComTti;
 import org.kitri.services.store.order.service.ISsmOrdSndSvc;
 import org.kitri.services.store.repo.dto.SsmOrdGdoChkDto;
 import org.kitri.services.store.repo.dto.SsmOrdSndDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SsmOrdSndSvcImpl implements ISsmOrdSndSvc {
+	
+	@Autowired
+	private SvcComTti imageConverter;
 
     @Override
     public void sendOrders(List<SsmOrdGdoChkDto> confirmedOrderList) {
@@ -33,11 +38,6 @@ public class SsmOrdSndSvcImpl implements ISsmOrdSndSvc {
     }
 
     private void callExternalModule(SsmOrdSndDto sndDto) {
-        System.out.println("[SsmOrdSndSvcImpl] callExternalModule() 호출");
-        System.out.println("storeId=" + sndDto.getStoreId() 
-            + ", orderId=" + sndDto.getOrderId() 
-            + ", goodsId=" + sndDto.getGoodsId() 
-            + ", quantity=" + sndDto.getOrderQuantity());
-        // 실제 로직: REST API 통신, DB Insert, MQ 발행 등
+    	imageConverter.processTextToImage(sndDto, 1);
     }
 }
