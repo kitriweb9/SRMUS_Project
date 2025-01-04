@@ -1,4 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:if test="${sessionScope.user == null || empty sessionScope.user || sessionScope.userType != 'employee'}">
+    <script type="text/javascript">
+        alert("로그인 하세요");
+        window.location.href = "${pageContext.request.contextPath}/employee/login";
+    </script>
+</c:if>
+
 <header
 	class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 	<div class="container-fluid">
