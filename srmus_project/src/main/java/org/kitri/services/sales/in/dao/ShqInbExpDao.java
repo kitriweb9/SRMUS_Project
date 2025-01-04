@@ -17,4 +17,6 @@ public interface ShqInbExpDao {
 	void approve(StoreInbound inbound);
 
 	void update(StoreInbound entityFromDto);
+
+	String getId(String storeId);
 }

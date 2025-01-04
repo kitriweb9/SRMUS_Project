@@ -19,20 +19,22 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		)
 	</insert>
 	<insert id="insertDecryptedDataShq"
-		parameterType="org.kitri.system.dualdata.shq.ShqDecryptedDto">
-		INSERT INTO TB_SHQ_DECRYPTED_STORE_INBOUND (
+		parameterType="org.kitri.services.sales.in.entity.StoreInbound">
+	    INSERT INTO "TB_SHQ_DECRYPTED_STORE_INBOUND" (
 			inbound_id,
 			store_id,
 			store_inbound_date,
 			goods_id,
-			store_inbound_quantity
+			store_inbound_quantity,
+			store_inbound_confirm
 		)
 		VALUES (
 			#{inboundId},
 			#{storeId},
 			SYSDATE,
 			#{goodsId},
-			#{storeInboundQuantity}
+			#{inboundQuantity},
+			#{confirm}
 		)
 	</insert>
 </mapper>

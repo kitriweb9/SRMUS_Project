@@ -86,6 +86,7 @@ public class SvcComLgnSsn implements HttpSessionListener{
 	 */
 	public boolean updateEmployeeSession(HttpSession session, SvcComEmpDto emp) {
 		session.setAttribute(SESSION_LOGIN_KEY, emp);
+		session.setAttribute("loginType", "emp");
 		SessionDT sessionData = new SessionDT(session.getId(), emp.getEmployeeId());
 		sessions.put(session.getId(), session);
 		

@@ -36,7 +36,12 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 	@Override
 	public boolean addStoreInbound(ShqInbExpDto inboundDto, String hqInboundDate) {
 		StoreInbound entity = toEntityFromDto(addTime(inboundDto));
-		IShqDualDataModule saveModule = moduleFactory.createModule(entity, encryptEntity(entity));
+		entity.setConfirm("N");
+		ShqEncryptedDto encryptEntity = encryptEntity(entity);
+		String inboundId = dao.getId(entity.getStoreId());
+		entity.setInboundId(inboundId);
+		encryptEntity.setInboundId(inboundId);
+		IShqDualDataModule saveModule = moduleFactory.createModule(entity, encryptEntity);
 		saveModule.saveDualData();
 		hqDao.ship(new IntegrationInbound()
 						.setInboundDate(Timestamp.valueOf(hqInboundDate))
