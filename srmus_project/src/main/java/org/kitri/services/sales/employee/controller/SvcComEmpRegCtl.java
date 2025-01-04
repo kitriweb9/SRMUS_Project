@@ -19,13 +19,13 @@ public class SvcComEmpRegCtl {
 	@Autowired
 	private ISvcComEmpRegSvc iRegSvc;
 
-	@GetMapping("/employeeregister")
+	@GetMapping("/employee/add")
 	public String showSignUpForm(Model model) {
 		setInputValue(model);
 		return "/sales/employee/employeejoin";
 	}
 
-	@PostMapping("/employeeregister")
+	@PostMapping("/employee/add")
 	public String createEmployee(SvcComEmpDto regDto, 
 								 Model model) {
 		String result = iRegSvc.employeeRegistration(regDto);

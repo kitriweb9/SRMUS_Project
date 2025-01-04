@@ -2,22 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Customer">
-    
-    <select id="findCustomerLoginById" parameterType="String" resultType="org.kitri.services.store.repo.dto.CustomerDto">
-    <![CDATA[
-    SELECT customer_id as id, customer_password as pwd, customer_name as name, customer_address as address, customer_contact as contact,
-    customer_email as email, customer_grade as grade
-    FROM TB_SSM_customer
-    WHERE customer_id = #{id}
-    ]]>
-    </select>
-    
-    <insert id="insertCustomer" parameterType="org.kitri.services.store.repo.dto.CustomerDto">
-    <![CDATA[
-    INSERT TB_SSM_customer(customer_id as id, customer_password as password, customer_name as name, customer_address as address, customer_contact as contact,
-	customer_email as email, customer_grade as grade)
-    VALUES (#{id}, #{password}, #{name}, #{address}, #{contact}, #{email}, #{grade})
-    ]]>
-    </insert>
-    
+	<select id="findCustomerLoginById" parameterType="String"
+		resultType="org.kitri.services.store.repo.dto.SsmCusLgnDto">
+<![CDATA[ SELECT customer_id as id, customer_password as pwd, customer_name as name, customer_address as address, customer_contact as contact, customer_email as email, customer_grade as grade FROM tb_ssm_customer WHERE customer_id = #{id} ]]>
+	</select>
+	<insert id="insertCustomer"
+		parameterType="org.kitri.services.store.repo.dto.SsmCusLgnDto">
+<![CDATA[ INSERT tb_ssm_customer(customer_id as id, customer_password as password, customer_name as name, customer_address as address, customer_contact as contact, customer_email as email, customer_grade as grade) VALUES (#{id}, #{password}, #{name}, #{address}, #{contact}, #{email}, #{grade}) ]]>
+	</insert>
+	<select id="findCustomerAll"
+		resultType="org.kitri.services.store.repo.dto.SsmCusLgnDto">
+<![CDATA[ SELECT customer_id as id, customer_password as pwd, customer_name as name, customer_address as address, customer_contact as contact, customer_email as email, customer_grade as grade FROM tb_ssm_customer ]]>
+	</select>
+	<update id="updateCustomer"
+		parameterType="org.kitri.services.store.repo.dto.SsmCusLgnDto">
+<![CDATA[ UPDATE tb_ssm_customer SET customer_name = #{name, jdbcType=VARCHAR}, customer_address = #{address, jdbcType=VARCHAR}, customer_contact = #{contact, jdbcType=VARCHAR}, customer_email = #{email, jdbcType=VARCHAR} WHERE customer_id = #{id, jdbcType=VARCHAR} ]]>
+	</update>
 </mapper>
