@@ -20,12 +20,12 @@
 	</select>
 	
 	<select id="readOnlyAssignByGroupId" resultType="String"
-		parameterType="String">
+			parameterType="String">
 		SELECT SERVICE_ID
 		FROM
 			TB_SHQ_SERVICE_ASSIGN
 		WHERE
-			SERVICE_GROUP_ID = #{groupId}
+			SERVICE_GROUP_ID = #{value}
 	</select>
 
 	<insert id="registerAssign">

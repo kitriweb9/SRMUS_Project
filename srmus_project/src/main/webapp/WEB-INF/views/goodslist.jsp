@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -37,9 +38,9 @@
 									<td>${goods.goodsCategoryName}</td>
 									<td>${goods.factoryId}</td>
 									<td>${goods.goodsName}</td>
-									<td>${goods.goodsCostPrice}원</td>
-									<td>${goods.goodsMarketPrice}원</td>
-									<td>${goods.goodsCustomerPrice}원</td>
+									<td><fmt:formatNumber value="${goods.goodsCostPrice}" pattern="#,###" />원</td>
+									<td><fmt:formatNumber value="${goods.goodsMarketPrice}" pattern="#,###" />원</td>
+									<td><fmt:formatNumber value="${goods.goodsCustomerPrice}" pattern="#,###" />원</td>
 									<td>${goods.goodsUnit}</td>
 									<td>
 										<button class="btn btn-primary"
@@ -79,9 +80,8 @@
 									id="edit-factoryId" />
 							</div>
 							<div class="mb-3">
-								<label for="edit-goodsCostPrice" class="form-label">상품
-									원가</label> <input type="text" class="form-control"
-									name="goodsCostPrice" id="edit-goodsCostPrice" />
+								<label for="edit-goodsCostPrice" class="form-label">상품 원가</label>
+								<input type="text" class="form-control"	name="goodsCostPrice" id="edit-goodsCostPrice" />
 							</div>
 							<div class="mb-3">
 								<label for="edit-goodsMarketPrice" class="form-label">상품
