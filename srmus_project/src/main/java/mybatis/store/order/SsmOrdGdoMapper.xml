@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SsmOrdGdoMapper">
+
+    <!-- 시퀀스 (Oracle 예시) -->
+    <select id="getOrderSeqNextVal" resultType="int">
+        SELECT SSM_ORDER_SEQ.NEXTVAL FROM DUAL
+    </select>
+
+    <!-- 오더 마스터 INSERT -->
+    <insert id="insertOrderMaster">
+        INSERT INTO TB_SSM_ORDER (
+            order_id,
+            store_id,
+            order_register_date,
+            order_confirm_date,
+            order_confirm_status
+        ) VALUES (
+            #{orderId},
+            #{storeId},
+            #{orderRegisterDate},
+            NULL,
+            #{orderConfirmStatus}
+        )
+    </insert>
+    
+    <!-- 오더 디테일 INSERT -->
+    <insert id="insertOrderDetail">
+        INSERT INTO TB_SSM_ORDER_DETAIL (
+            order_id,
+            goods_id,
+            order_quantity
+        ) VALUES (
+            #{orderId},
+            #{goodsId},
+            #{orderQuantity}
+        )
+    </insert>
+
+    <!-- 목록 조회 (마스터+디테일) -->
+    <select id="selectOrderList" resultType="org.kitri.services.store.repo.dto.SsmOrdGdoChkDto">
+        SELECT
+            O.order_id AS orderId,
+            O.store_id AS storeId,
+            O.order_register_date AS orderRegisterDate,
+            O.order_confirm_date AS orderConfirmDate,
+            O.order_confirm_status AS orderConfirmStatus,
+            D.goods_id AS goodsId,
+            D.order_quantity AS orderQuantity
+        FROM TB_SSM_ORDER O
+        JOIN TB_SSM_ORDER_DETAIL D ON O.order_id = D.order_id
+        ORDER BY O.order_register_date DESC
+    </select>
+    
+    <!-- 확정 (confirm_date=SYSDATE, status='Y') -->
+    <update id="updateOrderConfirm">
+        UPDATE TB_SSM_ORDER
+        SET order_confirm_date = SYSDATE,
+            order_confirm_status = 'Y'
+        WHERE order_id = #{orderId}
+    </update>
+    
+    <!-- 수량 변경 -->
+    <update id="updateOrderDetailQuantity">
+        UPDATE TB_SSM_ORDER_DETAIL
+        SET order_quantity = #{orderQuantity}
+        WHERE order_id = #{orderId}
+          AND goods_id = #{goodsId}
+    </update>
+    
+    <!-- 디테일 삭제 -->
+    <delete id="deleteOrderDetail">
+        DELETE FROM TB_SSM_ORDER_DETAIL
+        WHERE order_id = #{orderId}
+          AND goods_id = #{goodsId}
+    </delete>
+    
+    <!-- 등록일시 갱신 -->
+    <update id="updateOrderRegisterDate">
+        UPDATE TB_SSM_ORDER
+        SET order_register_date = SYSDATE
+        WHERE order_id = #{orderId}
+    </update>
+
+</mapper>
