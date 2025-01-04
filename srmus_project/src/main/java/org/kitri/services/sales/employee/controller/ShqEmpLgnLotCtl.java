@@ -20,9 +20,9 @@ public class ShqEmpLgnLotCtl {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		if (svcComLgnLot.logout(session)) {
-			return "login";
+			return "sales/common/login/login";
 		}
 		
-		return "login";
+		return "sales/common/login/login";
 	}
 }
