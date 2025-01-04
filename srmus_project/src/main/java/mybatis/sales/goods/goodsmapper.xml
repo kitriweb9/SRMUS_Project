@@ -32,7 +32,7 @@
 
 	<update id="updateGoodsInfo"
 		parameterType="org.kitri.services.sales.repo.dto.ShqPdtPdiChgDto">
-		UPDATE tb_goods
+		UPDATE TB_SHQ_goods
 		SET
 		GOODS_CATEGORY_ID =
 		#{goodsCategoryId},
@@ -49,7 +49,7 @@
 
 	<insert id="registGoods"
 		parameterType="org.kitri.services.sales.repo.dto.ShqPdtPdiChgDto">
-		INSERT INTO tb_goods (
+		INSERT INTO TB_SHQ_goods (
 		GOODS_ID,
 		GOODS_CATEGORY_ID,
 		FACTORY_ID,
