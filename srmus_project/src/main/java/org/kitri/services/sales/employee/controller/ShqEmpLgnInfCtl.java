@@ -3,8 +3,8 @@ package org.kitri.services.sales.employee.controller;
 import javax.servlet.http.HttpSession;
 
 import org.kitri.services.common.login.session.SvcComLgnSsn;
-import org.kitri.services.sales.employee.dto.SvcComEmpDto;
 import org.kitri.services.sales.employee.service.ISvcComEmpInqSvc;
+import org.kitri.services.sales.repo.dto.SvcComEmpLgnDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +24,13 @@ public class ShqEmpLgnInfCtl {
 
 	@GetMapping("/employee/mypage")
 	public String viewMyPage(Model model, HttpSession session) {
-		SvcComEmpDto employee = (SvcComEmpDto) svcComLgnSSn.getValue(session, "loginUser");
+		
+		SvcComEmpLgnDto employee = (SvcComEmpLgnDto) svcComLgnSSn.getValue(session, "user");
+		
+		if(employee == null) {
+			return "redirect:/employee/login";
+		}
+		
 		model.addAttribute("employeeList",
 				svcComEmpInqSvc.employeeInquiryByFilters(employee.getEmployeeId(), null, null, null));
 		return "/sales/employee/mypage";
