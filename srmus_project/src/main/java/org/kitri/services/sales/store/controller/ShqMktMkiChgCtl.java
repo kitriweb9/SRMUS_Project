@@ -21,7 +21,7 @@ public class ShqMktMkiChgCtl {
 	@PostMapping("/storeupdate")
 	public String updateStoreInfo(@ModelAttribute ShqMktMkiChgDto shqMktMkiChgDto, Model model) {
 		model.addAttribute("message", shqMktMkiChgSvc.updateStoreInfo(shqMktMkiChgDto));
-		return "storelist";
+		return "redirect:/storelist";
 
 	}
 }
