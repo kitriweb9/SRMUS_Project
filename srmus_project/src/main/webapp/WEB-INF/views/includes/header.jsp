@@ -9,7 +9,7 @@
 				<a
 				href="${pageContext.request.contextPath}/employee/mypage"
 				class="text-decoration-none fw-bold"> 환영합니다,
-					${sessionScope.loginUser.employeeName}님 </a>
+					${sessionScope.user.employeeName}님 </a>
 			</span>
 
 			<form method="get" action="login.jsp" class="m-0 p-0">
