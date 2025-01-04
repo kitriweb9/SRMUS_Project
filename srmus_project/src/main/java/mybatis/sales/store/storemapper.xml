@@ -15,12 +15,12 @@
 	<select id="readStoreList" resultMap="store">
 		select STORE_ID,
 		EMPLOYEE_ID, STORE_NAME, STORE_ADDRESS, STORE_CONTACT
-		from TB_STORE
+		from TB_SHQ_STORE
 	</select>
 
 	<update id="updateStoreInfo"
 		parameterType="org.kitri.services.sales.repo.dto.ShqMktMkiChgDto">
-		UPDATE tb_store
+		UPDATE tb_shq_store
 		SET
 		store_name = #{storeName},
 		employee_id
@@ -33,7 +33,7 @@
 
 	<insert id="registStore"
 		parameterType="org.kitri.services.sales.repo.dto.ShqMktMkiChgDto">
-		INSERT INTO tb_store (
+		INSERT INTO tb_shq_store (
 		store_id,
 		store_name,
 		employee_id,
