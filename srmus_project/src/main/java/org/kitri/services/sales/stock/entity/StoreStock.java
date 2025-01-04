@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class StoreStock {
 	private String storeId;
+	private String storeName;
 	private String goodsId;
 	private String goodsName;
 	private int qty;
@@ -51,6 +52,15 @@ public class StoreStock {
 
 	public StoreStock setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
+		return this;
+	}
+
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public StoreStock setStoreName(String storeName) {
+		this.storeName = storeName;
 		return this;
 	}
 
