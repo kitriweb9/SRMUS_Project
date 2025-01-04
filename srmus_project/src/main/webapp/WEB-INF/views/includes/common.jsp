@@ -5,3 +5,16 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script>
+function aes256(data){
+	var key = "TKATLQDLQKDLXMZL32KEYVMFKDLQPDLX";
+	var IV = key.substring(0, 16);
+	let encrypted = CryptoJS.AES.encrypt(data, CryptoJS.enc.Utf8.parse(key), {
+        iv: CryptoJS.enc.Utf8.parse(IV),
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+	});
+	return encrypted.toString();
+}
+</script>
