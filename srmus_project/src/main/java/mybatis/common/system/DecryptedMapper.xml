@@ -19,34 +19,23 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		)
 	</insert>
 	<insert id="insertDecryptedDataShq"
-		parameterType="org.kitri.system.dualdata.shq.ShqDecryptedDto">
-	    <selectKey keyProperty="inboundId" resultType="String" order="BEFORE">
-	        SELECT
-	            TO_CHAR(SYSDATE, 'YYYYMMDD')
-	            || #{storeId}
-	            || LPAD(SEQ_INTEGRATION_ORDER_ID.NEXTVAL, 3, '0')
-	            || 'RCV'
-	        FROM DUAL
-	    </selectKey>
-	
+		parameterType="org.kitri.services.sales.in.entity.StoreInbound">
 	    INSERT INTO "TB_SHQ_DECRYPTED_STORE_INBOUND" (
-	        INBOUND_ID,
-	        STORE_ID,
-	        STORE_INBOUND_DATE,
-	        GOODS_ID,
-	        STORE_INBOUND_QUANTITY,
-	        STORE_INBOUND_CONFIRM
-	    )
-	    VALUES (
-	        #{inboundId},    
-	        #{storeId}, 
-	        #{inboundDate},
-	        #{goodsId},
-	        #{inboundQuantity},
-	        'N'
-	    )
-	    RETURNING
-	    	'N'INTO #{confirm}
+			inbound_id,
+			store_id,
+			store_inbound_date,
+			goods_id,
+			store_inbound_quantity,
+			store_inbound_confirm
+		)
+		VALUES (
+			#{inboundId},
+			#{storeId},
+			SYSDATE,
+			#{goodsId},
+			#{inboundQuantity},
+			#{confirm}
+		)
 	</insert>
 </mapper>
 
