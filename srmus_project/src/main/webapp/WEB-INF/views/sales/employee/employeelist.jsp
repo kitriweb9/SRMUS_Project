@@ -17,11 +17,13 @@
         margin-right: 10px;
     }
 </style>
+<jsp:include page="/WEB-INF/views/includes/common.jsp" />
 <meta charset="UTF-8">
 <title>영업관리본부: 직원 목록 조회</title>
 </head>
 <body>
     <jsp:include page="/WEB-INF/views/includes/header.jsp" />
+    
     <div class="d-flex">
         <jsp:include page="/WEB-INF/views/includes/sidebar.jsp" />
         <div class="main-content p-4">
@@ -72,7 +74,7 @@
 
                     <!-- 검색 폼 -->
                     <div class="search-bar">
-                        <form action="${pageContext.request.contextPath}/employeeinquirypage" method="get" class="d-flex align-items-center gap-3">
+                        <form action="${pageContext.request.contextPath}/employee" method="get" class="d-flex align-items-center gap-3">
                             <input type="text" class="form-control search-input" id="employeeId" name="employeeId" placeholder="직원 아이디">
                             <select id="positionId" name="positionId" class="form-select">
                                 <option value="">직위 선택</option>
