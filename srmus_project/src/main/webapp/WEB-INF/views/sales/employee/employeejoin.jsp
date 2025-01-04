@@ -5,16 +5,28 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>직원 등록</title>	
+<title>직원 등록 </title>	
 	<script>
 	    document.addEventListener("DOMContentLoaded", function() {
 	    	const loginForm = document.getElementById("add-form");
+	    	
 	        const password = document.getElementById("employeePassword");
-	        	loginForm.addEventListener("submit", function(event) {
-	        	event.preventDefault();
-	        	password.value = sha256(password.value);
-	        	console.log(password.value);
-	            loginForm.submit();
+	        const employeeName = document.getElementById("employeeName");
+	        const employeeContact = document.getElementById("employeeContact");
+	        const employeeEmail = document.getElementById("employeeEmail");
+	        
+	        
+	        loginForm.addEventListener("submit", function(event) {
+	        	event.preventDefault()
+	        	
+		        password.value = sha256(password.value);
+		        employeeName.value = aes256(employeeName.value);
+		        console.log(employeeContact.value);
+		        employeeContact.value = aes256(employeeContact.value); 
+		        
+		        employeeEmail.value = aes256(employeeEmail.value);
+		        
+		        loginForm.submit();
 	        });
 	    });
 	</script>
@@ -27,12 +39,19 @@
 		<div class="main-content p-4">
 			<div class="container-fluid px-0">
 				<div class="col-9">
+					<c:if test="${registresult != null}">
+					   <script>
+					       document.addEventListener("DOMContentLoaded", function() {
+					           alert("${registresult}");
+					       });
+					  	</script>
+				   	</c:if>
 					<h2>직원 등록</h2>
 					<!-- 직원 등록 폼 -->
 					<div id="add-form-container" class="mt-3">
 						<h4>직원 정보 입력</h4>
 						<form id="add-form" method="post"
-							action="${pageContext.request.contextPath}/employeeregister">
+							action="${pageContext.request.contextPath}/employee/add">
 							<div class="mb-3">
 								<label for="employeeId" class="form-label">직원 아이디</label> <input
 									type="text" class="form-control" name="employeeId"
@@ -102,9 +121,6 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/includes/footer.jsp" />
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
         function cancelAdd() {
             document.getElementById('add-form').reset();

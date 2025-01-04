@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Employee">
+    
+    <select id="findEmployeeById" parameterType="String" resultType="org.kitri.services.sales.repo.dto.SvcComEmpLgnDto">
+    <![CDATA[
+    SELECT e.employee_id as employeeId, e.employee_password as employeePassword, e.employee_name as employeeName, e.employee_contact as employeeContact, e.employee_email as employeeEmail,
+	p.position_name as positionName, r.role_name as roleName, dr.role_name as employeeTemporaryRoleName, d.department_name as departmentName, s.service_group_name as serviceGroupName
+	FROM tb_shq_employee e JOIN tb_shq_position p ON e.position_id = p.position_id LEFT JOIN tb_shq_role r ON r.role_id = e.role_id
+	LEFT JOIN tb_shq_role dr ON dr.role_id = NVL(e.employee_temporary_role_id, e.role_id)JOIN tb_shq_department d ON e.department_id = d.department_id 
+	JOIN tb_shq_service_group s ON e.service_group_id = s.service_group_id
+	WHERE e.employee_id = #{employeeId}
+    ]]>
+    </select>
+    
+</mapper>

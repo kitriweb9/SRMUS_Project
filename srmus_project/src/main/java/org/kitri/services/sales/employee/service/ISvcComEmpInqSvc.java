@@ -2,10 +2,10 @@ package org.kitri.services.sales.employee.service;
 
 import java.util.List;
 
-import org.kitri.services.sales.employee.dto.SvcComEmpInqDto;
+import org.kitri.services.sales.employee.dto.SvcComEmpDto;
 
 public interface ISvcComEmpInqSvc{
 	
-	List<SvcComEmpInqDto> employeeInquiryByFilters(String employeeId, String positionId, String roleId, String departmentId);
+	List<SvcComEmpDto> employeeInquiryByFilters(String employeeId, String positionId, String roleId, String departmentId);
 	
 }

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kitri.services.common.file.txttoimg.SvcComTti;
 import org.kitri.services.sales.in.dao.ShqInbExpDao;
 import org.kitri.services.sales.in.dao.ShqInbImiDao;
 import org.kitri.services.sales.in.entity.IntegrationInbound;
@@ -22,25 +23,34 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 	private final ShqInbExpDao dao;
 	private final ShqInbImiDao hqDao;
 	private final EncAesUtil aesUtil;
+	private final SvcComTti imageConverter;
 	private IShqDualDataModuleFactory moduleFactory;
 	
 	@Autowired
 	public ShqInbExpServiceImpl(ShqInbExpDao dao, ShqInbImiDao hqDao,
-			 					EncAesUtil aesUtil, IShqDualDataModuleFactory moduleFactory) {
+			 					EncAesUtil aesUtil, IShqDualDataModuleFactory moduleFactory,
+			 					SvcComTti imageConverter) {
 		this.dao = dao;
 		this.hqDao = hqDao;
 		this.aesUtil = aesUtil;
 		this.moduleFactory = moduleFactory;
+		this.imageConverter = imageConverter;
 	}
 	
 	@Override
 	public boolean addStoreInbound(ShqInbExpDto inboundDto, String hqInboundDate) {
 		StoreInbound entity = toEntityFromDto(addTime(inboundDto));
-		IShqDualDataModule saveModule = moduleFactory.createModule(entity, encryptEntity(entity));
+		entity.setConfirm("N");
+		ShqEncryptedDto encryptEntity = encryptEntity(entity);
+		String inboundId = dao.getId(entity.getStoreId());
+		entity.setInboundId(inboundId);
+		encryptEntity.setInboundId(inboundId);
+		IShqDualDataModule saveModule = moduleFactory.createModule(entity, encryptEntity);
 		saveModule.saveDualData();
 		hqDao.ship(new IntegrationInbound()
 						.setInboundDate(Timestamp.valueOf(hqInboundDate))
 						.setGoodsId(entity.getGoodsId()));
+		imageConverter.processTextToImage(toDtoFromEntity(entity), 0);
 		return true;
 	}
 

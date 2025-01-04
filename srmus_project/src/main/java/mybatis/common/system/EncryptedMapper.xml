@@ -4,34 +4,29 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="EncryptedMapper">
 	<insert id="insertEncryptedDataSsm"
-		parameterType="org.kitri.system.dualdata.ssm.SsmEncryptedDto">
-		INSERT INTO TB_SSM_CUSTOMER (
-		customer_id, customer_password,
-		customer_name, customer_address,
-		customer_contact, customer_email,
-		customer_grade)
-		VALUES (
-		#{customer_id}, #{customer_password},
-		#{customer_name},
-		#{customer_address}, #{customer_contact},
-		#{customer_email}, #{customer_grade}
-		)
-	</insert>
+		parameterType="org.kitri.system.dualdata.ssm.SsmEncryptedDto"> INSERT INTO tb_ssm_encrypted_customer ( customer_id,
+		customer_password, customer_name, customer_address, customer_contact,
+		customer_email, customer_grade) VALUES ( #{customer_id},
+		#{customer_password}, #{customer_name}, #{customer_address},
+		#{customer_contact}, #{customer_email}, #{customer_grade} ) </insert>
+
 	<insert id="insertEncryptedDataShq"
 		parameterType="org.kitri.system.dualdata.shq.ShqEncryptedDto">
 		INSERT INTO TB_SHQ_STORE_INBOUND (
-			inbound_id,
-			store_id,
-			store_inbound_date,
-			goods_id,
-			store_inbound_quantity
+		inbound_id,
+		store_id,
+		store_inbound_date,
+		goods_id,
+		store_inbound_quantity,
+		store_inbound_confirm
 		)
 		VALUES (
-			#{inboundId},
-			#{storeId},
-			SYSDATE,
-			#{goodsId},
-			#{storeInboundQuantity}
+		#{inboundId},
+		#{storeId},
+		SYSDATE,
+		#{goodsId},
+		#{inboundQuantity},
+		#{confirm}
 		)
 	</insert>
 </mapper>
