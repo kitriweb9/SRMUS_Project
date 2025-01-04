@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.kitri.services.sales.in.dao.ShqInbExpDao;
 import org.kitri.services.sales.in.entity.StoreInbound;
-import org.kitri.services.sales.repo.dto.ShqInbExpDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,6 +17,12 @@ public class ShqInbExpDaoImpl implements ShqInbExpDao {
 		sqlSessionTemplate = sqlSession;
 	}
 
+	
+	@Override
+	public String getId(String storeId) {
+		return sqlSessionTemplate.selectOne("storeInbound.generateInboundId", storeId);
+	}
+	
 	@Override
 	public int save(StoreInbound inbound) {
 		return sqlSessionTemplate.insert("storeInbound.save", inbound);
