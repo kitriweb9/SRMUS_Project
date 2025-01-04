@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SsmInbMapper">
+
+    <!-- 입고 예정 내역 조회 (EChk) -->
+    <select id="selectInboundAll" resultType="org.kitri.services.store.repo.dto.SsmInbMgtEChkDto">
+        SELECT
+            I.inbound_id         AS inboundId,
+            I.employee_id        AS employeeId,
+            I.store_id           AS storeId,
+            I.inbound_date       AS inboundDate,
+            I.inbound_confirm_date AS inboundConfirmDate,
+            D.goods_id           AS goodsId,
+            D.inbound_quantity   AS inboundQuantity,
+            D.inbound_confirm_status AS inboundConfirmStatus
+        FROM TB_SSM_INBOUND I
+        JOIN TB_SSM_INBOUND_DETAIL D ON I.inbound_id = D.inbound_id
+        WHERE D.inbound_confirm_status = 'N'
+        ORDER BY I.inbound_date DESC
+    </select>
+
+    <!-- 단일 입고 정보 상세 조회 -->
+    <select id="findInboundDetails" parameterType="string" resultType="org.kitri.services.store.repo.dto.SsmInbMgtApyDto">
+        SELECT
+            inbound_id         AS inboundId,
+            goods_id           AS goodsId,
+            inbound_quantity   AS inboundQuantity
+        FROM TB_SSM_INBOUND_DETAIL
+        WHERE inbound_id = #{inboundId}
+    </select>
+
+    <!-- 입고 수량 수정 (CHG) -->
+    <update id="updateInboundQuantity">
+        UPDATE TB_SSM_INBOUND_DETAIL
+           SET inbound_quantity = #{inboundQuantity}
+         WHERE inbound_id = #{inboundId}
+           AND goods_id = #{goodsId}
+    </update>
+
+    <!-- 입고 확정 상태 업데이트 (APR) -->
+    <update id="updateInboundConfirm">
+        UPDATE TB_SSM_INBOUND_DETAIL
+           SET inbound_confirm_status = 'Y'
+         WHERE inbound_id = #{inboundId}
+    </update>
+
+    <!-- 입고 마스터 정보 업데이트 (Employee 및 Confirm Date) -->
+    <update id="updateInboundMasterForApr">
+        UPDATE TB_SSM_INBOUND
+           SET employee_id = #{employeeId},
+               inbound_confirm_date = SYSTIMESTAMP
+         WHERE inbound_id = #{inboundId}
+    </update>
+
+    <!-- 확정된 입고 내역 조회 (CHK) -->
+    <select id="selectInboundConfirmed" resultType="org.kitri.services.store.repo.dto.SsmInbMgtChkDto">
+        SELECT
+            I.inbound_id           AS inboundId,
+            I.store_id             AS storeId,
+            I.inbound_date         AS inboundDate,
+            I.inbound_confirm_date AS inboundConfirmDate,
+            D.goods_id             AS goodsId,
+            D.inbound_quantity     AS inboundQuantity
+        FROM TB_SSM_INBOUND I
+        JOIN TB_SSM_INBOUND_DETAIL D ON I.inbound_id = D.inbound_id
+        WHERE D.inbound_confirm_status = 'Y'
+        ORDER BY I.inbound_confirm_date DESC
+    </select>
+
+    <!-- 재고 업데이트 (APY) -->
+    <update id="updateStockQuantity">
+        UPDATE TB_SSM_STOCK
+           SET stock_quantity = stock_quantity + #{inboundQuantity}
+         WHERE store_id = #{storeId}
+           AND goods_id = #{goodsId}
+    </update>
+
+</mapper>
