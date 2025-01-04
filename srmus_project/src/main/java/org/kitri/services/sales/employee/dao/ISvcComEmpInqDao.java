@@ -2,24 +2,24 @@ package org.kitri.services.sales.employee.dao;
 
 import java.util.List;
 
-import org.kitri.services.sales.employee.dto.SvcComEmpInqDto;
+import org.kitri.services.sales.employee.dto.SvcComEmpDto;
 
 public interface ISvcComEmpInqDao {
-	List<SvcComEmpInqDto> inquiryOfAllEmp();
+	List<SvcComEmpDto> inquiryOfAllEmp();
 	
-	List<SvcComEmpInqDto> inquiryByPositionId(String positionId);
+	List<SvcComEmpDto> inquiryByPositionId(String positionId);
 	
-	List<SvcComEmpInqDto> inquiryByRoleId(String roleId);
+	List<SvcComEmpDto> inquiryByRoleId(String roleId);
 	
-	List<SvcComEmpInqDto> inquiryByDepartmentId(String departmentId);
+	List<SvcComEmpDto> inquiryByDepartmentId(String departmentId);
 	
-	List<SvcComEmpInqDto> inquiryByPositionRoleId(String positionId, String roleId);
+	List<SvcComEmpDto> inquiryByPositionRoleId(String positionId, String roleId);
 	
-	List<SvcComEmpInqDto> inquiryByPositionDepartId(String positionId, String departmentId);
+	List<SvcComEmpDto> inquiryByPositionDepartId(String positionId, String departmentId);
 	
-	List<SvcComEmpInqDto> inquiryByRoleDepartId(String roleId, String departmentId);
+	List<SvcComEmpDto> inquiryByRoleDepartId(String roleId, String departmentId);
 	
-	List<SvcComEmpInqDto> inquiryByPosRoleDepartId(String positionId, String roleId, String departmentId);
+	List<SvcComEmpDto> inquiryByPosRoleDepartId(String positionId, String roleId, String departmentId);
 	
-	List<SvcComEmpInqDto> inquiryByEmpNum(String employeeid);
+	List<SvcComEmpDto> inquiryByEmpNum(String employeeid);
 }

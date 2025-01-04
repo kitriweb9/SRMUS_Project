@@ -3,7 +3,7 @@ package org.kitri.services.sales.employee.controller;
 import java.util.List;
 
 import org.kitri.services.sales.employee.dto.SvcComEmpDepDto;
-import org.kitri.services.sales.employee.dto.SvcComEmpInqDto;
+import org.kitri.services.sales.employee.dto.SvcComEmpDto;
 import org.kitri.services.sales.employee.dto.SvcComEmpPosDto;
 import org.kitri.services.sales.employee.dto.SvcComEmpRolDto;
 import org.kitri.services.sales.employee.service.ISvcComEmpInqSvc;
@@ -23,8 +23,11 @@ public class SvcComEmpInqCtl {
 	@Autowired
 	private ISvcComEmpInqSvc iInqSvc;
 	
-	@RequestMapping("/employeeinquirypage")
-	public String employeeInquiry(@RequestParam(required = false) String employeeId, @RequestParam(required = false) String positionId, @RequestParam(required = false) String roleId, @RequestParam(required = false) String departmentId, Model model) {
+	@RequestMapping("/employee")
+	public String employeeInquiry(@RequestParam(required = false) String employeeId, 
+								  @RequestParam(required = false) String positionId, 
+								  @RequestParam(required = false) String roleId, 
+								  @RequestParam(required = false) String departmentId, Model model) {
 		List<SvcComEmpPosDto> posDtos = iPrdSvc.positionInquiry();
 	    List<SvcComEmpRolDto> rolDtos = iPrdSvc.roleInquiry();
 	    List<SvcComEmpDepDto> depDtos = iPrdSvc.departmentInquiry();
@@ -33,10 +36,10 @@ public class SvcComEmpInqCtl {
 	    model.addAttribute("roles", rolDtos);
 	    model.addAttribute("departments", depDtos);
 
-	    List<SvcComEmpInqDto> inqDtos = iInqSvc.employeeInquiryByFilters(employeeId, positionId, roleId, departmentId);
+	    List<SvcComEmpDto> inqDtos = iInqSvc.employeeInquiryByFilters(employeeId, positionId, roleId, departmentId);
 	    
 	    model.addAttribute("employeeList", inqDtos);
-	    
+	    System.out.println(inqDtos);
 	    return "/sales/employee/employeelist";
 	}
 }
