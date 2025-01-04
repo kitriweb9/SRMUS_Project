@@ -4,8 +4,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class EncShaUtil {	
-	public static String sha256(String inputText) {
+public class EncShaUtil {
+	private HexConverter hc = new HexConverter();
+	public String sha256(String inputText) {
 		MessageDigest digest = null;
 		try {
 			digest = MessageDigest.getInstance("SHA-256");
@@ -14,6 +15,6 @@ public class EncShaUtil {
 			e.printStackTrace();
 		}
 		byte[] hash = digest.digest((inputText).getBytes(StandardCharsets.UTF_8));
-		return HexConverter.byteToHexString(hash);
+		return hc.byteToHexString(hash);
 	}
 }

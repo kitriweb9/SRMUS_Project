@@ -12,8 +12,8 @@
                 <i class="bi bi-chevron-down toggle-icon"></i>
             </a>
             <ul class="collapse list-unstyled ms-3" id="staffMenu">
-                <li><a href="${pageContext.request.contextPath}/employeeinquirypage" class="sidebar-link">직원 목록</a></li>
-                <li><a href="${pageContext.request.contextPath}/employeeregister" class="sidebar-link">직원 추가</a></li>
+                <li><a href="${pageContext.request.contextPath}/employee" class="sidebar-link">직원 목록</a></li>
+                <li><a href="${pageContext.request.contextPath}/employee/add" class="sidebar-link">직원 추가</a></li>
             </ul>
         </li>
         <li class="sidebar-item">

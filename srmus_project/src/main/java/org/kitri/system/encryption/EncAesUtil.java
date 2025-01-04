@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 /* 
  * @date 2024-12-23
+ * @last update 2025-01-04
  * @author Hyun
  * CTR is safer than CBC but catastrophic when it damaged
  * 
@@ -19,10 +20,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EncAesUtil {
-	public static final String FIRST_KEY = "TKATLQDLQKDLXMZL32KEYVMFKDLQPDLX";
-	public static final String SECOND_KEY = "TPZJSEMZLSMS1ZLFMFEOTLSGKSMS2ZLD";
+	public final String FIRST_KEY = "TKATLQDLQKDLXMZL32KEYVMFKDLQPDLX";
+	public final String SECOND_KEY = "TPZJSEMZLSMS1ZLFMFEOTLSGKSMS2ZLD";
+	private HexConverter hc = new HexConverter();
 
-	public static String encAES256(String inputText) {
+	public String encAES256(String inputText) {
 		byte[] encodedText = null;
 		try {
 			SecretKeySpec keySpec = new SecretKeySpec(FIRST_KEY.getBytes("UTF-8"), "AES");
@@ -37,18 +39,18 @@ public class EncAesUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		return HexConverter.byteToHexString(encodedText);
+		return hc.byteToHexString(encodedText);
 	}
 	
 
-	public static String decAES256(String encText) {
+	public String decAES256(String encText) {
 		String decodedText = null;
 		
 		try {
 			SecretKeySpec keySpec = new SecretKeySpec(FIRST_KEY.getBytes("UTF-8"), "AES");
 			IvParameterSpec parameterSpec = new IvParameterSpec(FIRST_KEY.substring(0, 16).getBytes());
 			
-			byte[] convertText = HexConverter.hexToByteArray(encText);
+			byte[] convertText = hc.hexToByteArray(encText);
 			Decoder decoder = Base64.getDecoder();
 			byte[] decText = decoder.decode(convertText);
 			
@@ -63,7 +65,7 @@ public class EncAesUtil {
 		return decodedText;
 	}
 	
-	public static String encAES256Re(String decText) {
+	public String encAES256Re(String decText) {
 		byte[] encodedText = null;
 		try {
 			SecretKeySpec keySpec = new SecretKeySpec(SECOND_KEY.getBytes("UTF-8"), "AES");
@@ -79,7 +81,7 @@ public class EncAesUtil {
 			e.printStackTrace();
 		} 
 		
-		return HexConverter.byteToHexString(encodedText);
+		return hc.byteToHexString(encodedText);
 	}
 	
 }

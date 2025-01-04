@@ -6,12 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 목록</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link rel="stylesheet" href="resources/css/main.css">
+	<jsp:include page="includes/common.jsp" />
 </head>
 <body>
 	<jsp:include page="includes/header.jsp" />
@@ -113,10 +108,6 @@
 		</div>
 	</div>
 	<jsp:include page="includes/footer.jsp" />
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="js/main.js"></script>
 	<script>
     function editProduct(goodsId, goodsCategoryId, factoryId, goodsName, goodsCostPrice, goodsMarketPrice, goodsCustomerPrice, goodsUnit) {
         document.getElementById('edit-goodsId').value = goodsId;
