@@ -8,9 +8,8 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 import org.kitri.services.common.data.login.session.SessionDT;
-import org.kitri.services.sales.employee.dto.SvcComEmpDto;
 import org.kitri.services.sales.repo.dto.SvcComEmpLgnDto;
-import org.kitri.services.store.repo.dto.CustomerDto;
+import org.kitri.services.store.repo.dto.SsmCusLgnDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Component;
 @Component
 @WebListener
 public class SvcComLgnSsn implements HttpSessionListener{
-	private final String SESSION_LOGIN_KEY = "loginUser";
 	private static ConcurrentHashMap<String, HttpSession> sessions = new ConcurrentHashMap<String, HttpSession>();
 	private static String invalidateSessionId = null;
 	@Autowired
@@ -48,7 +46,6 @@ public class SvcComLgnSsn implements HttpSessionListener{
 	 * @since 2024-12-23
 	 */
 	public boolean createEmployeeSession(HttpSession session, SvcComEmpLgnDto emp) {
-		session.setAttribute(SESSION_LOGIN_KEY, emp);
 		SessionDT sessionData = new SessionDT(session.getId(), emp.getEmployeeId());
 		
 		int result = sessionDao.insertSession(sessionData);
@@ -61,22 +58,6 @@ public class SvcComLgnSsn implements HttpSessionListener{
 	}
 	
 	/**
-	 * @apiNote Customer 세션이 만들어질 때(회원가입)
-	 * @param cus: 사용자 Dto
-	 * @param session: 사용자 세션
-	 * @return 세션 생성 성공에 대한 불리언 값
-	 * @author 박시연
-	 * @since 2024-12-23
-	 */
-	public boolean createCustomerSession(HttpSession session, CustomerDto cus) {
-		session.setAttribute(SESSION_LOGIN_KEY, cus);
-			
-		sessions.put(session.getId(), session);
-		
-		return true;
-	}
-	
-	/**
 	 * @apiNote 세션 아이디를 바꿀 때(로그인)
 	 * @param emp: 사용자 Dto
 	 * @param session: 사용자 세션
@@ -84,9 +65,8 @@ public class SvcComLgnSsn implements HttpSessionListener{
 	 * @author 박시연
 	 * @since 2024-12-23
 	 */
-	public boolean updateEmployeeSession(HttpSession session, SvcComEmpDto emp) {
-		session.setAttribute(SESSION_LOGIN_KEY, emp);
-		session.setAttribute("loginType", "emp");
+	public boolean updateEmployeeSession(HttpSession session, SvcComEmpLgnDto emp) {
+		session.setAttribute("user", emp);
 		SessionDT sessionData = new SessionDT(session.getId(), emp.getEmployeeId());
 		sessions.put(session.getId(), session);
 		
@@ -107,8 +87,8 @@ public class SvcComLgnSsn implements HttpSessionListener{
 	 * @author 박시연
 	 * @since 2024-12-23
 	 */
-	public boolean updateCustomerSession(HttpSession session, CustomerDto cus) {
-		session.setAttribute(SESSION_LOGIN_KEY, cus);
+	public boolean updateCustomerSession(HttpSession session, SsmCusLgnDto cus) {
+		session.setAttribute("user", cus);
 			
 		sessions.put(session.getId(), session);
 			
@@ -122,7 +102,7 @@ public class SvcComLgnSsn implements HttpSessionListener{
 	 * @author 박시연
 	 * @since 2024-12-23
 	 */
-	public static HttpSession getSession(String sessionId) {
+	public HttpSession getSession(String sessionId) {
 		HttpSession session = sessions.get(sessionId);
 
         if( session == null ) {
@@ -166,13 +146,13 @@ public class SvcComLgnSsn implements HttpSessionListener{
 	public boolean isLogin(HttpSession inputSession) {
 		for(String key : sessions.keySet()) {
 			HttpSession session = sessions.get(key);
-			Object userData = session.getAttribute(session.getId());
+			Object userData = session.getAttribute("user");
 			
 			if(userData instanceof SvcComEmpLgnDto) {
 				if(inputSession.equals(session)) {
 					return true;
 				}
-			} else if(userData instanceof CustomerDto) {
+			} else if(userData instanceof SsmCusLgnDto) {
 				if(inputSession.equals(session)) {
 					return true;
 				}
