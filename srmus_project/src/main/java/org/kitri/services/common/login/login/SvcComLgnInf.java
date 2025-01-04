@@ -1,7 +1,7 @@
 package org.kitri.services.common.login.login;
 
 import org.kitri.services.sales.employee.dao.ISvcComLgnEmpDao;
-import org.kitri.services.store.customer.dao.ISvcComLgnCusDao;
+import org.kitri.services.store.customer.dao.ISsmCusLgnCusDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class SvcComLgnInf {
 	@Autowired
 	ISvcComLgnEmpDao empDao;
 	@Autowired
-	ISvcComLgnCusDao cusDao;
+	ISsmCusLgnCusDao cusDao;
 	
 	/**
 	 * @apiNote 사용자 정보 불러오기
