@@ -2,6 +2,7 @@ package org.kitri.services.sales.repo.dto;
 
 public class ShqStkMksDto {
 	private String storeId;
+	private String storeName;
 	private String goodsId;
 	private String goodsName;
 	private int qty;
@@ -49,6 +50,15 @@ public class ShqStkMksDto {
 
 	public ShqStkMksDto setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
+		return this;
+	}
+
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public ShqStkMksDto setStoreName(String storeName) {
+		this.storeName = storeName;
 		return this;
 	}
 }
