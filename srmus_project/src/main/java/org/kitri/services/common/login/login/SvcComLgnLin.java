@@ -4,9 +4,9 @@ import javax.servlet.http.HttpSession;
 
 import org.kitri.services.common.login.session.SvcComLgnSsn;
 import org.kitri.services.sales.employee.dao.ISvcComLgnEmpDao;
-import org.kitri.services.sales.employee.dto.SvcComEmpDto;
-import org.kitri.services.store.customer.dao.ISvcComLgnCusDao;
-import org.kitri.services.store.repo.dto.CustomerDto;
+import org.kitri.services.sales.repo.dto.SvcComEmpLgnDto;
+import org.kitri.services.store.customer.dao.ISsmCusLgnCusDao;
+import org.kitri.services.store.repo.dto.SsmCusLgnDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ public class SvcComLgnLin {
 	@Autowired
 	ISvcComLgnEmpDao empDao;
 	@Autowired
-	ISvcComLgnCusDao cusDao;
+	ISsmCusLgnCusDao cusDao;
 	
 	/**
 	 * @apiNote 로그인
@@ -34,11 +34,10 @@ public class SvcComLgnLin {
 	 * @since 2024-12-23
 	 */
 	public boolean login(HttpSession inputSession, String id, String pwd) {
-		SvcComEmpDto emp = empDao.findEmployeeById(id);
-		CustomerDto cus = cusDao.findCustomerById(id);
+		SvcComEmpLgnDto emp = empDao.findEmployeeById(id);
+		SsmCusLgnDto cus = cusDao.findCustomerById(id);
 		
 		if(cus != null && cus.getPwd().equals(pwd)) {
-			System.out.println();
 			session.updateCustomerSession(inputSession, cus);
 			return true;
 		}
