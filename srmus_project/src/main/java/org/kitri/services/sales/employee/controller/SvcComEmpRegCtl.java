@@ -1,7 +1,5 @@
 package org.kitri.services.sales.employee.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.kitri.services.common.login.session.SvcComLgnSsn;
@@ -22,32 +20,32 @@ public class SvcComEmpRegCtl {
 
 	@Autowired
 	private ISvcComEmpPRDSvc iPrdSvc;
-	
+
 	@Autowired
 	private ISvcComEmpRegSvc iRegSvc;
-	
+
 	@Autowired
 	private ISvcComEmpInqSvc iInqSvc;
-	
+
 	@Autowired
 	private SvcComPgcAcp auth;
-	
+
 	@Autowired
 	private SvcComLgnSsn sessionManager;
-	
+
 	@Autowired
 	private HttpSession session;
 
 	@GetMapping("/employee/add")
 	public String showSignUpForm(Model model) {
-		
+
 		SvcComEmpLgnDto sessionEmployee = (SvcComEmpLgnDto) sessionManager.getValue(session, "user");
-		
-		if(sessionEmployee == null) {
+
+		if (sessionEmployee == null) {
 			return "redirect:/employee/login";
 		}
-		
-		if(!permissionCheck(sessionEmployee)) {
+
+		if (!permissionCheck("ShqEmpEmiReg", sessionEmployee)) {
 			return "includes/PermissionError";
 		}
 		setInputValue(model);
@@ -55,31 +53,25 @@ public class SvcComEmpRegCtl {
 	}
 
 	@PostMapping("/employee/add")
-	public String createEmployee(SvcComEmpDto regDto, 
-								 Model model) {
+	public String createEmployee(SvcComEmpDto regDto, Model model) {
 		String result = iRegSvc.employeeRegistration(regDto);
 		model.addAttribute("registresult", result);
 		setInputValue(model);
 		return "/sales/employee/employeejoin";
 	}
-	
+
 	private void setInputValue(Model model) {
 		model.addAttribute("positions", iPrdSvc.positionInquiry());
 		model.addAttribute("roles", iPrdSvc.roleInquiry());
 		model.addAttribute("departments", iPrdSvc.departmentInquiry());
 	}
-	
-	private boolean permissionCheck(SvcComEmpLgnDto sessionEmployee) {
-		SvcComEmpDto svcComEmpDto = iInqSvc.employeeInquiryByFilters(sessionEmployee.getEmployeeId(), null, null, null).get(0);
-		if(!auth.hasAuthority(svcComEmpDto, "ShqEmpEmiReg")) {
-			//권한 없음
+
+	private boolean permissionCheck(String serviceId, SvcComEmpLgnDto sessionEmployee) {
+		SvcComEmpDto svcComEmpDto = iInqSvc.employeeInquiryByFilters(sessionEmployee.getEmployeeId(), null, null, null)
+				.get(0);
+		if (!auth.hasAuthority(svcComEmpDto, serviceId)) {
+			// 권한없음
 			return false;
-		} 
-		
-		// .권한 있음
-		Map<String, Boolean> detailAuth = auth.hasAuthorityForView(svcComEmpDto, "ShqEmpEmiReg");
-		if(!detailAuth.containsKey("canRegister") || !detailAuth.get("canRegister")) {
-			return false; 
 		}
 		return true;
 	}
