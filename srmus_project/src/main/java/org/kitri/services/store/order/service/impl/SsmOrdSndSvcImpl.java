@@ -2,6 +2,7 @@ package org.kitri.services.store.order.service.impl;
 
 import java.util.List;
 
+import org.kitri.services.common.Setting;
 import org.kitri.services.common.file.txttoimg.SvcComTti;
 import org.kitri.services.store.order.service.ISsmOrdSndSvc;
 import org.kitri.services.store.repo.dto.SsmOrdGdoChkDto;
@@ -38,6 +39,6 @@ public class SsmOrdSndSvcImpl implements ISsmOrdSndSvc {
     }
 
     private void callExternalModule(SsmOrdSndDto sndDto) {
-    	imageConverter.processTextToImage(sndDto, 1);
+    	imageConverter.processTextToImage(sndDto, 1, Setting.getStoreId());
     }
 }
