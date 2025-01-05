@@ -5,14 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>콘텐츠</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+	<jsp:include page="includes/common.jsp" />
 	<jsp:include page="includes/header.jsp" />
 	<div class="d-flex">
 		<jsp:include page="includes/sidebar.jsp" />
@@ -164,8 +159,5 @@
 	</div>
 
 	<jsp:include page="includes/footer.jsp" />
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="js/main.js"></script>
 </body>
 </html>
