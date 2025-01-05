@@ -43,9 +43,15 @@
 									<td><fmt:formatNumber value="${goods.goodsCustomerPrice}" pattern="#,###" />원</td>
 									<td>${goods.goodsUnit}</td>
 									<td>
-										<button class="btn btn-primary"
-											onclick="editProduct('${goods.goodsId}', '${goods.goodsCategoryId}', '${goods.factoryId}', '${goods.goodsName}', '${goods.goodsCostPrice}', '${goods.goodsMarketPrice}', '${goods.goodsCustomerPrice}', '${goods.goodsUnit}')">
-											수정</button>
+										<c:if test="${canEdit}">
+											<button class="btn btn-primary"
+												onclick="editProduct('${goods.goodsId}', '${goods.goodsCategoryId}', '${goods.factoryId}', '${goods.goodsName}', '${goods.goodsCostPrice}', '${goods.goodsMarketPrice}', '${goods.goodsCustomerPrice}', '${goods.goodsUnit}')">
+												수정</button>
+										</c:if>
+										
+										<c:if test="${!canEdit}">
+											<button class="btn btn-primary" disabled>수정</button>
+										</c:if>
 									</td>
 								</tr>
 							</c:forEach>

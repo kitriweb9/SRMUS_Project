@@ -22,55 +22,58 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class SvcComEmpInqCtl {
-	
+
 	@Autowired
 	private ISvcComEmpPRDSvc iPrdSvc;
-	
+
 	@Autowired
 	private ISvcComEmpInqSvc iInqSvc;
-	
+
 	@Autowired
 	private SvcComPgcAcp auth;
-	
+
 	@Autowired
 	private SvcComLgnSsn sessionManager;
-	
+
 	@Autowired
 	private HttpSession session;
-	
+
 	@RequestMapping("/employee")
-	public String employeeInquiry(@RequestParam(required = false) String employeeId, 
-								  @RequestParam(required = false) String positionId, 
-								  @RequestParam(required = false) String roleId, 
-								  @RequestParam(required = false) String departmentId, Model model) {
-		
+	public String employeeInquiry(@RequestParam(required = false) String employeeId,
+			@RequestParam(required = false) String positionId, @RequestParam(required = false) String roleId,
+			@RequestParam(required = false) String departmentId, Model model) {
+
 		SvcComEmpLgnDto sessionEmployee = (SvcComEmpLgnDto) sessionManager.getValue(session, "user");
-		
-		if(sessionEmployee == null) {
+
+		if (sessionEmployee == null) {
 			return "redirect:/employee/login";
 		}
-		SvcComEmpDto svcComEmpDto = iInqSvc.employeeInquiryByFilters(sessionEmployee.getEmployeeId(), null, null, null).get(0);
-		if(!auth.hasAuthority(svcComEmpDto, "ShqEmpEmiChk")) {
-			//권한 없음
-			return "includes/PermissionError";
-		} 
-		
-		// .권한 있음
-		Map<String, Boolean> detailAuth = auth.hasAuthorityForView(svcComEmpDto, "ShqEmpEmiChk");
-		model.addAttribute("canEdit", detailAuth.get("ShqEmpEmiChg"));
-		model.addAttribute("canRegister", detailAuth.get("ShqEmpEmiReg"));
-		
-		List<SvcComEmpPosDto> posDtos = iPrdSvc.positionInquiry();
-	    List<SvcComEmpRolDto> rolDtos = iPrdSvc.roleInquiry();
-	    List<SvcComEmpDepDto> depDtos = iPrdSvc.departmentInquiry();
-	    
-	    model.addAttribute("positions", posDtos);
-	    model.addAttribute("roles", rolDtos);
-	    model.addAttribute("departments", depDtos);
 
-	    List<SvcComEmpDto> inqDtos = iInqSvc.employeeInquiryByFilters(employeeId, positionId, roleId, departmentId);
-	    
-	    model.addAttribute("employeeList", inqDtos);
-	    return "/sales/employee/employeelist";
+		if (!permissionCheck("ShqEmpEmiChk", sessionEmployee)) {
+			return "includes/PermissionError";
+		}
+
+		List<SvcComEmpPosDto> posDtos = iPrdSvc.positionInquiry();
+		List<SvcComEmpRolDto> rolDtos = iPrdSvc.roleInquiry();
+		List<SvcComEmpDepDto> depDtos = iPrdSvc.departmentInquiry();
+
+		model.addAttribute("positions", posDtos);
+		model.addAttribute("roles", rolDtos);
+		model.addAttribute("departments", depDtos);
+
+		List<SvcComEmpDto> inqDtos = iInqSvc.employeeInquiryByFilters(employeeId, positionId, roleId, departmentId);
+
+		model.addAttribute("employeeList", inqDtos);
+		return "/sales/employee/employeelist";
+	}
+
+	private boolean permissionCheck(String serviceId, SvcComEmpLgnDto sessionEmployee) {
+		SvcComEmpDto svcComEmpDto = iInqSvc.employeeInquiryByFilters(sessionEmployee.getEmployeeId(), null, null, null)
+				.get(0);
+		if (!auth.hasAuthority(svcComEmpDto, serviceId)) {
+			// 권한없음
+			return false;
+		}
+		return true;
 	}
 }
