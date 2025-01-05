@@ -10,6 +10,21 @@
         function disableSubmitButton() {
             alert("직원 계정으로는 상품을 구매할 수 없습니다.");
         }
+        // 체크박스를 하나만 선택하도록 설정
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkboxes = document.querySelectorAll("input[type='checkbox'][name='goodsIds']");
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener('change', function () {
+                    if (this.checked) {
+                        checkboxes.forEach(function (cb) {
+                            if (cb !== checkbox) {
+                                cb.checked = false;
+                            }
+                        });
+                    }
+                });
+            });
+        });
     </script>
 </head>
 <body>
