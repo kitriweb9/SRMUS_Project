@@ -4,17 +4,17 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>입고 목록</title>
+    <title>입고 예정내역</title>
 </head>
 <body>
-    <jsp:include page="/WEB-INF/views/includes2/common.jsp" />
-    <jsp:include page="/WEB-INF/views/includes2/header.jsp" />
+    <jsp:include page="includes/common.jsp" />
+    <jsp:include page="includes/header.jsp" />
     <div class="d-flex">
-        <jsp:include page="/WEB-INF/views/includes2/sidebar.jsp" />
+        <jsp:include page="includes/sidebar.jsp" />
         <div class="main-content p-4">
             <div class="container-fluid px-0">
                 <div class="my-3">
-                    <h4>입고 목록</h4>
+                    <h4>입고 예정내역</h4>
                 </div>
 
                 <!-- 확정 및 재고 반영 폼 -->
@@ -82,13 +82,17 @@
                             <input type="number" class="form-control" id="inboundQuantity" name="inboundQuantity" />
                         </div>
                         <div class="text-center">
-                            <input type="submit" class="btn btn-secondary" value="수정" />
+                            <input type="submit" class="btn btn-secondary" value="수정(CHG)" />
                         </div>
                     </form>
+                </div>
+
+                <div class="mt-4 text-end">
+                    <a href="${pageContext.request.contextPath}/SsmInbMgtChk/list" class="btn btn-link">[확정 목록]</a>
                 </div>
             </div>
         </div>
     </div>
-    <jsp:include page="/WEB-INF/views/includes2/footer.jsp" />
+    <jsp:include page="includes/footer.jsp" />
 </body>
 </html>
