@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
  * CTR is safer than CBC but catastrophic when it damaged
  * 
  */
-
 @Component
 public class EncAesUtil {
 	public final String FIRST_KEY = "TKATLQDLQKDLXMZL32KEYVMFKDLQPDLX";

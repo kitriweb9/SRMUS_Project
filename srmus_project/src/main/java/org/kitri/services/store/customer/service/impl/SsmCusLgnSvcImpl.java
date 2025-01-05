@@ -34,6 +34,8 @@ public class SsmCusLgnSvcImpl implements ISsmCusLgnSvc {
 	private SvcComLgnLot svcComLgnLot;
 	@Autowired
 	private SvcComLgnInf svcComLgnInf;
+	@Autowired
+	private EncAesUtil aes;
 	
 	public boolean register(SsmCusLgnDto customer) throws SQLIntegrityConstraintViolationException {
 		if( (cusDao.findCustomerById(customer.getId())) != null) {
@@ -42,7 +44,7 @@ public class SsmCusLgnSvcImpl implements ISsmCusLgnSvc {
 		
 		customer = new SsmCusLgnDto(customer.getId(), customer.getPwd(), toHex(customer.getName()), toHex(customer.getAddress()), toHex(customer.getContact()), toHex(customer.getEmail()), customer.getGrade());
 		
-		EncAesUtil aes = new EncAesUtil();
+//		EncAesUtil aes = new EncAesUtil();
 		
 		SsmDecryptedDto decDto = new SsmDecryptedDto(customer.getId(), customer.getPwd(), aes.decAES256(customer.getName()), aes.decAES256(customer.getAddress()), aes.decAES256(customer.getContact()), aes.decAES256(customer.getEmail()), customer.getGrade());
 		
