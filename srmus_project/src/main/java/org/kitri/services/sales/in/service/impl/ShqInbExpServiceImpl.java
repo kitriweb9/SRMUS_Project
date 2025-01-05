@@ -50,7 +50,7 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 		hqDao.ship(new IntegrationInbound()
 						.setInboundDate(Timestamp.valueOf(hqInboundDate))
 						.setGoodsId(entity.getGoodsId()));
-		imageConverter.processTextToImage(toDtoFromEntity(entity), 0);
+		imageConverter.processTextToImage(toDtoFromEntity(entity), 0, inboundDto.getStoreId());
 		return true;
 	}
 

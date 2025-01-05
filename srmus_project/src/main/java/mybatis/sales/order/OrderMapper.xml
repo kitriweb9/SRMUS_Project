@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order">
+	<resultMap id="ShqOrdOriChkMap" type="org.kitri.services.sales.order.dto.ShqOrdOriChkDto">
+		<result property="orderId" column="order_id" />
+		<result property="storeName" column="store_name" />
+		<result property="employeeName" column="employee_name" />
+		<result property="goodsCategoryName" column="goods_category_name" />
+		<result property="goodsName" column="goods_name" />
+		<result property="orderQuantity" column="order_quantity" />
+		<result property="orderConfirmStatus" column="order_confirm_status" />
+	</resultMap>
+	<select id="searchAllOrders" resultMap="ShqOrdOriChkMap">
+ 	 select o.order_id, s.store_name, e.employee_name, gc.goods_category_name, g.goods_name, od.order_quantity, o.order_confirm_status
+ 	 from tb_shq_order o
+ 	 join tb_shq_order_detail od on od.order_id = o.order_id
+ 	 join tb_shq_store s on s.store_id = o.store_id
+ 	 join tb_shq_employee e on e.employee_id = o.employee_id
+ 	 join tb_shq_goods g on g.goods_id = od.goods_id
+ 	 join tb_shq_goods_category gc on gc.goods_category_id = g.goods_category_id
+	</select>
+	
+	<select id="searchByOrderId" resultMap="ShqOrdOriChkMap">
+ 	 select o.order_id, s.store_name, e.employee_name, gc.goods_category_name, g.goods_name, od.order_quantity, o.order_confirm_status
+ 	 from tb_shq_order o
+ 	 join tb_shq_order_detail od on od.order_id = o.order_id
+ 	 join tb_shq_store s on s.store_id = o.store_id
+ 	 join tb_shq_employee e on e.employee_id = o.employee_id
+ 	 join tb_shq_goods g on g.goods_id = od.goods_id
+ 	 join tb_shq_goods_category gc on gc.goods_category_id = g.goods_category_id
+ 	 where o.order_id = #{orderId}
+	</select>
+	
+	<select id="searchBygoodsName" resultMap="ShqOrdOriChkMap">
+ 	 select o.order_id, s.store_name, e.employee_name, gc.goods_category_name, g.goods_name, od.order_quantity, o.order_confirm_status
+ 	 from tb_shq_order o
+ 	 join tb_shq_order_detail od on od.order_id = o.order_id
+ 	 join tb_shq_store s on s.store_id = o.store_id
+ 	 join tb_shq_employee e on e.employee_id = o.employee_id
+ 	 join tb_shq_goods g on g.goods_id = od.goods_id
+ 	 join tb_shq_goods_category gc on gc.goods_category_id = g.goods_category_id
+ 	 where g.goods_name = #{goodsName}
+	</select>
+	
+	<select id="searchByOrderIdGoodsName" resultMap="ShqOrdOriChkMap">
+ 	 select o.order_id, s.store_name, e.employee_name, gc.goods_category_name, g.goods_name, od.order_quantity, o.order_confirm_status
+ 	 from tb_shq_order o
+ 	 join tb_shq_order_detail od on od.order_id = o.order_id
+ 	 join tb_shq_store s on s.store_id = o.store_id
+ 	 join tb_shq_employee e on e.employee_id = o.employee_id
+ 	 join tb_shq_goods g on g.goods_id = od.goods_id
+ 	 join tb_shq_goods_category gc on gc.goods_category_id = g.goods_category_id
+ 	 where g.goods_name = #{goodsName} and o.order_id = #{orderId}
+	</select>
+	
+	
+	
+</mapper>
