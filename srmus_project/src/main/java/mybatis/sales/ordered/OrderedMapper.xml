@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ordered">
+	<resultMap id="ShqIgoRegIRDtoMap" type="org.kitri.services.sales.ordered.dto.ShqIgoRegIRDto">
+		<result property="goodsId" column="goods_id" />
+		<result property="orderQuantity" column="order_quantity" />
+	</resultMap>
+	
+	<select id = "inquiryByOrderId" parameterType="String" resultMap="ShqIgoRegIRDtoMap">
+	select od.goods_id, od.order_quantity
+	from tb_shq_order o
+	join tb_shq_order_detail od on od.order_id = o.order_id
+	where o.order_id = #{orderId}
+	</select>
+	
+	<insert id="integrationInboundRegistration" parameterType="java.util.Map">
+	<![CDATA[
+	INSERT INTO tb_shq_integration_order (integration_order_id, integration_confirm_date, goods_id, integration_order_quantity ,employee_id, integration_confirm_status)
+	VALUES (TO_CHAR(SYSDATE, 'YYYYMMDD') || 'HQ' || LPAD(SEQ_INTEGRATION_ORDER_ID.NEXTVAL, 3, '0'), SYSDATE, #{goodsId}, #{orderQuantity}, #{employeeId}, 'N')
+	]]>
+	</insert>
+	
+	<update id="changeOrderStatus" parameterType="java.util.Map">
+	update tb_shq_order o
+	set o.order_confirm_status = #{status}
+	where o.order_id = #{orderId}
+	</update>
+	
+	
+	<resultMap id="ShqIgoRegIIDtoMap" type="org.kitri.services.sales.ordered.dto.ShqIgoRegIIDto">
+		<result property="integrationConfirmDate" column="integration_confirm_date" />
+		<result property="goodsName" column="goods_name" />
+		<result property="totalQuantity" column="total_quantity" />
+	</resultMap>
+	<select id="allIntegrationOrderInquiry" resultMap="ShqIgoRegIIDtoMap">
+	<![CDATA[
+	SELECT TO_CHAR(io.integration_confirm_date, 'YYYY-MM-DD') AS integration_confirm_date, g.goods_name, SUM(io.integration_order_quantity) AS total_quantity
+	FROM tb_shq_integration_order io
+	JOIN tb_shq_goods g ON g.goods_id = io.goods_id
+	join tb_shq_order o ON o.order_confirm_status = 'Y'
+	GROUP BY TO_CHAR(io.integration_confirm_date, 'YYYY-MM-DD'), g.goods_name
+	]]>
+	</select>
+	<select id="integrationOrderInquiryBydate" resultMap="ShqIgoRegIIDtoMap">
+	<![CDATA[
+	SELECT TO_CHAR(io.integration_confirm_date, 'YYYY-MM-DD') AS integration_confirm_date, g.goods_name, SUM(io.integration_order_quantity) AS total_quantity
+	FROM tb_shq_integration_order io
+	JOIN tb_shq_goods g ON g.goods_id = io.goods_id
+	join tb_shq_order o ON o.order_confirm_status = 'Y'
+	where TO_CHAR(io.integration_confirm_date, 'YYYY-MM-DD') = #{date}
+	GROUP BY TO_CHAR(io.integration_confirm_date, 'YYYY-MM-DD'), g.goods_name
+	]]>
+	</select>
+	
+</mapper>
