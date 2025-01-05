@@ -31,15 +31,15 @@ public class Setting {
 		return STORE_SETTING.getProperty("STORE_ID");
 	}
 	
-	public static String getSsmFileSendPath() {
-		File file = new File(STORE_SETTING.getProperty("FILE_SERVER_FOLDER_PATH") + "SSM/" +getStoreId() + "/send/");
+	public static String getSsmFileSendPath(String storeId) {
+		File file = new File(STORE_SETTING.getProperty("FILE_SERVER_FOLDER_PATH") + "SSM/" + storeId + "/send/");
 		if(!file.exists()) {
 			file.mkdirs();
 		}
 		return file.getPath();
 	}
-	public static String getShqFileSendPath() {
-		File file = new File(STORE_SETTING.getProperty("FILE_SERVER_FOLDER_PATH") + "SHQ/" +getStoreId() + "/send/");
+	public static String getShqFileSendPath(String storeId) {
+		File file = new File(STORE_SETTING.getProperty("FILE_SERVER_FOLDER_PATH") + "SHQ/" + storeId + "/send/");
 		if(!file.exists()) {
 			file.mkdirs();
 		}
