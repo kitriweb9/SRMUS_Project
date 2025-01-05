@@ -29,7 +29,7 @@ public class SsmGdsChkCtrl {
 	 * @author 박시연
 	 * @since 2025-01-03
 	 */
-	@RequestMapping("goods")
+	@RequestMapping("/customer/goods")
 	public String goodsList(Model model, HttpSession session) {
 		if(svcComLgnSsn.isLogin(session)) {
 			model.addAttribute("goodsList", goodsService.findGoodsAll());
