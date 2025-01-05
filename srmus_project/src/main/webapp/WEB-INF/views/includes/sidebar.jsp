@@ -40,6 +40,17 @@
 					class="sidebar-link">매장 등록</a></li>
 			</ul>
 		</li>
+		
+		<li class="sidebar-item">
+			<a href="#" class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#orderMenu" aria-expanded="false" aria-controls="orderMenu">
+			 <span><i class="bi bi-shop"></i>수주 관리</span> 
+			 <i	class="bi bi-chevron-down toggle-icon"></i>
+			</a>
+			<ul class="collapse list-unstyled ms-3" id="orderMenu">
+				<li><a href="${pageContext.request.contextPath}/searchorders"
+					class="sidebar-link">수주 목록</a></li>
+			</ul>
+		</li>
         <li class="sidebar-item">
             <a href="#" class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#stockMenu" aria-expanded="false" aria-controls="stockMenu">
                 <span><i class="bi bi-box"></i> 상품관리</span>

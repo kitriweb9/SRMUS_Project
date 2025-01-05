@@ -71,14 +71,14 @@ public class SvcComEmpRegCtl {
 	
 	private boolean permissionCheck(SvcComEmpLgnDto sessionEmployee) {
 		SvcComEmpDto svcComEmpDto = iInqSvc.employeeInquiryByFilters(sessionEmployee.getEmployeeId(), null, null, null).get(0);
-		if(!auth.hasAuthority(svcComEmpDto, "SV003")) {
+		if(!auth.hasAuthority(svcComEmpDto, "ShqEmpEmiReg")) {
 			//권한 없음
 			return false;
 		} 
 		
 		// .권한 있음
-		Map<String, Boolean> detailAuth = auth.hasAuthorityForView(svcComEmpDto, "SV003");
-		if(!detailAuth.containsKey("canWrite") || !detailAuth.get("canWrite")) {
+		Map<String, Boolean> detailAuth = auth.hasAuthorityForView(svcComEmpDto, "ShqEmpEmiReg");
+		if(!detailAuth.containsKey("canRegister") || !detailAuth.get("canRegister")) {
 			return false; 
 		}
 		return true;
