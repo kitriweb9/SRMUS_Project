@@ -5,7 +5,6 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <style>
-    /* 로그인 페이지 전용 스타일 */
     .login-body {
         font-family: Arial, sans-serif;
         background-color: #f7f9fc;
@@ -98,7 +97,7 @@
     }
 </style>
 <script>
-    function setAction(actionUrl) {
+    function setStoreLoginAction(actionUrl) {
         const form = document.getElementById("loginForm");
         form.action = actionUrl;
         form.submit();
@@ -107,13 +106,13 @@
 </head>
 <body class="login-body">
     <div class="login-card">
-        <h4>로그인</h4>
+        <h4>매장 로그인</h4>
         <form id="loginForm" method="post">
-            <input type="text" name="id" placeholder="아이디 입력" required>
-            <input type="password" name="pwd" placeholder="비밀번호 입력" required>
-            <button type="button" class="store-login" onclick="setAction('${pageContext.request.contextPath}/customer/login')">매장 로그인</button>
-            <button type="button" class="hq-login" onclick="setAction('${pageContext.request.contextPath}/employee/login')">본부 로그인</button>
+            <input type="text" name="id" placeholder="아이디를 입력하세요" required>
+            <input type="password" name="pwd" placeholder="패스워드를 입력하세요" required>
+            <button type="button" class="store-login" onclick="setStoreLoginAction('${pageContext.request.contextPath}/customer/login')">로그인</button>
         </form>
+        <button type="button" class="hq-login" onclick="window.location.href='${pageContext.request.contextPath}/employee/login'">본부 로그인으로 이동</button>
         <a href="${pageContext.request.contextPath}/register" class="register-link">회원가입</a> <!-- 회원가입 링크 -->
     </div>
 
