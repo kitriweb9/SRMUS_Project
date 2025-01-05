@@ -37,8 +37,8 @@ public class SvcComPgcAcpImpl implements SvcComPgcAcp {
 	@Override
 	public Map<String, Boolean> hasAuthorityForView(SvcComEmpDto svcComEmpDto, String serviceId) {
 		Map<String, Boolean> authorityMap = new HashMap<>();
-		authorityMap.put("canEdit", hasAuthority(svcComEmpDto, serviceId + ".edit"));
-		authorityMap.put("canRegister", hasAuthority(svcComEmpDto, serviceId + ".register"));
+		authorityMap.put("canEdit", hasAuthority(svcComEmpDto, serviceId));
+		authorityMap.put("canRegister", hasAuthority(svcComEmpDto, serviceId));
 		return authorityMap;
 	}
 
