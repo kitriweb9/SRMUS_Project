@@ -50,15 +50,15 @@ public class SvcComEmpInqCtl {
 			return "redirect:/employee/login";
 		}
 		SvcComEmpDto svcComEmpDto = iInqSvc.employeeInquiryByFilters(sessionEmployee.getEmployeeId(), null, null, null).get(0);
-		if(!auth.hasAuthority(svcComEmpDto, "SV003")) {
+		if(!auth.hasAuthority(svcComEmpDto, "ShqEmpEmiChk")) {
 			//권한 없음
 			return "includes/PermissionError";
 		} 
 		
 		// .권한 있음
-		Map<String, Boolean> detailAuth = auth.hasAuthorityForView(svcComEmpDto, "SV003");
-		model.addAttribute("canEdit", detailAuth.get("canEdit"));
-		model.addAttribute("canWrite", detailAuth.get("canRegister"));
+		Map<String, Boolean> detailAuth = auth.hasAuthorityForView(svcComEmpDto, "ShqEmpEmiChk");
+		model.addAttribute("canEdit", detailAuth.get("ShqEmpEmiChg"));
+		model.addAttribute("canRegister", detailAuth.get("ShqEmpEmiReg"));
 		
 		List<SvcComEmpPosDto> posDtos = iPrdSvc.positionInquiry();
 	    List<SvcComEmpRolDto> rolDtos = iPrdSvc.roleInquiry();
@@ -71,7 +71,6 @@ public class SvcComEmpInqCtl {
 	    List<SvcComEmpDto> inqDtos = iInqSvc.employeeInquiryByFilters(employeeId, positionId, roleId, departmentId);
 	    
 	    model.addAttribute("employeeList", inqDtos);
-	    System.out.println(inqDtos);
 	    return "/sales/employee/employeelist";
 	}
 }
