@@ -33,11 +33,11 @@
 						<tbody>
 							<c:forEach var="row" items="${confirmedList}">
 								<tr>
-									<td>
+<%-- 									<td>
 										<input type="checkbox" name="inboundIds" value="${row.inboundId}" />
 										<input type="hidden" name="goodsIds" value="${row.goodsId}" />
 										<input type="hidden" name="inboundQuantities" value="${row.inboundQuantity}" />
-									</td>
+									</td> --%>
 									<td>${row.inboundId}</td>
 									<td>${row.storeId}</td>
 									<td>${row.inboundDate}</td>
