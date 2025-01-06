@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="salesreturn">
+	<resultMap id="SsmRtnSndDtoMap" type="org.kitri.services.store.repo.dto.SsmRtnSndDto">
+		<result property="returnId" column="return_id" />
+		<result property="storeId" column="store_name" />
+		<result property="employeeId" column="employee_name" />
+		<result property="returnRegisterDate" column="return_register_date" />
+		<result property="goodsId" column="goods_name" />
+		<result property="returnQuantity" column="return_quantity" />
+		<result property="returnState" column="return_state" />
+	</resultMap>
+	
+	<select id = "checkReturnlist" resultMap="SsmRtnSndDtoMap">
+	select r.return_id, s.store_name, e.employee_name, r.return_register_date, g.goods_name, rd.return_quantity, r.return_state
+	from tb_shq_return r
+	join tb_shq_return_detail rd on rd.return_id = r.return_id
+	join tb_shq_store s on s.store_id = r.store_id
+	join tb_shq_goods g on g.goods_id = rd.goods_id
+	join tb_shq_employee e on e.employee_id = r.employee_id
+	</select>
+	
+	<update id = "changeOfReturnStatus" parameterType="map">
+	update tb_shq_return r
+	set r.return_state = #{status}
+	where r.return_id = #{returnId}
+	</update>
+	
+	<update id="changeReturn" parameterType="map">
+	update tb_shq_return r
+	set r.return_state = #{status}
+	where r.return_id = #{returnId}
+	</update>
+	
+		<insert id = "addreturn" parameterType="org.kitri.services.store.repo.dto.SsmRtnSndDto">
+		<selectKey keyProperty="returnId" resultType="string"
+			order="BEFORE">
+			SELECT 'RT' || LPAD(TO_CHAR(ssm_rtn_seq.NEXTVAL), 3, '0') AS returnId FROM DUAL
+		</selectKey>
+		INSERT INTO tb_ssm_return(return_id, store_id, employee_id, return_register_date)
+		VALUES (#{returnId}, 'ST001', #{employeeId}, SYSDATE)
+	</insert>
+	
+	<insert id = "addreturndetail" parameterType="org.kitri.services.store.repo.dto.SsmRtnSndDto">
+		INSERT INTO tb_ssm_return_detail(return_id, goods_id, return_quantity, return_state)
+		VALUES (#{returnId}, #{goodsId}, #{returnQuantity}, 'N')
+	</insert>
+
+	<select id="getreturn" resultType="org.kitri.services.store.repo.dto.SsmRtnSndDto">
+		SELECT r.return_id AS returnId, employee_id AS employeeId, return_register_date AS returnRegisterDate, goods_id AS goodsId, return_quantity AS returnQuantity, return_state AS returnState 
+		FROM tb_ssm_return r, tb_ssm_return_detail rd
+	</select>
+	<select id="getreturnbyrid" resultType="org.kitri.services.store.repo.dto.SsmRtnSndDto">
+		SELECT r.return_id AS returnId, employee_id AS employeeId, return_register_date AS returnRegisterDate, goods_id AS goodsId, return_quantity AS returnQuantity, return_state AS returnState 
+		FROM tb_ssm_return r, tb_ssm_return_detail rd
+		WHERE return_id = #{returnId}
+	</select>
+	<update id="updaterstatus" parameterType="String">
+	UPDATE tb_ssm_return_detail
+	SET return_state = 'Y'
+	WHERE return_id = #{returnId}
+	</update>
+	<update id="updatertngid" parameterType="org.kitri.services.store.repo.dto.SsmRtnSndDto">
+	UPDATE tb_ssm_return_detail
+	SET goods_id = #{goodsId}
+	WHERE return_id = #{returnId}
+	</update>
+	<update id="updatertnqty" parameterType="org.kitri.services.store.repo.dto.SsmRtnSndDto">
+	UPDATE tb_ssm_return_detail
+	SET goods_id = #{goodsId}
+	WHERE return_quantity = #{returnQuantity}
+	</update>
+	<delete id="deletereturn">
+	DELETE FROM tb_ssm_return
+	WHERE return_id=#{returnId}
+	</delete>
+	<delete id="deletereturndetail">
+	DELETE FROM tb_ssm_return_detail
+	WHERE return_id=#{returnId}
+	</delete>
+	
+</mapper>
