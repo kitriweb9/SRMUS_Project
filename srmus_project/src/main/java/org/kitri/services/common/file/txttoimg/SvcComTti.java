@@ -93,7 +93,7 @@ public class SvcComTti {
 		g2d.setFont(new Font("Noto Sans", Font.PLAIN, 24));
 		int yPosition = 50;
 		yPosition += 50;
-		g2d.drawString("TABLE1 = TB_SHQ_ORDER" + dto.getStoreId(), 20, yPosition);
+		g2d.drawString("TABLE1 = TB_SHQ_ORDER", 20, yPosition);
 		yPosition += 40;
 		yPosition += 40;
 		g2d.drawString("TABLE1_STORE_ID = " + dto.getStoreId(), 20, yPosition);
@@ -105,7 +105,7 @@ public class SvcComTti {
 		g2d.drawString("TABLE1_EMPLOYEE_ID = st001m", 20, yPosition);
 		yPosition += 40;
 		yPosition += 40;
-		g2d.drawString("TABLE1_CREATE_DATE = SYSDATE", 20, yPosition);
+		g2d.drawString("TABLE1_ORDER_CREATE_DATE = SYSDATE", 20, yPosition);
 		yPosition += 40;
 		yPosition += 40;
 		g2d.drawString("TABLE1_ORDER_CONFIRM_STATUS = N", 20, yPosition);
