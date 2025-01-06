@@ -3,6 +3,7 @@
 <header
 	class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 	<div class="container-fluid">
+
 		<a class="navbar-brand fw-bold" href="${pageContext.request.contextPath}/customer/goods"> 매장관리시스템 :
 			매장ST001 </a>
 		<div class="d-flex align-items-center">

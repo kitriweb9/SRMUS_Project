@@ -1,20 +1,20 @@
 package org.kitri.services.store.repo.dto;
 
-import java.util.Date;
-
 public class SsmRtnSndDto {
 	private String returnId;
 	private String storeId;
 	private String employeeId;
-	private Date returnRegisterDate;
-	private String goodsId; 
-	private Integer returnQuantity;
-	private String returnStatus;
-	
-	public SsmRtnSndDto() {}
 
-	public SsmRtnSndDto(String returnId, String storeId, String employeeId, Date returnRegisterDate, String goodsId,
-			Integer returnQuantity, String returnStatus) {
+	private String returnRegisterDate;
+	private String goodsId;
+	private int returnQuantity;
+	private String returnState;
+
+	public SsmRtnSndDto() {
+	}
+
+	public SsmRtnSndDto(String returnId, String storeId, String employeeId, String returnRegisterDate, String goodsId,
+			int returnQuantity, String returnState) {
 		super();
 		this.returnId = returnId;
 		this.storeId = storeId;
@@ -22,7 +22,7 @@ public class SsmRtnSndDto {
 		this.returnRegisterDate = returnRegisterDate;
 		this.goodsId = goodsId;
 		this.returnQuantity = returnQuantity;
-		this.returnStatus = returnStatus;
+		this.returnState = returnState;
 	}
 
 	public String getReturnId() {
@@ -49,11 +49,11 @@ public class SsmRtnSndDto {
 		this.employeeId = employeeId;
 	}
 
-	public Date getReturnRegisterDate() {
+	public String getReturnRegisterDate() {
 		return returnRegisterDate;
 	}
 
-	public void setReturnRegisterDate(Date returnRegisterDate) {
+	public void setReturnRegisterDate(String returnRegisterDate) {
 		this.returnRegisterDate = returnRegisterDate;
 	}
 
@@ -65,22 +65,28 @@ public class SsmRtnSndDto {
 		this.goodsId = goodsId;
 	}
 
-	public Integer getReturnQuantity() {
+
+	public int getReturnQuantity() {
 		return returnQuantity;
 	}
 
-	public void setReturnQuantity(Integer returnQuantity) {
+	public void setReturnQuantity(int returnQuantity) {
 		this.returnQuantity = returnQuantity;
 	}
 
-	public String getReturnStatus() {
-		return returnStatus;
+	public String getReturnState() {
+		return returnState;
 	}
 
-	public void setReturnStatus(String returnStatus) {
-		this.returnStatus = returnStatus;
+	public void setReturnState(String returnState) {
+		this.returnState = returnState;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "SsmRtnSndDto [returnId=" + returnId + ", storeId=" + storeId + ", employeeId=" + employeeId
+				+ ", returnRegisterDate=" + returnRegisterDate + ", goodsId=" + goodsId + ", returnQuantity="
+				+ returnQuantity + ", returnState=" + returnState + "]";
+	}
+
 }

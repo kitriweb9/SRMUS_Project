@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="storeStock">
 	<resultMap id="storeStockResult" type="org.kitri.services.sales.stock.entity.StoreStock">
 	    <result property="storeId" column="STORE_ID"/>
+	    <result property="storeName" column="STORE_NAME"/>
 	    <result property="goodsId" column="GOODS_ID"/>
 	    <result property="goodsName" column="GOODS_NAME"/>
 	    <result property="qty" column="STOCK_QUANTITY"/>
@@ -17,23 +18,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findAll" resultMap="storeStockResult">
 		SELECT
 			s.STORE_ID, s.GOODS_ID, s.STOCK_QUANTITY,
-			g.GOODS_NAME, s.STORE_STOCK_UPDATE_DATE
+			g.GOODS_NAME, s.STORE_STOCK_UPDATE_DATE,
+			o.STORE_NAME
 		FROM
-			TB_SHQ_STORE_STOCK s, TB_SHQ_GOODS g
+			TB_SHQ_STORE_STOCK s, TB_SHQ_GOODS g,
+			TB_SHQ_STORE o
 		WHERE
 			s.goods_id = g.goods_id
+		AND
+			s.STORE_ID = o.STORE_ID
 	</select>
 	
 	<select id="findByStoreId" resultMap="storeStockResult">
 		SELECT
 			s.STORE_ID, s.GOODS_ID, s.STOCK_QUANTITY,
-			g.GOODS_NAME, s.STORE_STOCK_UPDATE_DATE
+			g.GOODS_NAME, s.STORE_STOCK_UPDATE_DATE,
+			o.STORE_NAME
 		FROM
-			TB_SHQ_STORE_STOCK s, TB_SHQ_GOODS g
+			TB_SHQ_STORE_STOCK s, TB_SHQ_GOODS g,
+			TB_SHQ_STORE o
 		WHERE
 			s.goods_id = g.goods_id
 		AND
 			s.STORE_ID = #{value}
+		AND
+			s.STORE_ID = o.STORE_ID
 	</select>
 	
 	<select id="checkGoodsExist" resultType="int"

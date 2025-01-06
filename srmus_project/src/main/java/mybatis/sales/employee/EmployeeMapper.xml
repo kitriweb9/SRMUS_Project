@@ -91,7 +91,8 @@
 	</select>
 	<select id="inquiryByEmpNum" resultMap="SvcComEmpResult">
 		SELECT e.employee_id, p.position_name, r.role_name, d.department_name,
-			   e.employee_password, e.employee_name, e.employee_contact, e.employee_email
+			   e.employee_password, e.employee_name, e.employee_contact, e.employee_email,
+			   e.SERVICE_GROUP_ID
 		FROM TB_SHQ_employee e
 		JOIN TB_SHQ_position p ON e.position_id = p.position_id
 		JOIN TB_SHQ_role r ON e.role_id = r.role_id

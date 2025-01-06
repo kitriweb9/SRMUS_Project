@@ -50,6 +50,7 @@ public class ShqStkMksServiceImpl implements ShqStkMksService {
 	private ShqStkMksDto toDtoFromEntity(StoreStock e) {
 		return new ShqStkMksDto()
 				.setStoreId(e.getStoreId())
+				.setStoreName(e.getStoreName())
 				.setGoodsId(e.getGoodsId())
 				.setGoodsName(e.getGoodsName())
 				.setQty(e.getQty())
