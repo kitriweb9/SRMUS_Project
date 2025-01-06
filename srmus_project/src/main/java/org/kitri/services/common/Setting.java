@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Setting {
-	private static final String SETTING_PATH = "store.setting";
+	private static final String SETTING_PATH = "D:/SRMUS/store.setting";
 	private static final Properties STORE_SETTING;
 	
 	static {
