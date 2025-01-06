@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HqClosing">
+
+	<resultMap
+		type="org.kitri.services.sales.repo.dto.ShqFinHqfChkDto"
+		id="hqCloseInfo">
+		<result property="hqClosingId" column="HQ_CLOSING_ID" />
+		<result property="hqClosingAmount" column="HQ_CLOSING_AMOUNT" />
+		<result property="hqClosingDate" column="HQ_CLOSING_DATE" />
+	</resultMap>
+
+	<insert id="registHqClose"
+		parameterType="org.kitri.services.sales.repo.dto.ShqFinHqfRegDto">
+		INSERT INTO TB_SHQ_HEADQUARTER_CLOSING (HQ_CLOSING_ID,
+		HQ_CLOSING_AMOUNT, HQ_CLOSING_DATE)
+		VALUES ('HQC' ||
+		LPAD(HQ_CLOSING_SEQ.NEXTVAL, 3, '0'),
+		#{hqClosingAmount},
+		#{hqClosingDate}
+		)
+	</insert>
+
+	<select id="readHqClosingList" resultMap="hqCloseInfo">
+		select
+		HQ_CLOSING_ID,
+		HQ_CLOSING_AMOUNT,
+		HQ_CLOSING_DATE
+		from
+		TB_SHQ_HEADQUARTER_CLOSING
+	</select>
+
+</mapper>
