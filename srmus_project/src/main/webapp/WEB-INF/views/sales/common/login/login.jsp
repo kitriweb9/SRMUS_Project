@@ -4,6 +4,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 <title>본부 로그인</title>
 <style>
     .login-body {

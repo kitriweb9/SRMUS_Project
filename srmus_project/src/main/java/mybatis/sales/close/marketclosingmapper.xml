@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MarketClosing">
+
+	<resultMap
+		type="org.kitri.services.sales.repo.dto.ShqFinMkfRegDto"
+		id="marketCloseRegister">
+		<result property="marketClosingId" column="MARKET_CLOSING_ID" />
+		<result property="storeId" column="STORE_ID" />
+		<result property="marketClosingDate"
+			column="MARKET_CLOSING_DATE" />
+		<result property="marketClosingAmount"
+			column="MARKET_CLOSING_AMOUNT" />
+	</resultMap>
+
+	<resultMap
+		type="org.kitri.services.sales.repo.dto.ShqFinMkfChkDto"
+		id="marketCloseInfo">
+		<result property="marketClosingId" column="MARKET_CLOSING_ID" />
+		<result property="storeId" column="STORE_ID" />
+		<result property="storeName" column="STORE_NAME" />
+		<result property="employeeId" column="EMPLOYEE_ID" />
+		<result property="employeeName" column="EMPLOYEE_NAME" />
+		<result property="marketClosingDate"
+			column="MARKET_CLOSING_DATE" />
+		<result property="marketClosingAmount"
+			column="MARKET_CLOSING_AMOUNT" />
+	</resultMap>
+
+	<insert id="registMarketClose"
+		parameterType="org.kitri.services.sales.close.entity.MarketClosing">
+		INSERT INTO TB_SHQ_MARKET_CLOSING (
+		MARKET_CLOSING_ID,
+		STORE_ID,
+		MARKET_CLOSING_DATE,
+		MARKET_CLOSING_AMOUNT
+		) VALUES (
+		#{marketClosingId},
+		#{storeId},
+		#{marketClosingDate},
+		#{marketClosingAmount}
+		)
+	</insert>
+
+	<select id="readmarketClosingList" resultMap="marketCloseInfo">
+		select
+		m.MARKET_CLOSING_ID, m.STORE_ID,
+		s.STORE_NAME, s.EMPLOYEE_ID,
+		e.EMPLOYEE_NAME, m.MARKET_CLOSING_DATE, m.MARKET_CLOSING_AMOUNT
+		from
+		TB_SHQ_MARKET_CLOSING m, TB_SHQ_STORE s, TB_SHQ_EMPLOYEE e
+		where
+		m.STORE_ID =
+		s.STORE_ID
+		and s.EMPLOYEE_ID = e.EMPLOYEE_ID
+	</select>
+
+	<select id="readClosureFilterByDate" resultMap="marketCloseInfo"
+		parameterType="String">
+		select
+		m.MARKET_CLOSING_ID, m.STORE_ID,
+		s.STORE_NAME,
+		s.EMPLOYEE_ID,
+		e.EMPLOYEE_NAME, m.MARKET_CLOSING_DATE,
+		m.MARKET_CLOSING_AMOUNT
+		from
+		TB_SHQ_MARKET_CLOSING m, TB_SHQ_STORE s,
+		TB_SHQ_EMPLOYEE e
+		where m.STORE_ID =
+		s.STORE_ID
+		and s.EMPLOYEE_ID =
+		e.EMPLOYEE_ID
+		and TO_CHAR(m.MARKET_CLOSING_DATE, 'YYYY-MM-DD') =
+		#{requestDate}
+	</select>
+
+</mapper>
