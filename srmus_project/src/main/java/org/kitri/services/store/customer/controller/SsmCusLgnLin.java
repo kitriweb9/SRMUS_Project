@@ -20,7 +20,7 @@ public class SsmCusLgnLin {
 	@Autowired
 	SvcComLgnLin loginSvc;
 
-	@GetMapping()
+	@GetMapping("/")
 	public String welcome() {
 		return "store/customer/SsmCusLgnLin";
 	}

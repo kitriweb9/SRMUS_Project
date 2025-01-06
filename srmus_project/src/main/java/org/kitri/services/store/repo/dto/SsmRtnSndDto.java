@@ -4,6 +4,7 @@ public class SsmRtnSndDto {
 	private String returnId;
 	private String storeId;
 	private String employeeId;
+
 	private String returnRegisterDate;
 	private String goodsId;
 	private int returnQuantity;
@@ -63,6 +64,7 @@ public class SsmRtnSndDto {
 	public void setGoodsId(String goodsId) {
 		this.goodsId = goodsId;
 	}
+
 
 	public int getReturnQuantity() {
 		return returnQuantity;
