@@ -20,7 +20,7 @@
 					${sessionScope.user.employeeName}님 </a>
 			</span>
 
-			<form method="get" action="login.jsp" class="m-0 p-0">
+			<form method="get" action="${pageContext.request.contextPath}/employee/logout" class="m-0 p-0">
 				<input type="hidden" name="act" value="logout">
 				<button type="submit" class="btn btn-sm btn-outline-danger">로그아웃</button>
 			</form>

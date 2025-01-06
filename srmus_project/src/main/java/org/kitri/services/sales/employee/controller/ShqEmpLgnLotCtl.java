@@ -17,7 +17,7 @@ public class ShqEmpLgnLotCtl {
 		this.svcComLgnLot = svcComLgnLot;
 	}
 
-	@GetMapping("/logout")
+	@GetMapping("employee/logout")
 	public String logout(HttpSession session) {
 		if (svcComLgnLot.logout(session)) {
 			return "sales/common/login/login";
