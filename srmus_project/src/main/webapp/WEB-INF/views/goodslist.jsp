@@ -1,17 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>상품 목록</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link rel="stylesheet" href="resources/css/main.css">
+	<jsp:include page="includes/common.jsp" />
 </head>
 <body>
 	<jsp:include page="includes/header.jsp" />
@@ -42,14 +38,20 @@
 									<td>${goods.goodsCategoryName}</td>
 									<td>${goods.factoryId}</td>
 									<td>${goods.goodsName}</td>
-									<td>${goods.goodsCostPrice}원</td>
-									<td>${goods.goodsMarketPrice}원</td>
-									<td>${goods.goodsCustomerPrice}원</td>
+									<td><fmt:formatNumber value="${goods.goodsCostPrice}" pattern="#,###" />원</td>
+									<td><fmt:formatNumber value="${goods.goodsMarketPrice}" pattern="#,###" />원</td>
+									<td><fmt:formatNumber value="${goods.goodsCustomerPrice}" pattern="#,###" />원</td>
 									<td>${goods.goodsUnit}</td>
 									<td>
-										<button class="btn btn-primary"
-											onclick="editProduct('${goods.goodsId}', '${goods.goodsCategoryId}', '${goods.factoryId}', '${goods.goodsName}', '${goods.goodsCostPrice}', '${goods.goodsMarketPrice}', '${goods.goodsCustomerPrice}', '${goods.goodsUnit}')">
-											수정</button>
+										<c:if test="${canEdit}">
+											<button class="btn btn-primary"
+												onclick="editProduct('${goods.goodsId}', '${goods.goodsCategoryId}', '${goods.factoryId}', '${goods.goodsName}', '${goods.goodsCostPrice}', '${goods.goodsMarketPrice}', '${goods.goodsCustomerPrice}', '${goods.goodsUnit}')">
+												수정</button>
+										</c:if>
+										
+										<c:if test="${!canEdit}">
+											<button class="btn btn-primary" disabled>수정</button>
+										</c:if>
 									</td>
 								</tr>
 							</c:forEach>
@@ -84,9 +86,8 @@
 									id="edit-factoryId" />
 							</div>
 							<div class="mb-3">
-								<label for="edit-goodsCostPrice" class="form-label">상품
-									원가</label> <input type="text" class="form-control"
-									name="goodsCostPrice" id="edit-goodsCostPrice" />
+								<label for="edit-goodsCostPrice" class="form-label">상품 원가</label>
+								<input type="text" class="form-control"	name="goodsCostPrice" id="edit-goodsCostPrice" />
 							</div>
 							<div class="mb-3">
 								<label for="edit-goodsMarketPrice" class="form-label">상품
@@ -113,10 +114,6 @@
 		</div>
 	</div>
 	<jsp:include page="includes/footer.jsp" />
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="js/main.js"></script>
 	<script>
     function editProduct(goodsId, goodsCategoryId, factoryId, goodsName, goodsCostPrice, goodsMarketPrice, goodsCustomerPrice, goodsUnit) {
         document.getElementById('edit-goodsId').value = goodsId;

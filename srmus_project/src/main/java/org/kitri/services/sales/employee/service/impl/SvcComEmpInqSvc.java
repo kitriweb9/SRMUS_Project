@@ -3,7 +3,7 @@ package org.kitri.services.sales.employee.service.impl;
 import java.util.List;
 
 import org.kitri.services.sales.employee.dao.ISvcComEmpInqDao;
-import org.kitri.services.sales.employee.dto.SvcComEmpInqDto;
+import org.kitri.services.sales.employee.dto.SvcComEmpDto;
 import org.kitri.services.sales.employee.service.ISvcComEmpInqSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +15,8 @@ public class SvcComEmpInqSvc implements ISvcComEmpInqSvc{
 	private ISvcComEmpInqDao iSvcComEmpInqDao;
 	
 	@Override
-	public List<SvcComEmpInqDto> employeeInquiryByFilters(String employeeId, String positionId, String roleId, String departmentId) {
-		List<SvcComEmpInqDto> inqDtos = null;
+	public List<SvcComEmpDto> employeeInquiryByFilters(String employeeId, String positionId, String roleId, String departmentId) {
+		List<SvcComEmpDto> inqDtos = null;
 		if ((employeeId != null && !employeeId.isEmpty()) && (positionId == null || positionId.isEmpty()) && (roleId == null || roleId.isEmpty()) && (departmentId == null || departmentId.isEmpty())) {
         	inqDtos = iSvcComEmpInqDao.inquiryByEmpNum(employeeId);
         } 
@@ -41,6 +41,7 @@ public class SvcComEmpInqSvc implements ISvcComEmpInqSvc{
 		else if ((employeeId == null || employeeId.isEmpty()) && (positionId != null && !positionId.isEmpty()) && (roleId != null && !roleId.isEmpty()) && (departmentId != null && !departmentId.isEmpty())) {
         	inqDtos = iSvcComEmpInqDao.inquiryByPosRoleDepartId(positionId, roleId, departmentId);
         } else {
+        	System.out.println("ALl");
         	inqDtos = iSvcComEmpInqDao.inquiryOfAllEmp();
         }
         

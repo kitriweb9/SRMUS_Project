@@ -5,10 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>영업관리본부: 매장별 상품 재고 조회</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
+
 <style>
     .inbound-qty {
         max-width: 100px;
@@ -23,10 +20,10 @@
         max-width: 200px;
     }
 </style>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/includes/common.jsp" />
 	<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 	<div class="d-flex">
 		<jsp:include page="/WEB-INF/views/includes/sidebar.jsp" />
@@ -54,7 +51,7 @@
 											<input type="checkbox" class="row-checkbox" />
 										</td>
 										<td>${good.storeId}</td>
-										<td>매장 이름</td>
+										<td>${good.storeName}</td>
 										<td>${good.goodsId}</td>
 										<td>${good.goodsName}</td>
 										<td>

@@ -41,9 +41,15 @@
 									<td>${store.storeAddress}</td>
 									<td>${store.storeContact}</td>
 									<td>
-										<button class="btn btn-primary"
-											onclick="editStore('${store.storeId}', '${store.storeName}', '${store.employeeId}', '${store.storeAddress}', '${store.storeContact}')">
-											수정</button>
+										<c:if test="${canEdit}">
+											<button class="btn btn-primary"
+												onclick="editStore('${store.storeId}', '${store.storeName}', '${store.employeeId}', '${store.storeAddress}', '${store.storeContact}')">
+												수정</button>
+										</c:if>
+										 
+										<c:if test="${!canEdit}">
+											<button class="btn btn-primary" disabled>수정</button>
+										</c:if>
 									</td>
 								</tr>
 							</c:forEach>
