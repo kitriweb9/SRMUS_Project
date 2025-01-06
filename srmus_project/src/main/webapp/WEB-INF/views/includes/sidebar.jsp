@@ -63,6 +63,42 @@
                 <li><a href="${pageContext.request.contextPath}/store/goods/stock" class="sidebar-link">매장별 재고 조회</a></li>
             </ul>
         </li>
+        
+        <li class="sidebar-item"><a href="#"
+			class="sidebar-link d-flex justify-content-between align-items-center"
+			data-bs-toggle="collapse" data-bs-target="#closureMenu"
+			aria-expanded="false" aria-controls="closureMenu"> <span><i
+					class="bi bi-pen me-2"></i> 마감관리</span> <i
+				class="bi bi-chevron-down toggle-icon"></i>
+		</a>
+			<ul class="collapse list-unstyled ms-3" id="closureMenu">
+				<li class="sidebar-item"><a href="#"
+					class="sidebar-link d-flex justify-content-between align-items-center"
+					data-bs-toggle="collapse" data-bs-target="#storeClosureMenu"
+					aria-expanded="false" aria-controls="storeClosureMenu"> <span>매장별
+							마감관리</span> <i class="bi bi-chevron-down toggle-icon"></i>
+				</a>
+					<ul class="collapse list-unstyled ms-3" id="storeClosureMenu">
+						<li><a
+							href="${pageContext.request.contextPath}/marketcloseinfo"
+							class="sidebar-link">마감 목록</a></li>
+						<li><a href="${pageContext.request.contextPath}/marketclose"
+							class="sidebar-link">마감 등록</a></li>
+					</ul></li>
+				<li class="sidebar-item"><a href="#"
+					class="sidebar-link d-flex justify-content-between align-items-center"
+					data-bs-toggle="collapse" data-bs-target="#headquartersClosureMenu"
+					aria-expanded="false" aria-controls="headquartersClosureMenu">
+						<span>본부 마감관리</span> <i class="bi bi-chevron-down toggle-icon"></i>
+				</a>
+					<ul class="collapse list-unstyled ms-3"
+						id="headquartersClosureMenu">
+						<li><a href="${pageContext.request.contextPath}/hqcloseinfo"
+							class="sidebar-link">마감 목록</a></li>
+						<li><a href="${pageContext.request.contextPath}/hqclose"
+							class="sidebar-link">마감 등록</a></li>
+					</ul></li>
+			</ul></li>
     </ul>
 </div>
 
