@@ -6,25 +6,43 @@
     <meta charset="UTF-8">
     <title>상품목록</title>
     <script>
-        // 직원 계정으로 버튼 비활성화 알림 처리
-        function disableSubmitButton() {
-            alert("직원 계정으로는 상품을 구매할 수 없습니다.");
-        }
-        // 체크박스를 하나만 선택하도록 설정
         document.addEventListener('DOMContentLoaded', function () {
-            const checkboxes = document.querySelectorAll("input[type='checkbox'][name='goodsIds']");
-            checkboxes.forEach(function (checkbox) {
+            const checkboxes = document.querySelectorAll("input[type='checkbox'][name='goodsId']");
+            const quantityInputs = document.querySelectorAll("input[type='number'][name='purchaseQuantity']");
+
+            // 체크박스를 하나만 선택하도록 설정
+            checkboxes.forEach((checkbox, index) => {
                 checkbox.addEventListener('change', function () {
                     if (this.checked) {
-                        checkboxes.forEach(function (cb) {
-                            if (cb !== checkbox) {
+                        checkboxes.forEach((cb, idx) => {
+                            if (cb !== this) {
                                 cb.checked = false;
+                                quantityInputs[idx].disabled = true; // 다른 항목의 수량 입력 비활성화
                             }
                         });
+                        quantityInputs[index].disabled = false; // 선택된 항목의 수량 활성화
+                    } else {
+                        quantityInputs[index].disabled = true; // 체크 해제 시 비활성화
                     }
                 });
             });
+
+            // 페이지 로드 시 모든 수량 입력 필드 비활성화
+            quantityInputs.forEach(input => input.disabled = true);
         });
+
+        // 폼 제출 시 체크된 체크박스와 수량만 전송
+        function prepareForm() {
+            const checkboxes = document.querySelectorAll("input[type='checkbox'][name='goodsId']");
+            const quantityInputs = document.querySelectorAll("input[type='number'][name='purchaseQuantity']");
+
+            checkboxes.forEach((checkbox, index) => {
+                if (!checkbox.checked) {
+                    checkbox.removeAttribute('name'); // 체크되지 않은 항목은 전송되지 않음
+                    quantityInputs[index].removeAttribute('name'); // 수량 필드도 제거
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -39,7 +57,7 @@
                 <h1>상품목록</h1>
 
                 <!-- 상품 목록 폼 -->
-                <form method="post" action="${pageContext.request.contextPath}/customer/purregtest">
+                <form method="post" action="${pageContext.request.contextPath}/purregtest" onsubmit="prepareForm()">
                     <table class="table table-bordered align-middle">
                         <thead class="table-light">
                             <tr>
@@ -57,7 +75,7 @@
                             <c:forEach items="${goodsList}" var="goods">
                                 <tr>
                                     <td>
-                                        <input type="checkbox" name="goodsIds" value="${goods.id}" />
+                                        <input type="checkbox" name="goodsId" value="${goods.id}" />
                                     </td>
                                     <td>${goods.id}</td>
                                     <td>${goods.category}</td>
@@ -66,7 +84,7 @@
                                     <td>${goods.unit}</td>
                                     <td>${goods.factory}</td>
                                     <td>
-                                        <input type="number" name="quantities" value="1" min="1" style="width: 50px; text-align: center;" />
+                                        <input type="number" name="purchaseQuantity" value="1" min="1" style="width: 50px; text-align: center;" />
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -77,13 +95,15 @@
                     <c:choose>
                         <c:when test="${not empty sessionScope.user and sessionScope.userType == 'employee'}">
                             <!-- 직원일 경우 -->
-                            <input type="hidden" name="customerId" value="" disabled />
+                            <input type="hidden" name="customerId" value="" />
                             <script>
                                 document.addEventListener('DOMContentLoaded', function() {
                                     const submitButton = document.querySelector("input[type='submit']");
                                     if (submitButton) {
                                         submitButton.disabled = true;
-                                        submitButton.addEventListener('click', disableSubmitButton);
+                                        submitButton.addEventListener('click', function() {
+                                            alert("직원 계정으로는 상품을 구매할 수 없습니다.");
+                                        });
                                     }
                                 });
                             </script>
