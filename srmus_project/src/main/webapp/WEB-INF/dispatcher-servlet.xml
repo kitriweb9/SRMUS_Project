@@ -39,7 +39,7 @@
 
 	<context:component-scan base-package="org.kitri" />
 
-	<context:property-placeholder location="classpath:hq.setting"/>
+	<context:property-placeholder location="classpath:/store.setting"/>
 	<bean 
 		class="org.apache.commons.dbcp2.BasicDataSource" 
 		name="datasource" 

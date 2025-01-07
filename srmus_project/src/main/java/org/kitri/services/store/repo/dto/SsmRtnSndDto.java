@@ -1,20 +1,20 @@
 package org.kitri.services.store.repo.dto;
 
+import java.util.Date;
+
 public class SsmRtnSndDto {
 	private String returnId;
 	private String storeId;
 	private String employeeId;
-
-	private String returnRegisterDate;
-	private String goodsId;
-	private int returnQuantity;
+	private Date returnRegisterDate;
+	private String goodsId; 
+	private Integer returnQuantity;
 	private String returnState;
+	
+	public SsmRtnSndDto() {}
 
-	public SsmRtnSndDto() {
-	}
-
-	public SsmRtnSndDto(String returnId, String storeId, String employeeId, String returnRegisterDate, String goodsId,
-			int returnQuantity, String returnState) {
+	public SsmRtnSndDto(String returnId, String storeId, String employeeId, Date returnRegisterDate, String goodsId,
+			Integer returnQuantity, String returnState) {
 		super();
 		this.returnId = returnId;
 		this.storeId = storeId;
@@ -49,11 +49,11 @@ public class SsmRtnSndDto {
 		this.employeeId = employeeId;
 	}
 
-	public String getReturnRegisterDate() {
+	public Date getReturnRegisterDate() {
 		return returnRegisterDate;
 	}
 
-	public void setReturnRegisterDate(String returnRegisterDate) {
+	public void setReturnRegisterDate(Date returnRegisterDate) {
 		this.returnRegisterDate = returnRegisterDate;
 	}
 
@@ -65,12 +65,11 @@ public class SsmRtnSndDto {
 		this.goodsId = goodsId;
 	}
 
-
-	public int getReturnQuantity() {
+	public Integer getReturnQuantity() {
 		return returnQuantity;
 	}
 
-	public void setReturnQuantity(int returnQuantity) {
+	public void setReturnQuantity(Integer returnQuantity) {
 		this.returnQuantity = returnQuantity;
 	}
 
@@ -82,11 +81,6 @@ public class SsmRtnSndDto {
 		this.returnState = returnState;
 	}
 
-	@Override
-	public String toString() {
-		return "SsmRtnSndDto [returnId=" + returnId + ", storeId=" + storeId + ", employeeId=" + employeeId
-				+ ", returnRegisterDate=" + returnRegisterDate + ", goodsId=" + goodsId + ", returnQuantity="
-				+ returnQuantity + ", returnState=" + returnState + "]";
-	}
-
+	
+	
 }

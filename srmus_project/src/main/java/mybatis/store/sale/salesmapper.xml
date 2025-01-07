@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="salesmapper">
+	
+<select id="getSalesSeqNextVal" resultType="string">
+ SELECT 'SL' || LPAD(TO_CHAR(ssm_sal_seq.NEXTVAL), 3, '0') AS salesId FROM DUAL
+</select>
+<select id="getSalesSeqCurrVal" resultType="string">
+ SELECT 'SL' || LPAD(TO_CHAR(ssm_sal_seq.CURRVAL), 3, '0') AS salesId FROM DUAL
+</select>
+	<insert id="addsales"
+		parameterType="org.kitri.services.store.repo.dto.SsmTxnSalDto">
+	    <selectKey keyProperty="salesId" resultType="string" order="BEFORE">
+	        SELECT 'SL' || LPAD(TO_CHAR(ssm_pur_seq.NEXTVAL), 3, '0') AS salesId FROM DUAL
+	    </selectKey>
+		INSERT INTO tb_ssm_sales(sales_id, purchase_id,
+		store_id,
+		employee_id, sales_amount, sales_date)
+		VALUES
+		(#{salesId},
+		#{purchaseId}, 'ST001',
+		#{employeeId}, #{salesAmount},
+		SYSDATE)
+	</insert>
+	<insert id="addsalesdetail" parameterType="list">
+		 <![CDATA[INSERT ALL]]>
+		<foreach collection="pdlist" item="item" index="idx">
+			INTO tb_ssm_sales_detail (sales_id, goods_id, sales_quantity, sales_status)
+			VALUES (
+			(#{salesId}, #{item.goodsId}, #{item.purchaseQuantity}, 'N')
+		</foreach>
+		 <![CDATA[SELECT 1 FROM DUAL]]>
+	</insert>
+	<select id="getsaleslist"
+		resultType="org.kitri.services.store.repo.dto.SsmTxnSalDto">
+		SELECT sales_id AS salesId, purchase_id AS purchaseId,
+		store_id AS storeId, employee_id AS employeeId, sales_amount AS
+		salesAmount, sales_date AS salesDate
+		FROM tb_ssm_sales
+	</select>
+	<select id="getsaleslistbystore"
+		resultType="org.kitri.services.store.repo.dto.SsmTxnSalDto">
+		SELECT sales_id AS salesId, purchase_id AS purchaseId,
+		store_id AS storeId, employee_id AS employeeId, sales_amount AS
+		salesAmount, sales_date AS salesDate
+		FROM tb_ssm_sales
+		WHERE
+		store_id='ST001'
+	</select>
+	<select id="getsidbypid" parameterType="String"
+		resultType="String">
+		SELECT sales_id
+		FROM tb_ssm_sales
+		WHERE purchase_id =
+		#{purchaseId}
+	</select>
+	<update id="updatesalqty"
+		parameterType="org.kitri.services.store.repo.dto.SsmTxnSalDto">
+		UPDATE tb_ssm_sales_detail
+		SET sales_quantity =
+		#{salesQuantity}
+		WHERE sales_id = #{salesId}
+		AND goods_id = #{goodsId}
+	</update>
+	<update id="updatesalamount"
+		parameterType="org.kitri.services.store.repo.dto.SsmTxnSalDto">
+		UPDATE tb_ssm_sales
+		SET purchase_amount = (
+		SELECT
+		SUM((goods_price*purchase_quantity))
+		FROM (
+		SELECT p.purchase_id,
+		pd.purchase_quantity, gd.goods_price
+		FROM
+		tb_ssm_purchase p,
+		tb_ssm_purchase_detail pd, tb_ssm_goods gd
+		WHERE p.purchase_id =
+		pd.purchase_id
+		AND pd.goods_id = gd.goods_id
+		)
+		WHERE purchase_id =
+		#{purchaseId}
+		)
+		WHERE
+		purchase_id = #{purchaseId}
+	</update>
+	<update id="updatesalstatus" parameterType="String">
+		UPDATE
+		tb_ssm_sales_detail
+		SET sales_status = 'Y'
+		WHERE sales_id =
+		#{value}
+	</update>
+</mapper>
