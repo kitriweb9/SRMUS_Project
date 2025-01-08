@@ -75,10 +75,10 @@ public class SsmCusLgnSvcImpl implements ISsmCusLgnSvc {
 		return converter.byteToHexString(inputByte);
 	}
 
-	@Override
-	public boolean login(HttpSession session, String id, String pwd) {
-		return svcComLgnLin.login(session, id, pwd);
-	}
+	/*
+	 * @Override public boolean login(HttpSession session, String id, String pwd) {
+	 * return svcComLgnLin.login(session, id, pwd); }
+	 */
 
 	@Override
 	public boolean logout(HttpSession session, String id) {
