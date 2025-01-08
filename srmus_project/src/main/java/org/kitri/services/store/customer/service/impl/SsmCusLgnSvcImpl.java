@@ -76,7 +76,6 @@ public class SsmCusLgnSvcImpl implements ISsmCusLgnSvc {
 		return converter.byteToHexString(inputByte);
 	}
 
-
 	@Override
 	public boolean logout(HttpSession session, String id) {
 		session.invalidate();
