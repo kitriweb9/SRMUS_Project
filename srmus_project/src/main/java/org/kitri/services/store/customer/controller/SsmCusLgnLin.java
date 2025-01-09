@@ -46,7 +46,8 @@ public class SsmCusLgnLin {
 	 * @since 2025-01-03
 	 */
 	@PostMapping("/customer/login")
-	public String login(HttpSession session, @RequestParam String id, @RequestParam String pwd) {
+	public String login(HttpSession session, @RequestParam String id, @RequestParam String pwd,
+			@RequestParam String loginType) {
 		if (id.isEmpty() || pwd.isEmpty()) {
 			return "store/customer/SsmCusLgnLin";
 		}
@@ -54,8 +55,9 @@ public class SsmCusLgnLin {
 
 		pwd = sha.sha256(pwd);
 
-		if (loginSvc.login(session, id, pwd)) {
-			return "redirect: goods";
+		System.out.println(loginType);
+		if (loginSvc.login(session, id, pwd, loginType)) {
+			return "redirect:/customer/goods";
 		}
 
 		return "store/customer/SsmCusLgnLin";

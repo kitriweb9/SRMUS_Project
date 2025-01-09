@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ShqEmpLgnLinCtl {
@@ -28,8 +27,8 @@ public class ShqEmpLgnLinCtl {
 
 	@PostMapping("/employee/login")
 	public String login(Model model, @ModelAttribute SvcComEmpDto user, HttpSession session) {
-		
-		if (svcComLgnLin.login(session, user.getEmployeeId(), user.getEmployeePassword())) {
+
+		if (svcComLgnLin.login(session, user.getEmployeeId(), user.getEmployeePassword(), "employee")) {
 			return "redirect:/inbound";
 		} else {
 			model.addAttribute("message", "아이디 또는 비밀번호가 틀립니다.");
