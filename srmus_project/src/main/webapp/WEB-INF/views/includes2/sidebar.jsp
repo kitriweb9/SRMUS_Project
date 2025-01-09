@@ -31,8 +31,8 @@
         </c:if>
         
         <!-- employee 권한일 때만 표시 -->
-        <c:if test="${sessionScope.userType == 'employee'}">
-        	<%-- <li class="sidebar-item">
+        <c:if test="${sessionScope.employee.employeeName != null}">
+        	<li class="sidebar-item">
                 <a href="#" class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#sales" aria-expanded="false" aria-controls="sales">
                     <span><i class="bi bi-bag-check-fill me-2"></i> 판매관리</span>
                     <i class="bi bi-chevron-down toggle-icon"></i>
@@ -58,7 +58,7 @@
                     <li><a href="${pageContext.request.contextPath}/rtndel" class="sidebar-link">반품 삭제</a></li>
                     <li><a href="${pageContext.request.contextPath}/salapr" class="sidebar-link">반품 전송</a></li>
                 </ul>
-            </li> --%>
+            </li> 
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#order" aria-expanded="false" aria-controls="order">
                     <span><i class="bi bi-file-earmark-text me-2"></i> 발주관리</span>
