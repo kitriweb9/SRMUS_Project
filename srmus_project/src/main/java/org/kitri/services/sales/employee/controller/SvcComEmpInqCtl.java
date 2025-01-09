@@ -43,16 +43,6 @@ public class SvcComEmpInqCtl {
 			@RequestParam(required = false) String positionId, @RequestParam(required = false) String roleId,
 			@RequestParam(required = false) String departmentId, Model model) {
 
-		SvcComEmpLgnDto sessionEmployee = (SvcComEmpLgnDto) sessionManager.getValue(session, "user");
-
-		if (sessionEmployee == null) {
-			return "redirect:/employee/login";
-		}
-
-		if (!permissionCheck("ShqEmpEmiChk", sessionEmployee)) {
-			return "includes/PermissionError";
-		}
-
 		List<SvcComEmpPosDto> posDtos = iPrdSvc.positionInquiry();
 		List<SvcComEmpRolDto> rolDtos = iPrdSvc.roleInquiry();
 		List<SvcComEmpDepDto> depDtos = iPrdSvc.departmentInquiry();
@@ -65,15 +55,5 @@ public class SvcComEmpInqCtl {
 
 		model.addAttribute("employeeList", inqDtos);
 		return "/sales/employee/employeelist";
-	}
-
-	private boolean permissionCheck(String serviceId, SvcComEmpLgnDto sessionEmployee) {
-		SvcComEmpDto svcComEmpDto = iInqSvc.employeeInquiryByFilters(sessionEmployee.getEmployeeId(), null, null, null)
-				.get(0);
-		if (!auth.hasAuthority(svcComEmpDto, serviceId)) {
-			// 권한없음
-			return false;
-		}
-		return true;
 	}
 }
