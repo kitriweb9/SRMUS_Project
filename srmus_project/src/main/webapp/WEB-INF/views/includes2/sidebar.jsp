@@ -17,25 +17,21 @@
                 <li><a href="${pageContext.request.contextPath}/customer/goods" class="sidebar-link">상품 목록</a></li>
             </ul>
         </li>
-        <li class="sidebar-item">
-            <a href="#" class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#purchase" aria-expanded="false" aria-controls="purchase">
-                <span><i class="bi bi-cart-check me-2"></i> 구매관리</span>
-                <i class="bi bi-chevron-down toggle-icon"></i>
-            </a>
-            <ul class="collapse list-unstyled ms-3" id="purchase">
-                <li><a href="${pageContext.request.contextPath}/list" class="sidebar-link">구매내역 조회</a></li>
-                <li><a href="${pageContext.request.contextPath}/checkstatus" class="sidebar-link">결제</a></li>
-                <li><a href="${pageContext.request.contextPath}/modi" class="sidebar-link">구매내역 수정</a></li>
-                
-            </ul>
-        </li>
+        <!-- 고객일 때만 표시 -->
+        <c:if test="${sessionScope.userType == null}">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#purchase" aria-expanded="false" aria-controls="purchase">
+                    <span><i class="bi bi-cart-check me-2"></i> 구매관리</span>
+                    <i class="bi bi-chevron-down toggle-icon"></i>
+                </a>
+                <ul class="collapse list-unstyled ms-3" id="purchase">
+                    <li><a href="${pageContext.request.contextPath}/list" class="sidebar-link">장바구니 조회</a></li>
+                </ul>
+            </li>
+        </c:if>
         
         <!-- employee 권한일 때만 표시 -->
-<<<<<<< Updated upstream
-        <c:if test="${sessionScope.userType == 'employee'}">
-=======
         <c:if test="${sessionScope.employee.employeeName != null}">
->>>>>>> Stashed changes
         	<li class="sidebar-item">
                 <a href="#" class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#sales" aria-expanded="false" aria-controls="sales">
                     <span><i class="bi bi-bag-check-fill me-2"></i> 판매관리</span>
@@ -62,11 +58,7 @@
                     <li><a href="${pageContext.request.contextPath}/rtndel" class="sidebar-link">반품 삭제</a></li>
                     <li><a href="${pageContext.request.contextPath}/salapr" class="sidebar-link">반품 전송</a></li>
                 </ul>
-<<<<<<< Updated upstream
-            </li>
-=======
             </li> 
->>>>>>> Stashed changes
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#order" aria-expanded="false" aria-controls="order">
                     <span><i class="bi bi-file-earmark-text me-2"></i> 발주관리</span>

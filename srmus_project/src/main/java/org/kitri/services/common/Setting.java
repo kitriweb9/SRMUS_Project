@@ -1,12 +1,13 @@
 package org.kitri.services.common;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class Setting {
-	private static final String SETTING_PATH = "store.setting";
+	private static final String SETTING_PATH = "D:/SRMUS/store.setting";
 	private static final Properties STORE_SETTING;
 	
 	static {
@@ -15,7 +16,7 @@ public class Setting {
 	
 	private static Properties getSetting() {
 		Properties setting = new Properties();
-		try (InputStream in = Setting.class.getClassLoader().getResourceAsStream(SETTING_PATH)) {
+		try (FileInputStream in = new FileInputStream(new File(SETTING_PATH))) {
 			setting.load(in);
 		} catch (IOException e) {
 			printMsgNotFoundSetting();
