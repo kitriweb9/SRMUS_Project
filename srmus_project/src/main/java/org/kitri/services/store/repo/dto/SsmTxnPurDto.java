@@ -2,7 +2,7 @@ package org.kitri.services.store.repo.dto;
 
 import java.util.Date;
 
-public class SsmTxnPurRegDto {
+public class SsmTxnPurDto {
 	private String purchaseId;
 	private String customerId;
 	private String storeId;
@@ -14,9 +14,9 @@ public class SsmTxnPurRegDto {
 	private String goodsName;
 	private int goodsPrice;
 	
-	public SsmTxnPurRegDto() {}
+	public SsmTxnPurDto() {}
 
-	public SsmTxnPurRegDto(String purchaseId, String customerId, String storeId, int purchaseAmount, Date purchaseDate,
+	public SsmTxnPurDto(String purchaseId, String customerId, String storeId, int purchaseAmount, Date purchaseDate,
 			String goodsId, int purchaseQuantity, String purchasePaymentStatus, String goodsName, int goodsPrice) {
 		super();
 		this.purchaseId = purchaseId;
@@ -111,10 +111,5 @@ public class SsmTxnPurRegDto {
 		this.goodsPrice = goodsPrice;
 	}
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return getPurchaseId()+"/"+getCustomerId()+"/"+getStoreId()+"/"+getPurchaseAmount()+"/"+getPurchaseDate()
-				+"/"+getGoodsId()+"/"+getPurchaseQuantity()+"/"+getPurchasePaymentStatus()+"/"+getGoodsName()+"/"+getGoodsPrice();
-	}
+
 }
