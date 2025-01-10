@@ -57,7 +57,7 @@
                 <h1>상품목록</h1>
 
                 <!-- 상품 목록 폼 -->
-                <form method="post" action="${pageContext.request.contextPath}/purregtest" onsubmit="prepareForm()">
+                <form method="post" action="${pageContext.request.contextPath}/SsmTxnPurReg" onsubmit="prepareForm()">
                     <table class="table table-bordered align-middle">
                         <thead class="table-light">
                             <tr>
@@ -76,6 +76,7 @@
                                 <tr>
                                     <td>
                                         <input type="checkbox" name="goodsId" value="${goods.id}" />
+                                        <input type="hidden" name="goodsPrice" value="${goods.price}"/>
                                     </td>
                                     <td>${goods.id}</td>
                                     <td>${goods.category}</td>

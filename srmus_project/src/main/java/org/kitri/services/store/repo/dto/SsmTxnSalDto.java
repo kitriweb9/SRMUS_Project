@@ -7,7 +7,7 @@ public class SsmTxnSalDto {
 	private String purchaseId;
 	private String storeId;
 	private String employeeId;
-	private int salesAmount;
+	private Long salesAmount;
 	private Date salesDate;
 	private String goodsId;
 	private int salesQuantity;
@@ -15,7 +15,7 @@ public class SsmTxnSalDto {
 	
 	public SsmTxnSalDto() {}
 
-	public SsmTxnSalDto(String salesId, String purchaseId, String storeId, String employeeId, int salesAmount,
+	public SsmTxnSalDto(String salesId, String purchaseId, String storeId, String employeeId, Long salesAmount,
 			Date salesDate, String goodsId, int salesQuantity, String salesStatus) {
 		super();
 		this.salesId = salesId;
@@ -61,11 +61,11 @@ public class SsmTxnSalDto {
 		this.employeeId = employeeId;
 	}
 
-	public int getSalesAmount() {
+	public Long getSalesAmount() {
 		return salesAmount;
 	}
 
-	public void setSalesAmount(int salesAmount) {
+	public void setSalesAmount(Long salesAmount) {
 		this.salesAmount = salesAmount;
 	}
 
