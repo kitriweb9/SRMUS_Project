@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.kitri.services.common.login.session.SvcComLgnSsn;
 import org.kitri.services.common.pageauth.SvcComPgcAcp;
+import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.sales.employee.dto.SvcComEmpDto;
 import org.kitri.services.sales.employee.service.ISvcComEmpInqSvc;
 import org.kitri.services.sales.employee.service.ISvcComEmpPRDSvc;
@@ -30,24 +31,9 @@ public class SvcComEmpRegCtl {
 	@Autowired
 	private SvcComPgcAcp auth;
 
-	@Autowired
-	private SvcComLgnSsn sessionManager;
-
-	@Autowired
-	private HttpSession session;
-
 	@GetMapping("/employee/add")
+	@RequiresAuthority("SvcComEmpReg")
 	public String showSignUpForm(Model model) {
-
-		SvcComEmpLgnDto sessionEmployee = (SvcComEmpLgnDto) sessionManager.getValue(session, "user");
-
-		if (sessionEmployee == null) {
-			return "redirect:/employee/login";
-		}
-
-		if (!permissionCheck("ShqEmpEmiReg", sessionEmployee)) {
-			return "includes/PermissionError";
-		}
 		setInputValue(model);
 		return "/sales/employee/employeejoin";
 	}

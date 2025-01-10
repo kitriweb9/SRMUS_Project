@@ -2,6 +2,7 @@ package org.kitri.services.sales.employee.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.sales.employee.dto.SvcComEmpChaDto;
 import org.kitri.services.sales.employee.service.ISvcComEmpChaSvc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class SvcComEmpChaCtl {
 	private ISvcComEmpChaSvc iChaSvc;
 	
 	@RequestMapping("/changepage")
+	@RequiresAuthority("SvcComEmpCha")
 	public String change() {
 		return "/sales/employee/employeepasswordchange";
 	}

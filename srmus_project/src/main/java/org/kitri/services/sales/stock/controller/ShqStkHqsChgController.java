@@ -1,5 +1,6 @@
 package org.kitri.services.sales.stock.controller;
 
+import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.sales.repo.dto.ShqStkHqsDto;
 import org.kitri.services.sales.stock.service.ShqStkHqsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class ShqStkHqsChgController {
 	
 	@PostMapping("/goods/stock/change")
 	@ResponseBody
+	@RequiresAuthority(basicServiceId = "ShqStkHqsChg")
 	public String changeGoodsStock(@ModelAttribute ShqStkHqsDto dto) {
 		svc.changeStock(dto);
 		return "true";
