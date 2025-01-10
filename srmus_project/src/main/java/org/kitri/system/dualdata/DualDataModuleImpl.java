@@ -1,6 +1,8 @@
 package org.kitri.system.dualdata;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +15,13 @@ public class DualDataModuleImpl implements IDualDataModule {
     private Object dto;
     private final DtoParser dtoParser;
     private final DtoModifier dtoModifier;
+    private final SqlSessionTemplate sqlSessionTemplate;
 
     @Autowired
-    public DualDataModuleImpl(DtoParser dtoParser, DtoModifier dtoModifier) {
+    public DualDataModuleImpl(DtoParser dtoParser, DtoModifier dtoModifier, @Qualifier("en_sqlSessionTemplate") SqlSessionTemplate sqlSessionTemplate) {
         this.dtoParser = dtoParser;
         this.dtoModifier = dtoModifier;
+        this.sqlSessionTemplate = sqlSessionTemplate;
     }
 
     @Override
@@ -38,7 +42,12 @@ public class DualDataModuleImpl implements IDualDataModule {
         Map<String, String> encryptedFields = dtoModifier.modify(parsedFields);
         return new EncryptedDto(encryptedFields);
     }
-
+    
+    @Override
+    public SqlSessionTemplate getSqlSessionTemplate() {
+    	return sqlSessionTemplate;
+    }
+    
     @Override
     public void close() {
         this.dto = null;
