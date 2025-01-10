@@ -1,5 +1,6 @@
 package org.kitri.services.sales.close.controller;
 
+import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.sales.close.service.ShqFinMkfChkSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ public class ShqFinMkfChkCtl {
 	}
 
 	@GetMapping("/marketcloseinfo")
+	@RequiresAuthority("ShqFinMkfChk")
 	public String marketCloseInfoFilterByDate(Model model, @RequestParam(required = false) String marketClosingDate) {
 		// marketClosingDate가 null이거나 빈값("")일 때
 		if (marketClosingDate == null || marketClosingDate.trim().isEmpty()) {
