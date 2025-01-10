@@ -1,19 +1,14 @@
 package org.kitri.services.sales.employee.controller;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
-import org.kitri.services.common.login.session.SvcComLgnSsn;
-import org.kitri.services.common.pageauth.SvcComPgcAcp;
+import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.sales.employee.dto.SvcComEmpDepDto;
 import org.kitri.services.sales.employee.dto.SvcComEmpDto;
 import org.kitri.services.sales.employee.dto.SvcComEmpPosDto;
 import org.kitri.services.sales.employee.dto.SvcComEmpRolDto;
 import org.kitri.services.sales.employee.service.ISvcComEmpInqSvc;
 import org.kitri.services.sales.employee.service.ISvcComEmpPRDSvc;
-import org.kitri.services.sales.repo.dto.SvcComEmpLgnDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,16 +24,8 @@ public class SvcComEmpInqCtl {
 	@Autowired
 	private ISvcComEmpInqSvc iInqSvc;
 
-	@Autowired
-	private SvcComPgcAcp auth;
-
-	@Autowired
-	private SvcComLgnSsn sessionManager;
-
-	@Autowired
-	private HttpSession session;
-
 	@RequestMapping("/employee")
+	@RequiresAuthority("SvcComEmpInq")
 	public String employeeInquiry(@RequestParam(required = false) String employeeId,
 			@RequestParam(required = false) String positionId, @RequestParam(required = false) String roleId,
 			@RequestParam(required = false) String departmentId, Model model) {

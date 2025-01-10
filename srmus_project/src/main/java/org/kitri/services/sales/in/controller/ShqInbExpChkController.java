@@ -1,5 +1,6 @@
 package org.kitri.services.sales.in.controller;
 
+import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.sales.in.service.ShqInbExpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ public class ShqInbExpChkController {
 	}
 	
 	@GetMapping
+	@RequiresAuthority(basicServiceId = "ShqInbExpChk")
 	public String getIncomingStocks(Model model){
 		model.addAttribute("goods", storeSvc.findAll());
 		return "sales/in/ShqInbExpChk";

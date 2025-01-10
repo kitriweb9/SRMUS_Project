@@ -26,38 +26,47 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 	private SvcComPgcAcp auth;
 
 	public AuthorityInterceptor() {
-		System.out.println("Create Instance");
+		System.out.println("AuthorityInterceptor instance created.");
 	}
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("작동 시작");
 		if (!(handler instanceof HandlerMethod)) {
-			System.out.println("핸들러");
-			return true;
+			return true; // 다른 핸들러는 체크하지 않음
 		}
-
-		System.out.println("AuthorityInterceptor: 요청 처리 중");
 
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		RequiresAuthority requiresAuthority = handlerMethod.getMethodAnnotation(RequiresAuthority.class);
 
 		if (requiresAuthority == null) {
-			return true;
+			return true; // 어노테이션이 없으면 접근 권한 체크 불필요
 		}
 
 		SvcComEmpLgnDto sessionEmployee = (SvcComEmpLgnDto) session.getAttribute("employee");
-		System.out.println(sessionEmployee);
-		System.out.println("세션 문제 아님");
 		if (sessionEmployee == null) {
-			response.sendRedirect("/employee/login");
+			System.out.println("Session is null. Redirecting to login page.");
+			response.sendRedirect(request.getContextPath() + "/employee/login");
 			return false;
 		}
 
-		if (!permissionCheck(requiresAuthority.value(), sessionEmployee)) {
-			response.sendRedirect("/includes/PermissionError");
+		// 권한 체크 (value와 basicServiceId 동시에 검사)
+		if (requiresAuthority.value() != null && !permissionCheck(requiresAuthority.value(), sessionEmployee)) {
+			System.out.println("Permission denied for value: " + requiresAuthority.value());
+			response.sendRedirect(request.getContextPath() + "/permissionError");
 			return false;
+		}
+
+		if (requiresAuthority.basicServiceId() != null
+				&& !permissionCheck(requiresAuthority.basicServiceId(), sessionEmployee)) {
+			System.out.println("Permission denied for basicServiceId: " + requiresAuthority.basicServiceId());
+			response.sendRedirect(request.getContextPath() + "/permissionError");
+			return false;
+		}
+
+		// editServiceId에 대한 권한 체크
+		if (requiresAuthority.editServiceId() != null) {
+			request.setAttribute("canEdit", permissionCheck(requiresAuthority.editServiceId(), sessionEmployee));
 		}
 
 		return true;
@@ -66,21 +75,24 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		// TODO Auto-generated method stub
-
+		// 현재는 구현 필요 없음
 	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		// TODO Auto-generated method stub
-
+		// 현재는 구현 필요 없음
 	}
 
 	private boolean permissionCheck(String serviceId, SvcComEmpLgnDto sessionEmployee) {
+		if (serviceId == null || serviceId.isEmpty()) {
+			return true; // value가 빈 문자열일 경우 권한 체크를 생략
+		}
+
 		SvcComEmpDto svcComEmpDto = iInqSvc.employeeInquiryByFilters(sessionEmployee.getEmployeeId(), null, null, null)
 				.get(0);
-		return auth.hasAuthority(svcComEmpDto, serviceId);
+		boolean hasAuthority = auth.hasAuthority(svcComEmpDto, serviceId);
+		System.out.println("Permission check for serviceId: " + serviceId + " -> " + hasAuthority);
+		return hasAuthority;
 	}
-
 }

@@ -8,5 +8,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RequiresAuthority {
-	String value();
+	String basicServiceId() default "";
+	String editServiceId() default "";
+	String value()  default "";
 }
