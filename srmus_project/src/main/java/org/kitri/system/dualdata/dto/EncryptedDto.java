@@ -1,4 +1,4 @@
-package org.kitri.system.dualdata;
+package org.kitri.system.dualdata.dto;
 
 import java.util.Map;
 

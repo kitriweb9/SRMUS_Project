@@ -1,4 +1,4 @@
-package org.kitri.system.dualdata;
+package org.kitri.system.dualdata.dto.util;
 
 import org.kitri.system.encryption.EncAesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
