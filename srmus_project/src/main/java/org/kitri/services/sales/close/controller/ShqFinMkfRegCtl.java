@@ -1,5 +1,6 @@
 package org.kitri.services.sales.close.controller;
 
+import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.sales.close.service.ShqFinMkfRegSvc;
 import org.kitri.services.sales.repo.dto.ShqFinMkfRegDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class ShqFinMkfRegCtl {
 	}
 
 	@GetMapping("/marketclose")
+	@RequiresAuthority("ShqFinMkfReg")
 	public String marketClosePage() {
 		return "marketclose";
 	}

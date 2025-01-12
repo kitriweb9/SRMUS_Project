@@ -12,13 +12,15 @@
 				href="${pageContext.request.contextPath}/userInfo"
 				class="text-decoration-none fw-bold"> 환영합니다,
 					<c:choose>
-						<c:when test="${sessionScope.userType == 'employee'}">
-							${sessionScope.user.employeeName}님
-						</c:when>
-						<c:otherwise>
-							${sessionScope.user.name}님
-						</c:otherwise>
-					</c:choose>
+                        <c:when test="${not empty sessionScope.employee.employeeName}">
+                            ${sessionScope.employee.employeeName}님
+                        </c:when>
+                        <c:otherwise>
+                            <c:if test="${not empty sessionScope.user.name}">
+                                ${sessionScope.user.name}님
+                            </c:if>
+                        </c:otherwise>
+                    </c:choose>
 				</a>
 			</span>
 

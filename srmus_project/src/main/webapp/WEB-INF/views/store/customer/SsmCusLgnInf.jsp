@@ -31,27 +31,27 @@
 							<tbody>
 								<tr>
 									<td>고객 아이디</td>
-									<td>${info.id}</td>
+									<td>${sessionScope.user.id}</td>
 								</tr>
 								<tr>
 									<td>고객 이름</td>
-									<td>${info.name}</td>
+									<td>${sessionScope.user.name}</td>
 								</tr>
 								<tr>
 									<td>고객 주소</td>
-									<td>${info.address}</td>
+									<td>${sessionScope.user.address}</td>
 								</tr>
 								<tr>
 									<td>고객 연락처</td>
-									<td>${info.contact}</td>
+									<td>${sessionScope.user.contact}</td>
 								</tr>
 								<tr>
 									<td>고객 이메일</td>
-									<td>${info.email}</td>
+									<td>${sessionScope.user.email}</td>
 								</tr>
 								<tr>
 									<td>고객 등급</td>
-									<td>${info.grade}</td>
+									<td>${sessionScope.user.grade}</td>
 								</tr>
 							</tbody>
 						</table>

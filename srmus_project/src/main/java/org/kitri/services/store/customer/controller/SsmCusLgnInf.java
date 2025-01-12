@@ -33,21 +33,21 @@ public class SsmCusLgnInf {
 	 */
 	@GetMapping("/userInfo")
 	public String userInfo(Model model, HttpSession session) {
-		if (svcComLgnSsn.isLogin(session)) {
-			String userType = (String) session.getAttribute("userType");
-			Object obj = session.getAttribute("user");
-			if ("employee".equals(userType)) {
-				SvcComEmpLgnDto d = (SvcComEmpLgnDto) obj;
-				model.addAttribute("info", d);
-
-				return "store/customer/SsmCusLgnEInf";
-			} else {
-				SsmCusLgnDto d = (SsmCusLgnDto) obj;
-				model.addAttribute("info", d);
-
-				return "store/customer/SsmCusLgnInf";
-			}
-		}
-		return "store/customer/SsmCusLgnLin";
+//		if (svcComLgnSsn.isLogin(session)) {
+//			String userType = (String) session.getAttribute("userType");
+//			Object obj = session.getAttribute("user");
+//			if ("employee".equals(userType)) {
+//				SvcComEmpLgnDto d = (SvcComEmpLgnDto) obj;
+//				model.addAttribute("info", d);
+//
+//				return "store/customer/SsmCusLgnEInf";
+//			} else {
+//				SsmCusLgnDto d = (SsmCusLgnDto) obj;
+//				model.addAttribute("info", d);
+//
+//				return "store/customer/SsmCusLgnInf";
+//			}
+//		}
+		return "store/customer/SsmCusLgnInf";
 	}
 }

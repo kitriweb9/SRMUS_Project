@@ -15,60 +15,73 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
-	<mvc:annotation-driven />
-	
 	<!-- @ResponseBody로 String 처리할때 한글처리 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
-			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+			<bean
+				class="org.springframework.http.converter.StringHttpMessageConverter">
 				<property name="supportedMediaTypes">
 					<list>
 						<value>text/html;charset=UTF-8</value>
 					</list>
 				</property>
-				
+
 			</bean>
 		</mvc:message-converters>
-	</mvc:annotation-driven>
-	
-	<aop:aspectj-autoproxy />
-	
-	<tx:annotation-driven/>
 
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+	</mvc:annotation-driven>
+
+	<mvc:interceptors>
+		<!-- AuthorityInterceptor 등록 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" /> <!-- 모든 요청 경로에 대해 인터셉터 적용 -->
+			<mvc:exclude-mapping path="/employee/login" /> <!-- /employee/login 제외 -->
+			<bean
+				class="org.kitri.services.common.pageauth.intercepter.AuthorityInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<aop:aspectj-autoproxy />
+
+	<tx:annotation-driven />
+
+	<mvc:resources mapping="/resources/**"
+		location="/resources/" />
+
+
+
 
 	<context:component-scan base-package="org.kitri" />
 
-	<context:property-placeholder location="classpath:/store.setting"/>
-	<bean 
-		class="org.apache.commons.dbcp2.BasicDataSource" 
-		name="datasource" 
-		p:driverClassName="oracle.jdbc.OracleDriver" 
-		p:url="${DB_URL}" 
-		p:username="${DB_USER_NAME}"
+	<context:annotation-config />
+
+	<context:property-placeholder
+		location="classpath:/store.setting" />
+
+	<bean class="org.apache.commons.dbcp2.BasicDataSource"
+		name="datasource" p:driverClassName="oracle.jdbc.OracleDriver"
+		p:url="${DB_URL}" p:username="${DB_USER_NAME}"
 		p:password="${DB_USER_PASSWORD}" />
-		
-	<bean 
-		class="org.mybatis.spring.SqlSessionFactoryBean" 
-		name="sqlSessionFactoryBean" 
-		p:dataSource-ref="datasource"
-		p:mapperLocations="classpath:/mybatis/**/*.xml" 
-		p:typeAliasesPackage="org.kitri.system.dualdata" />
-	
-	<bean 
-		class="org.mybatis.spring.SqlSessionTemplate" 
-		name="sqlSessionTemplate" 
+  
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
+		name="sqlSessionFactoryBean" p:dataSource-ref="datasource"
+		p:mapperLocations="classpath:/mybatis/**/*.xml"
+		p:typeAliasesPackage="org.kitri.services.repo.dto" />
+
+	<bean class="org.mybatis.spring.SqlSessionTemplate"
+		name="sqlSessionTemplate"
 		c:sqlSessionFactory-ref="sqlSessionFactoryBean" />
-		
-	<bean id="transactionManager" 
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager" 
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="datasource" />
 
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
-	
-	<bean name="viewresolver" 
-	class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
-	p:prefix="/WEB-INF/views/" p:suffix=".jsp">
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+	<bean name="viewresolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/views/" p:suffix=".jsp">
 	</bean>
 
 </beans>
