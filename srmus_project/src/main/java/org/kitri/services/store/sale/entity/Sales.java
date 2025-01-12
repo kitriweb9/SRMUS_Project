@@ -7,12 +7,12 @@ public class Sales {
 	private String purchaseId;
 	private String storeId;
 	private String employeeId;
-	private int salesAmount;
+	private Long salesAmount;
 	private Date salesDate;
 	
 	public Sales() {}
 
-	public Sales(String salesId, String purchaseId, String storeId, String employeeId, int salesAmount,
+	public Sales(String salesId, String purchaseId, String storeId, String employeeId, Long salesAmount,
 			Date salesDate) {
 		super();
 		this.salesId = salesId;
@@ -55,11 +55,11 @@ public class Sales {
 		this.employeeId = employeeId;
 	}
 
-	public int getSalesAmount() {
+	public Long getSalesAmount() {
 		return salesAmount;
 	}
 
-	public void setSalesAmount(int salesAmount) {
+	public void setSalesAmount(Long salesAmount) {
 		this.salesAmount = salesAmount;
 	}
 

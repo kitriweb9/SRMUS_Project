@@ -1,9 +1,8 @@
 package org.kitri.services.store.purchase.service;
 
-import org.kitri.services.store.repo.dto.SsmTxnPurRegDto;
+import org.kitri.services.store.repo.dto.SsmTxnPurDto;
 
 public interface ISsmTxnPurRegSvc {
-	public void registPurchase(SsmTxnPurRegDto pdto);
-	public void registPurchaseDetail(SsmTxnPurRegDto pdto);
+	public void addPurchaseAndDetail(SsmTxnPurDto pdto);
 	
 }
