@@ -6,10 +6,23 @@
 <head>
 <meta charset="UTF-8">
 <title>판매 승인</title>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const checkboxes = document.querySelectorAll("input[type='checkbox'][name='salesId']");    
+        const checkboxes = document.querySelectorAll("input[type='checkbox'][name='salesId']");
+
+        // 체크박스를 하나만 선택하도록 설정
+           checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                 
+                    checkboxes.forEach((cb) => {
+                        if (cb !== this) {
+                            cb.checked = false;
+                        }
+                    });
+                }
+            });
+        });
     });
 
     // 폼 제출 시 체크된 체크박스만 전송
@@ -42,9 +55,7 @@
 					</c:when>
 					<c:otherwise>
 					<!-- salList 값이 있을때  -->
-						<form method="post"
-							action="${pageContext.request.contextPath}/SsmTxnSalApr"
-							onsubmit="prepareForm()">
+						<form method="post" action="${pageContext.request.contextPath}/SsmTxnSalApr"  onsubmit="prepareForm()">
 							<table class="table table-bordered align-middle">
 								<thead class="table-light">
 									<tr>
@@ -63,8 +74,8 @@
 												value="${aprsal.salesId}" /></td>
 											<td>${aprsal.salesId}</td>
 											<td>${aprsal.purchaseId}</td>
-											<td>${aprsal.goodsId}</td>
-											<td>${aprsal.salesQuantity}</td>
+											<td>${aprsal.goodsId}<input type="hidden" name="goodsId_${aprsal.salesId}" value="${aprsal.goodsId}" /></td>
+											<td>${aprsal.salesQuantity}<input type="hidden" name="salesQuantity_${aprsal.salesId}" value="${aprsal.salesQuantity}" /></td>
 											<td>${aprsal.salesAmount}</td>
 										</tr>
 									</c:forEach>

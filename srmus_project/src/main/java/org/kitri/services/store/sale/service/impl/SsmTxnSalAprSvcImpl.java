@@ -23,16 +23,11 @@ public class SsmTxnSalAprSvcImpl implements ISsmTxnSalAprSvc {
 	private ISsmStkMgtChkSvc stkChkSvc;
 
 	@Override
-	public void updateSalStatus(List<SsmTxnSalAprDto> salAprDtoList, String employeeId) {
-		Long datetime;
-		Timestamp timestamp;
+	public void updateSalStatus(SsmTxnSalDto salDto) {
+		Long datetime = System.currentTimeMillis();
+		Timestamp timestamp = new Timestamp(datetime);
 		
-		for(SsmTxnSalAprDto salAprDto : salAprDtoList) {
-		datetime = System.currentTimeMillis();
-		timestamp = new Timestamp(datetime);
-		SsmTxnSalDto salDto = new SsmTxnSalDto();
-		salDto.setSalesId(salAprDto.getSalesId());
-		salDto.setEmployeeId(employeeId);
+		salDto.setEmployeeId("EMP1234");
 		salDto.setSalesStatus("Y");
 		salDto.setSalesDate(timestamp);
 		salDao.updateSalStatus(salDto);
@@ -46,5 +41,27 @@ public class SsmTxnSalAprSvcImpl implements ISsmTxnSalAprSvc {
 		}
 	}
 	
-
-}
+//	@Override
+//	public void updateSalStatus(List<SsmTxnSalAprDto> salAprDtoList, String employeeId) {
+//		Long datetime;
+//		Timestamp timestamp;
+//		
+//		for(SsmTxnSalAprDto salAprDto : salAprDtoList) {
+//		datetime = System.currentTimeMillis();
+//		timestamp = new Timestamp(datetime);
+//		SsmTxnSalDto salDto = new SsmTxnSalDto();
+//		salDto.setSalesId(salAprDto.getSalesId());
+//		salDto.setEmployeeId(employeeId);
+//		salDto.setSalesStatus("Y");
+//		salDto.setSalesDate(timestamp);
+//		salDao.updateSalStatus(salDto);
+//
+//		SsmStkMgtChgDto stockDto = new SsmStkMgtChgDto();
+//		stockDto.setGoodsId(salDto.getGoodsId());
+//		stockDto.setStoreId("ST001");
+//		stockDto.setStockQuantity((stkChkSvc.getAllStocks().get(0).getStockQuantity())-salDto.getSalesQuantity());
+//		stkChgSvc.updateStock(stockDto);
+//		
+//		}System.out.println("sal updatedone");
+//	}
+//}
