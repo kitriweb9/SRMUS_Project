@@ -9,6 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/includes/common.jsp" />
 	<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 	<div class="d-flex">
 		<jsp:include page="/WEB-INF/views/includes/sidebar.jsp" />
@@ -21,16 +22,17 @@
 </script>
 </c:if>
 <form action="${pageContext.request.contextPath}/integrationserach" method="post">
-날짜 <input type ="date" name="inputDate" required="required"><br/><br/>
+날짜 <input type ="date" name="inputDate" required="required">  <button type="submit">검색</button>
 <button type="submit">검색</button>
 </form>
+<br>
 <c:if test="${not empty integration}">
 <table class="table table-bordered project-table align-middle">
 <thead class="table-light">
 <tr>
 <th>발주 날짜</th>
 <th>상품명</th>
-<th>총합</th>
+<th>총 발주 수량</th>
 </tr>
 </thead>
 <tbody>

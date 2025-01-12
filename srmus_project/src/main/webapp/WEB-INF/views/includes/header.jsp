@@ -10,8 +10,7 @@
 <header
 	class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 	<div class="container-fluid">
-		<a class="navbar-brand fw-bold" href="layout.jsp"> 매장관리시스템 :
-			영업관리본부 </a>
+		<a class="navbar-brand fw-bold" href="layout.jsp"> 매장관리시스템</a>
 		<div class="d-flex align-items-center">
 			<span class="text-muted me-3"> <i class="bi bi-person-circle"></i>
 				<a

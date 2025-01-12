@@ -49,7 +49,7 @@
 										<td>${order.goodsName}</td>
 										<td>${order.orderQuantity}</td>
 										<td>${order.orderConfirmStatus}</td>
-										<td><c:if test="${order.orderConfirmStatus == '수주'}">
+										<td><c:if test="${order.orderConfirmStatus == '승인 대기'}">
 												<form
 													action="${pageContext.request.contextPath}/integrationorder"
 													method="post">
