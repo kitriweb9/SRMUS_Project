@@ -28,7 +28,7 @@ public class SsmTxnSalDaoImpl implements ISsmTxnSalDao {
 
 	@Override
 	public void addSalesDetail(SalesDetail salesDetail) {
-		sqlSessionTemplate.insert("salesmapper.addsales", salesDetail);
+		sqlSessionTemplate.insert("salesmapper.addsalesdetail", salesDetail);
 		
 	}
 	public SsmTxnSalDto getSales(String purchaseId) {

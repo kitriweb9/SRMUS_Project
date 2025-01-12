@@ -19,8 +19,7 @@ public class SsmTxnSalChkCtrl {
 	public String showSalesList(SsmTxnSalDto salDto, Model model) {
 		salDto.setStoreId("ST001");
 		List<SsmTxnSalDto> salList = salChkSvc.getSalesListN(salDto);
-		model.addAttribute("salList", salList);
-		System.out.println("sal status N = 승인 대기");
+		model.addAttribute("salList", salList);		
 		
 		return "store/sale/SsmTxnSalApr";
 	}
@@ -31,7 +30,6 @@ public class SsmTxnSalChkCtrl {
 		salDto.setStoreId("ST001");
 		List<SsmTxnSalDto> salList = salChkSvc.getSalesListY(salDto);
 		model.addAttribute("salList", salList);
-		System.out.println("sal status Y = 승인 완료");
 		
 		return "store/sale/SsmTxnSalChk";
 	}

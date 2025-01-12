@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES
 		(#{salesId},
 		#{purchaseId}, #{storeId},
-		#{employeeId}, #{salesAmount},
-		#{salesDate})
+		NULL, #{salesAmount},
+		NULL)
 	</insert>
 	<insert id="addsalesdetail">
 		INSERT INTO tb_ssm_sales_detail(sales_id, goods_id, sales_quantity, sales_status)
@@ -31,23 +31,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND sd.sales_status=#{salesStatus}
 	</select>
 	<select id="getsales" resultType="SsmTxnSalDto">
-		SELECT s.sales_id AS salesId, s.purchase_id AS purchaseId, sd.sales_quantity AS salesQuantity
+		SELECT s.sales_id AS salesId, s.purchase_id AS purchaseId, sd.sales_quantity AS salesQuantity, sd.sales_status AS salesStatus
 		FROM tb_ssm_sales s, tb_ssm_sales_detail sd
 		WHERE s.sales_id=sd.sales_id
 		AND s.purchase_id=#{purchaseId}
 	</select>
-	<update id="updatesalstatus">
+	<update id="updatesalstatus" parameterType="SsmTxnSalDto">
     {call
         DECLARE
         BEGIN
             UPDATE tb_ssm_sales_detail SET sales_status = #{salesStatus} WHERE sales_id = #{salesId};
-            UPDATE tb_ssm_sales SET (employee_id, sales_date) = (#{employeeId}, #{salesDate}) WHERE sales_id = #{salesId};
+            UPDATE tb_ssm_sales SET employee_id=#{employeeId}, sales_date=#{salesDate} WHERE sales_id = #{salesId};
         END
     }
-		UPDATE
-		tb_ssm_sales_detail
-		SET sales_status = #{salesStatus}
-		WHERE sales_id = #{salesId}
 	</update>
 <delete id="deletesales">
     {call

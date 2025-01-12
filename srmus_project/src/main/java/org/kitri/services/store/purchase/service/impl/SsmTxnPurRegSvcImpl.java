@@ -31,6 +31,8 @@ public class SsmTxnPurRegSvcImpl implements ISsmTxnPurRegSvc {
 		purchase.setCustomerId(purDto.getCustomerId());
 		purchase.setStoreId("ST001");
 		purchase.setPurchaseAmount(purDto.getPurchaseQuantity()*purDto.getGoodsPrice());
+		System.out.println("get pur qty: "+purDto.getPurchaseQuantity());
+		System.out.println("get g price: "+purDto.getGoodsPrice());
 		purchase.setPurchaseDate(timestamp);
 		purDao.addPurchase(purchase);
 		
@@ -40,6 +42,9 @@ public class SsmTxnPurRegSvcImpl implements ISsmTxnPurRegSvc {
 		purchaseDetail.setPurchaseQuantity(purDto.getPurchaseQuantity());
 		purchaseDetail.setPurchasePaymentStatus("Y");
 		purDao.addPurchaseDetail(purchaseDetail);
+		
+		purDto.setPurchaseAmount(purchase.getPurchaseAmount());
+		purDto.setPurchaseId(purchaseId);
 		
 		salRegSvc.addSalesAndDetail(purDto);
 	}

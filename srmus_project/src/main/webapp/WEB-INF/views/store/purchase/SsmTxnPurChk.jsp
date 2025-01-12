@@ -64,6 +64,7 @@
 										<th>선택</th>
 										<th>구매번호</th>
 										<th>구매일</th>
+										<th>상품코드</th>
 										<th>상품명</th>
 										<th>구매수량</th>
 										<th>총액</th>
@@ -76,6 +77,7 @@
 												value="${canpur.purchaseId}" /></td>
 											<td>${canpur.purchaseId}</td>
 											<td>${canpur.purchaseDate}</td>
+											<td>${canpur.goodsId}<input type="hidden" name="goodsId_${canpur.purchaseId}" value="${canpur.goodsId}"></td>
 											<td>${canpur.goodsName}</td>
 											<td>${canpur.purchaseQuantity}</td>
 											<td>${canpur.purchaseAmount}</td>
