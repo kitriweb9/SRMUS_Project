@@ -2,8 +2,8 @@
 <div class="custom-sidebar bg-white border-end">
     <ul class="list-unstyled m-0">
         <li class="sidebar-item active">
-            <a href="layout.jsp" class="sidebar-link">
-                <i class="bi bi-speedometer2 me-2"></i> 대시보드
+            <a href="#" class="sidebar-link">
+                영업관리본부
             </a>
         </li>
         <li class="sidebar-item">
@@ -43,12 +43,12 @@
 		
 		<li class="sidebar-item">
 			<a href="#" class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#orderMenu" aria-expanded="false" aria-controls="orderMenu">
-			 <span><i class="bi bi-shop"></i>수주 관리</span> 
+			 <span><i class="bi bi-clipboard-check"></i> 수주 관리</span>
 			 <i	class="bi bi-chevron-down toggle-icon"></i>
 			</a>
 			<ul class="collapse list-unstyled ms-3" id="orderMenu">
-				<li><a href="${pageContext.request.contextPath}/searchorders"
-					class="sidebar-link">수주 목록</a></li>
+				<li><a href="${pageContext.request.contextPath}/searchorders" class="sidebar-link">수주 목록</a></li>
+				<li><a href="${pageContext.request.contextPath}/integrationorder" class="sidebar-link">발주 목록</a></li>
 			</ul>
 		</li>
         <li class="sidebar-item">
@@ -68,7 +68,7 @@
 			class="sidebar-link d-flex justify-content-between align-items-center"
 			data-bs-toggle="collapse" data-bs-target="#closureMenu"
 			aria-expanded="false" aria-controls="closureMenu"> <span><i
-					class="bi bi-pen me-2"></i> 마감관리</span> <i
+					class="bi bi-calendar2-check"></i> 마감관리</span> <i
 				class="bi bi-chevron-down toggle-icon"></i>
 		</a>
 			<ul class="collapse list-unstyled ms-3" id="closureMenu">
