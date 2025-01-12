@@ -8,10 +8,10 @@
     <!-- 재고 목록 조회 -->
     <select id="selectAllStocks" resultType="org.kitri.services.store.stock.entity.Stock">
         SELECT
-            goods_id AS goodsId,
-            store_id AS storeId,
-            stock_quantity AS stockQuantity,
-            stock_safety_quantity AS stockSafetyQuantity
+            GOODS_ID AS goodsId,
+            STORE_ID AS storeId,
+            STOCK_QUANTITY AS stockQuantity,
+            STOCK_SAFETY_QUANTITY AS stockSafetyQuantity
         FROM TB_SSM_STOCK
     </select>
 

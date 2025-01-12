@@ -62,7 +62,7 @@
 		name="datasource" p:driverClassName="oracle.jdbc.OracleDriver"
 		p:url="${DB_URL}" p:username="${DB_USER_NAME}"
 		p:password="${DB_USER_PASSWORD}" />
-
+  
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
 		name="sqlSessionFactoryBean" p:dataSource-ref="datasource"
 		p:mapperLocations="classpath:/mybatis/**/*.xml"

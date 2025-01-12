@@ -8,7 +8,7 @@ import org.kitri.services.store.repo.dto.SsmCusLgnDto;
 
 public interface ISsmCusLgnSvc {
 	public boolean register(SsmCusLgnDto customer) throws SQLIntegrityConstraintViolationException;
-	public boolean login(HttpSession session, String id, String pwd);
+//	public boolean login(HttpSession session, String id, String pwd);
 	public boolean logout(HttpSession session, String id);
 	public SsmCusLgnDto userInfo(String id);
 }
