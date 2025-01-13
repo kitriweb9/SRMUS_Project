@@ -4,12 +4,9 @@ public class SvcComEmpPosDto {
 	private String positionId;
 	private String positionName;
 
-	public SvcComEmpPosDto() {
-		super();
-	}
+	public SvcComEmpPosDto() {}
 
 	public SvcComEmpPosDto(String positionId, String positionName) {
-		super();
 		this.positionId = positionId;
 		this.positionName = positionName;
 	}

@@ -16,9 +16,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class SvcComLgnLin {
-	ISvcComLgnEmpDao empDao;
+	private ISvcComLgnEmpDao empDao;
 
-	ISsmCusLgnCusDao cusDao;
+	private ISsmCusLgnCusDao cusDao;
 
 	@Autowired
 	public SvcComLgnLin(ISvcComLgnEmpDao empDao, ISsmCusLgnCusDao cusDao) {

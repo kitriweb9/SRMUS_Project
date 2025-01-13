@@ -13,13 +13,12 @@ public class SvcComEmpRegDao implements ISvcComEmpRegDao {
 	private SqlSessionTemplate sessionTemplate;
 
 	@Override
-	public String serviceGroupIdRegistration(SvcComEmpDto svcComEmpRegDto) {
-		return sessionTemplate.selectOne("employee.servicegroupRegistration", svcComEmpRegDto);
+	public String serviceGroupIdRegistration(SvcComEmpDto svcComEmpDto) {
+		return sessionTemplate.selectOne("employee.servicegroupRegistration", svcComEmpDto);
 	}
 
 	@Override
 	public int employeeRegistration(SvcComEmpDto svcComEmpDto) {
-		System.out.println(svcComEmpDto.getTemporaryRoleId());
 		return sessionTemplate.insert("employee.employeeRegistration", svcComEmpDto);
 	}
 
