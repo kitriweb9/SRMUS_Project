@@ -66,7 +66,7 @@
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
 		name="sqlSessionFactoryBean" p:dataSource-ref="datasource"
 		p:mapperLocations="classpath:/mybatis/**/*.xml"
-		p:typeAliasesPackage="org.kitri.services.repo.dto" />
+		p:typeAliasesPackage="org.kitri.services.store.repo.dto, org.kitri.services.sales.repo.dto" />
 
 	<bean class="org.mybatis.spring.SqlSessionTemplate"
 		name="sqlSessionTemplate"

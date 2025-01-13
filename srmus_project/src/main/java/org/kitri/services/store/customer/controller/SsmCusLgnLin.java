@@ -55,7 +55,7 @@ public class SsmCusLgnLin {
 
 		pwd = sha.sha256(pwd);
 
-		System.out.println(loginType);
+		session.setAttribute("loginType", loginType);
 		if (loginSvc.login(session, id, pwd, loginType)) {
 			return "redirect:/customer/goods";
 		}

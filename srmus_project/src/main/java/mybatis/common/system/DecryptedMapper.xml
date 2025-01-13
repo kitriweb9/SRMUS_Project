@@ -3,12 +3,6 @@
 PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="DecryptedMapper">
-	<insert id="insertDecryptedDataSsm"
-		parameterType="org.kitri.system.dualdata.ssm.SsmDecryptedDto"> INSERT INTO tb_ssm_customer ( customer_id,
-		customer_password, customer_name, customer_address, customer_contact,
-		customer_email, customer_grade) VALUES ( #{customer_id},
-		#{customer_password}, #{customer_name}, #{customer_address},
-		#{customer_contact}, #{customer_email}, #{customer_grade} ) </insert>
 	<insert id="insertDecryptedDataShq"
 		parameterType="org.kitri.services.sales.in.entity.StoreInbound">
 		INSERT INTO "TB_SHQ_DECRYPTED_STORE_INBOUND" (

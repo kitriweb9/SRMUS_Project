@@ -95,7 +95,7 @@
                     
                     <!-- 고객/직원 판별 -->
                     <c:choose>
-                        <c:when test="${not empty sessionScope.user and sessionScope.userType == 'employee'}">
+                        <c:when test="${not empty sessionScope.employee and sessionScope.loginType == 'employee'}">
                             <!-- 직원일 경우 -->
                             <input type="hidden" name="customerId" value="" />
                             <script>

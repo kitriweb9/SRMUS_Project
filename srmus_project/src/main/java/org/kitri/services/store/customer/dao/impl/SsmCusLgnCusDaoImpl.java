@@ -2,6 +2,7 @@ package org.kitri.services.store.customer.dao.impl;
 
 import org.kitri.services.store.customer.dao.ISsmCusLgnCusDao;
 import org.kitri.services.store.repo.dto.SsmCusLgnDto;
+import org.kitri.system.dualdata.dto.EncryptedDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,5 +18,9 @@ public class SsmCusLgnCusDaoImpl implements ISsmCusLgnCusDao {
 	
 	public int insertCustomer(SsmCusLgnDto customer) {
 		return sqlTemplate.insert("Customer.insertCustomer", customer);
+	}
+	
+	public int insertEncryptedCustomer(SqlSessionTemplate sqlSessionTemplate, EncryptedDto encryptedDto) {
+		return sqlSessionTemplate.insert("Customer.insertEncryptedCustomer", encryptedDto);
 	}
 }

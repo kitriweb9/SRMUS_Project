@@ -26,16 +26,17 @@ public class SqlSessionTemplateProvider {
 			((BasicDataSource) dataSource).setUrl(properties.getProperty("DB_URL"));
 			((BasicDataSource) dataSource).setUsername(properties.getProperty("DB_USER_NAME"));
 			((BasicDataSource) dataSource).setPassword(properties.getProperty("DB_USER_PASSWORD"));
-
+			System.out.println("datasource 생성완료");
 			// SqlSessionFactory 설정
 			SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
 			factoryBean.setDataSource(dataSource);
 			factoryBean.setMapperLocations(
 					new PathMatchingResourcePatternResolver().getResources("classpath:/mybatis/**/*.xml"));
-
+			System.out.println("팩토리빈생성완료");
 			// SqlSessionTemplate 반환
 			return new SqlSessionTemplate(factoryBean.getObject());
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RuntimeException("Failed to create SqlSessionTemplate", e);
 		}
 	}
@@ -44,7 +45,7 @@ public class SqlSessionTemplateProvider {
 	private Properties loadProperties() {
 		try {
 			Properties properties = new Properties();
-			properties.load(new ClassPathResource("hq.setting").getInputStream());
+			properties.load(new ClassPathResource("enc.setting").getInputStream());
 			return properties;
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to load properties from .setting", e);

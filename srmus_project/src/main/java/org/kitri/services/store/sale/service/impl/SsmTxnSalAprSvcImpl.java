@@ -3,6 +3,9 @@ package org.kitri.services.store.sale.service.impl;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.kitri.services.sales.repo.dto.SvcComEmpLgnDto;
 import org.kitri.services.store.repo.dto.SsmStkMgtChgDto;
 import org.kitri.services.store.repo.dto.SsmTxnSalAprDto;
 import org.kitri.services.store.repo.dto.SsmTxnSalDto;
@@ -21,13 +24,16 @@ public class SsmTxnSalAprSvcImpl implements ISsmTxnSalAprSvc {
 	private ISsmStkMgtChgSvc stkChgSvc;
 	@Autowired
 	private ISsmStkMgtChkSvc stkChkSvc;
-
+	@Autowired
+	HttpSession httpSession;
+	
 	@Override
 	public void updateSalStatus(SsmTxnSalDto salDto) {
 		Long datetime = System.currentTimeMillis();
 		Timestamp timestamp = new Timestamp(datetime);
 		
-		salDto.setEmployeeId("EMP1234");
+		SvcComEmpLgnDto svcComEmpLgnDto = (SvcComEmpLgnDto) httpSession.getAttribute("employee");
+		salDto.setEmployeeId(svcComEmpLgnDto.getEmployeeId());
 		salDto.setSalesStatus("Y");
 		salDto.setSalesDate(timestamp);
 		salDao.updateSalStatus(salDto);

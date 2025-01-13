@@ -3,7 +3,7 @@
 <div class="custom-sidebar bg-white border-end">
     <ul class="list-unstyled m-0">
         <li class="sidebar-item active">
-            <a href="layout.jsp" class="sidebar-link">
+            <a href="${pageContext.request.contextPath}/customer/goods" class="sidebar-link">
                 <i class="bi bi-speedometer2 me-2"></i> 대시보드
             </a>
         </li>
@@ -18,7 +18,7 @@
             </ul>
         </li>
         <!-- 고객일 때만 표시 -->
-        <c:if test="${sessionScope.userType == null}">
+        <c:if test="${sessionScope.loginType == 'customer'}">
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#purchase" aria-expanded="false" aria-controls="purchase">
                     <span><i class="bi bi-cart-check me-2"></i> 구매관리</span>
@@ -32,7 +32,7 @@
         </c:if>
         
         <!-- employee 권한일 때만 표시 -->
-        <c:if test="${sessionScope.employee.employeeName != null}">
+        <c:if test="${sessionScope.loginType == 'employee'}">
         	<li class="sidebar-item">
                 <a href="#" class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#sales" aria-expanded="false" aria-controls="sales">
                     <span><i class="bi bi-bag-check-fill me-2"></i> 판매관리</span>
