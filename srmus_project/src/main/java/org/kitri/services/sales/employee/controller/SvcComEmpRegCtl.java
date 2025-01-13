@@ -1,15 +1,9 @@
 package org.kitri.services.sales.employee.controller;
 
-import javax.servlet.http.HttpSession;
-
-import org.kitri.services.common.login.session.SvcComLgnSsn;
-import org.kitri.services.common.pageauth.SvcComPgcAcp;
 import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.sales.employee.dto.SvcComEmpDto;
-import org.kitri.services.sales.employee.service.ISvcComEmpInqSvc;
 import org.kitri.services.sales.employee.service.ISvcComEmpPRDSvc;
 import org.kitri.services.sales.employee.service.ISvcComEmpRegSvc;
-import org.kitri.services.sales.repo.dto.SvcComEmpLgnDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,12 +18,6 @@ public class SvcComEmpRegCtl {
 
 	@Autowired
 	private ISvcComEmpRegSvc iRegSvc;
-
-	@Autowired
-	private ISvcComEmpInqSvc iInqSvc;
-
-	@Autowired
-	private SvcComPgcAcp auth;
 
 	@GetMapping("/employee/add")
 	@RequiresAuthority("SvcComEmpReg")
@@ -50,15 +38,5 @@ public class SvcComEmpRegCtl {
 		model.addAttribute("positions", iPrdSvc.positionInquiry());
 		model.addAttribute("roles", iPrdSvc.roleInquiry());
 		model.addAttribute("departments", iPrdSvc.departmentInquiry());
-	}
-
-	private boolean permissionCheck(String serviceId, SvcComEmpLgnDto sessionEmployee) {
-		SvcComEmpDto svcComEmpDto = iInqSvc.employeeInquiryByFilters(sessionEmployee.getEmployeeId(), null, null, null)
-				.get(0);
-		if (!auth.hasAuthority(svcComEmpDto, serviceId)) {
-			// 권한없음
-			return false;
-		}
-		return true;
 	}
 }
