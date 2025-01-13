@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ShqEmpLgnInfCtl {
-	private ISvcComEmpInqSvc svcComEmpInqSvc;
-	private SvcComLgnSsn svcComLgnSSn;
+	private final ISvcComEmpInqSvc svcComEmpInqSvc;
+	private final SvcComLgnSsn svcComLgnSSn;
 
 	@Autowired
 	public ShqEmpLgnInfCtl(ISvcComEmpInqSvc svcComEmpInqSvc, SvcComLgnSsn svcComLgnSSn) {
