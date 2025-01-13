@@ -117,7 +117,7 @@
                     </c:choose>
                     
                     <div style="text-align: center; margin-top: 20px;">
-                        <input type="submit" value="장바구니에 담기" />
+                        <input type="submit" value="구매하기" />
                     </div>
                 </form>
             </div>
