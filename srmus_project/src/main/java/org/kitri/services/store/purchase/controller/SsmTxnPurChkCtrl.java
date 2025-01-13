@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.kitri.services.store.purchase.service.ISsmTxnPurChkSvc;
+import org.kitri.services.store.repo.dto.SsmCusLgnDto;
 import org.kitri.services.store.repo.dto.SsmTxnPurDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +20,8 @@ public class SsmTxnPurChkCtrl {
 	// 구매 목록 보기
 	@GetMapping("SsmTxnPurChk")
 	public String showPurchaseList(HttpSession httpSession, SsmTxnPurDto purDto, Model model) {
-//		purDto.setCustomerId((String)httpSession.getAttribute("customerId"));
-		purDto.setCustomerId("leelise");
+		SsmCusLgnDto ssmCusLgnDto = (SsmCusLgnDto) httpSession.getAttribute("user");
+		purDto.setCustomerId(ssmCusLgnDto.getId());
 		List<SsmTxnPurDto> purList = purchksvc.getPurchaseY(purDto);
 		model.addAttribute("purList", purList);
 		
@@ -30,8 +31,8 @@ public class SsmTxnPurChkCtrl {
 	// 구매 취소 목록 보기
 	@GetMapping("SsmTxnPurApr")
 	public String showPurchaseCancleList(HttpSession httpSession, SsmTxnPurDto purDto, Model model) {
-//		purDto.setCustomerId((String)httpSession.getAttribute("customerId"));
-		purDto.setCustomerId("leelise");
+		SsmCusLgnDto ssmCusLgnDto = (SsmCusLgnDto) httpSession.getAttribute("user");
+		purDto.setCustomerId(ssmCusLgnDto.getId());
 		List<SsmTxnPurDto> purList = purchksvc.getPurchaseN(purDto);
 		model.addAttribute("purList", purList);
 		

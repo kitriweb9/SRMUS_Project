@@ -2,7 +2,6 @@ package org.kitri.services.store.customer.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.kitri.services.common.login.session.SvcComLgnSsn;
 import org.kitri.services.sales.repo.dto.SvcComEmpLgnDto;
 import org.kitri.services.store.customer.service.ISsmCusLgnSvc;
 import org.kitri.services.store.repo.dto.SsmCusLgnDto;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class SsmCusLgnLot {
 	@Autowired
 	ISsmCusLgnSvc logout;
-	@Autowired
-	SvcComLgnSsn sessions;
 	
 	/**
 	 * @apiNote 로그아웃

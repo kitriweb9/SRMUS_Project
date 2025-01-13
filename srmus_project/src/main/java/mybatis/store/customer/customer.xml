@@ -8,8 +8,17 @@
 	</select>
 	<insert id="insertCustomer"
 		parameterType="org.kitri.services.store.repo.dto.SsmCusLgnDto">
-<![CDATA[ INSERT tb_ssm_customer(customer_id as id, customer_password as password, customer_name as name, customer_address as address, customer_contact as contact, customer_email as email, customer_grade as grade) VALUES (#{id}, #{password}, #{name}, #{address}, #{contact}, #{email}, #{grade}) ]]>
+<![CDATA[ INSERT INTO tb_ssm_customer(customer_id, customer_password, customer_name, customer_address, customer_contact, customer_email, customer_grade) VALUES (#{id}, #{pwd}, #{name}, #{address}, #{contact}, #{email}, #{grade}) ]]>
 	</insert>
+	<insert id="insertEncryptedCustomer" parameterType="org.kitri.system.dualdata.dto.EncryptedDto">
+   <![CDATA[ 
+   INSERT INTO tb_ssm_customer 
+        (customer_id, customer_password, customer_name, customer_address, customer_contact, customer_email, customer_grade) 
+    VALUES 
+        (#{encryptedFields.id}, #{encryptedFields.pwd}, #{encryptedFields.name}, 
+         #{encryptedFields.address}, #{encryptedFields.contact}, 
+         #{encryptedFields.email}, #{encryptedFields.grade}) ]]>
+</insert>
 	<select id="findCustomerAll"
 		resultType="org.kitri.services.store.repo.dto.SsmCusLgnDto">
 <![CDATA[ SELECT customer_id as id, customer_password as pwd, customer_name as name, customer_address as address, customer_contact as contact, customer_email as email, customer_grade as grade FROM tb_ssm_customer ]]>

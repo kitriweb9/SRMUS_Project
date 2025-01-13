@@ -64,4 +64,9 @@ public class SsmCusLgnDto {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
+	@Override
+	public String toString() {
+		return "SsmCusLgnDto [id=" + id + ", pwd=" + pwd + ", name=" + name + ", address=" + address + ", contact="
+				+ contact + ", email=" + email + ", grade=" + grade + "]";
+	}
 }

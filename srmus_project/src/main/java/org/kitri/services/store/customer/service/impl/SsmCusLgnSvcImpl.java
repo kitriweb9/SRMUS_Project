@@ -5,32 +5,31 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import javax.servlet.http.HttpSession;
 
 import org.kitri.services.common.login.login.SvcComLgnInf;
-import org.kitri.services.common.login.login.SvcComLgnLin;
 import org.kitri.services.store.customer.dao.ISsmCusLgnCusDao;
 import org.kitri.services.store.customer.service.ISsmCusLgnSvc;
 import org.kitri.services.store.repo.dto.SsmCusLgnDto;
-import org.kitri.system.dualdata.ssm.ISsmDualDataModule;
-import org.kitri.system.dualdata.ssm.ISsmDualDataModuleFactory;
-import org.kitri.system.dualdata.ssm.SsmDecryptedDto;
-import org.kitri.system.dualdata.ssm.SsmEncryptedDto;
+import org.kitri.system.dualdata.core.IDualDataModule;
+import org.kitri.system.dualdata.dto.EncryptedDto;
+import org.kitri.system.dualdata.factory.IDualDataModuleFactory;
 import org.kitri.system.encryption.EncAesUtil;
 import org.kitri.system.encryption.HexConverter;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SsmCusLgnSvcImpl implements ISsmCusLgnSvc {
 	@Autowired
-	private ISsmDualDataModuleFactory moduleFactory;
+	private IDualDataModuleFactory moduleFactory;
 	@Autowired
 	private ISsmCusLgnCusDao cusDao;
-	@Autowired
-	private SvcComLgnLin svcComLgnLin;
 	@Autowired
 	private SvcComLgnInf svcComLgnInf;
 	@Autowired
 	private EncAesUtil aes;
 
+	@Transactional
 	public boolean register(SsmCusLgnDto customer) throws SQLIntegrityConstraintViolationException {
 		if ((cusDao.findCustomerById(customer.getId())) != null) {
 			throw new SQLIntegrityConstraintViolationException();
@@ -40,29 +39,21 @@ public class SsmCusLgnSvcImpl implements ISsmCusLgnSvc {
 				toHex(customer.getAddress()), toHex(customer.getContact()), toHex(customer.getEmail()),
 				customer.getGrade());
 
-//		EncAesUtil aes = new EncAesUtil();
+		customer = new SsmCusLgnDto(customer.getId(), customer.getPwd(), aes.decAES256(customer.getName()),
+				aes.decAES256(customer.getAddress()), aes.decAES256(customer.getContact()),
+				aes.decAES256(customer.getEmail()), customer.getGrade());
 
-		SsmDecryptedDto decDto = new SsmDecryptedDto(customer.getId(), customer.getPwd(),
-				aes.decAES256(customer.getName()), aes.decAES256(customer.getAddress()),
-				aes.decAES256(customer.getContact()), aes.decAES256(customer.getEmail()), customer.getGrade());
+		try (IDualDataModule module = moduleFactory.createModule(customer)) {
+			// DualDataModule에서 EncryptedDto 생성
+			EncryptedDto encryptedDto = module.modifyToDto();
+			SqlSessionTemplate sessionTemplate = module.getSqlSessionTemplate();
+			// 평문 데이터 저장
+			cusDao.insertCustomer(customer);
+			// 암호화 데이터 저장
+			cusDao.insertEncryptedCustomer(sessionTemplate, encryptedDto);
 
-		System.out.println(customer.getAddress());
-		System.out.println(customer.getContact());
-		System.out.println(customer.getEmail());
-
-		System.out.println(decDto.getCustomer_contact());
-		System.out.println(decDto.getCustomer_address());
-		System.out.println(decDto.getCustomer_email());
-
-		SsmEncryptedDto encDto = new SsmEncryptedDto(customer.getId(), customer.getPwd(),
-				aes.encAES256Re(decDto.getCustomer_name()), aes.encAES256Re(decDto.getCustomer_address()),
-				aes.encAES256Re(decDto.getCustomer_contact()), aes.encAES256Re(decDto.getCustomer_email()),
-				customer.getGrade());
-
-		try (ISsmDualDataModule module = moduleFactory.createModule(decDto, encDto)) {
-			module.saveDualData(); // 데이터 저장
 		} catch (Exception e) {
-			System.out.println("예외 발생: " + e.getMessage());
+			System.out.println("Exception: " + e.getMessage());
 		}
 
 		return true;
@@ -75,7 +66,6 @@ public class SsmCusLgnSvcImpl implements ISsmCusLgnSvc {
 
 		return converter.byteToHexString(inputByte);
 	}
-
 
 	@Override
 	public boolean logout(HttpSession session, String id) {

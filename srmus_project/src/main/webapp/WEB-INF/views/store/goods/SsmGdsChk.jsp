@@ -95,7 +95,7 @@
                     
                     <!-- 고객/직원 판별 -->
                     <c:choose>
-                        <c:when test="${not empty sessionScope.user and sessionScope.userType == 'employee'}">
+                        <c:when test="${not empty sessionScope.employee and sessionScope.loginType == 'employee'}">
                             <!-- 직원일 경우 -->
                             <input type="hidden" name="customerId" value="" />
                             <script>
@@ -117,7 +117,7 @@
                     </c:choose>
                     
                     <div style="text-align: center; margin-top: 20px;">
-                        <input type="submit" value="장바구니에 담기" />
+                        <input type="submit" value="구매하기" />
                     </div>
                 </form>
             </div>

@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO tb_ssm_sales_detail(sales_id, goods_id, sales_quantity, sales_status)
 		VALUES (#{salesId}, #{goodsId}, #{salesQuantity}, #{salesStatus})
 	</insert>
-	<select id="getsaleslist" resultType="SsmTxnSalDto">
+	<select id="getsaleslist" resultType="org.kitri.services.store.repo.dto.SsmTxnSalDto">
 		SELECT s.sales_id AS salesId, s.purchase_id AS purchaseId,
 		sd.goods_id AS goodsId, s.employee_id AS employeeId, s.sales_amount AS
 		salesAmount, s.sales_date AS salesDate, sd.sales_quantity AS salesQuantity
@@ -30,13 +30,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND s.store_id=#{storeId}
 		AND sd.sales_status=#{salesStatus}
 	</select>
-	<select id="getsales" resultType="SsmTxnSalDto">
+	<select id="getsales" resultType="org.kitri.services.store.repo.dto.SsmTxnSalDto">
 		SELECT s.sales_id AS salesId, s.purchase_id AS purchaseId, sd.sales_quantity AS salesQuantity, sd.sales_status AS salesStatus
 		FROM tb_ssm_sales s, tb_ssm_sales_detail sd
 		WHERE s.sales_id=sd.sales_id
 		AND s.purchase_id=#{purchaseId}
 	</select>
-	<update id="updatesalstatus" parameterType="SsmTxnSalDto">
+	<update id="updatesalstatus" parameterType="org.kitri.services.store.repo.dto.SsmTxnSalDto">
     {call
         DECLARE
         BEGIN
