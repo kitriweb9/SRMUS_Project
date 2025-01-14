@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ShqPdtPdiChkCtl {
-	private ShqPdtPdiChkSvc shqPdtPdiChkSvc;
+	private final ShqPdtPdiChkSvc shqPdtPdiChkSvc;
 
-	private ShqPdtPdiChgSvc shqPdtPdiChgSvc;
+	private final ShqPdtPdiChgSvc shqPdtPdiChgSvc;
 
 	@Autowired
 	public ShqPdtPdiChkCtl(ShqPdtPdiChkSvc shqPdtPdiChkSvc, ShqPdtPdiChgSvc shqPdtPdiChgSvc) {

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ShqPdtPdiRegCtl {
-	private ShqPdtPdiRegSvc shqPdtPdiRegSvc;
+	private final ShqPdtPdiRegSvc shqPdtPdiRegSvc;
 
-	private ShqPdtPdiChgSvc shqPdtPdiChgSvc;
+	private final ShqPdtPdiChgSvc shqPdtPdiChgSvc;
 
 	@Autowired
 	public ShqPdtPdiRegCtl(ShqPdtPdiRegSvc shqPdtPdiRegSvc, ShqPdtPdiChgSvc shqPdtPdiChgSvc) {

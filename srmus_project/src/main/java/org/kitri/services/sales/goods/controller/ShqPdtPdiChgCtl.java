@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ShqPdtPdiChgCtl {
-	private ShqPdtPdiChgSvc shqPdtPdiChgSvc;
+	private final ShqPdtPdiChgSvc shqPdtPdiChgSvc;
 
 	@Autowired
 	public ShqPdtPdiChgCtl(ShqPdtPdiChgSvc shqPdtPdiChgSvc) {
