@@ -1,26 +1,26 @@
 package com.thelightway.headquarter.receiver.dao;
 
 public class DBInfo {
-	private final String dbUrl;
-	private final String id;
-	private final String pwd;
+	private final String DB_URL;
+	private final String DB_ID;
+	private final String DB_PWD;
 
 	public DBInfo(String dburl, String id, String pwd) {
-		this.dbUrl = dburl;
-		this.id = id;
-		this.pwd = pwd;
+		this.DB_URL = dburl;
+		this.DB_ID = id;
+		this.DB_PWD = pwd;
 	}
 
 	public String getDbUrl() {
-		return dbUrl;
+		return DB_URL;
 	}
 
 	public String getId() {
-		return id;
+		return DB_ID;
 	}
 
 	public String getPwd() {
-		return pwd;
+		return DB_PWD;
 	}
 
 }

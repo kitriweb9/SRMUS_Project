@@ -7,13 +7,13 @@ import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 
-public class SvcComItT {
+public class SvcComItt {
 	private final String TESS_DATA_PATH;
 	
-	public SvcComItT(String tessdataPath) {
+	public SvcComItt(String tessdataPath) {
 		TESS_DATA_PATH = tessdataPath;
-		System.out.println(tessdataPath);
 	}
+	
 	public Map<String, String> extractTextFromImage(String imgpath) {
 		Map<String, String> resultMap = new HashMap<String, String>();
 		ITesseract tesseract = new Tesseract();
