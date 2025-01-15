@@ -38,6 +38,9 @@ public class SsmTxnSalAprSvcImpl implements ISsmTxnSalAprSvc {
 		salDto.setSalesDate(timestamp);
 		salDao.updateSalStatus(salDto);
 
+		System.out.println("(stkChkSvc.getAllStocks().get(0).getStockQuantity()) "+(stkChkSvc.getAllStocks().get(0).getStockQuantity()));
+		System.out.println("salDto.getSalesQuantity() "+salDto.getSalesQuantity());
+		
 		SsmStkMgtChgDto stockDto = new SsmStkMgtChgDto();
 		stockDto.setGoodsId(salDto.getGoodsId());
 		stockDto.setStoreId("ST001");
