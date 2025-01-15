@@ -19,6 +19,7 @@ public class ShqStkHqsDaoImpl implements ShqStkHqsDao{
 		return sql.selectList("goodsStock.findAll");
 	}
 	
+	@Override
 	public void addStock(GoodsStock entity) {
 		if((int)sql.selectOne("goodsStock.checkGoodsExist", entity) < 1 ) {
 			sql.insert("goodsStock.newGoodsStock", entity);

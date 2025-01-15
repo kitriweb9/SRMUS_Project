@@ -19,7 +19,7 @@ import com.thelightway.store.receiver.dao.ReceiverDao;
 import com.thelightway.store.receiver.dao.SvcComItT;
 
 
-public class StoreReceiver {
+public class SysComSsmFieRcv {
 	private final String SERVER_IP;
 	private final int SERVER_PORT;
 	private final String RECEIVE_PATH;
@@ -31,7 +31,7 @@ public class StoreReceiver {
 	private InputStream socketInput;
 	private OutputStream socketOutput;
 	
-	private StoreReceiver() {
+	private SysComSsmFieRcv() {
 		Properties setting = getSetting();
 		STORE_ID = setting.getProperty("STORE_ID");
 		RECEIVE_PATH = setting.getProperty("FILE_SERVER_FOLDER_PATH") + "SSM/"+ STORE_ID + "/receive/";
@@ -43,7 +43,7 @@ public class StoreReceiver {
 	
 	
 	public static void main(String[] args) {
-		new StoreReceiver().start();
+		new SysComSsmFieRcv().start();
 	}
 	
 	private void connect() {
@@ -57,7 +57,6 @@ public class StoreReceiver {
 			System.out.println("소켓 연결 실패");
 		}
 	}
-	
 	
 	private void sendText(String msg) {
 		PrintWriter printWriter = new PrintWriter(socketOutput, true);
@@ -131,14 +130,7 @@ public class StoreReceiver {
 			System.out.println(DAO.saveData(keyAndValues));
 			
 		}
-		//파일 삭제
-		try {
-			System.out.println("삭제전 10초 대기");
-			Thread.sleep(10_000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		waitTime(10_000);
 		System.out.println(file.getPath());
 		file.delete();
 		
@@ -150,5 +142,13 @@ public class StoreReceiver {
 			parentDir.mkdirs();
 		}
 		return parentDir;
+	}
+	
+	private void waitTime(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

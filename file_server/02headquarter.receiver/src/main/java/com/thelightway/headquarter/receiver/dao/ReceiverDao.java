@@ -9,10 +9,10 @@ import java.util.Map;
 import java.util.Set;
 
 public class ReceiverDao {
-	private final DBInfo dbInfo;
+	private final DBInfo DB_INFO;
 	
-	public ReceiverDao(DBInfo dbinfo) {
-        this.dbInfo = dbinfo;
+	public ReceiverDao(DBInfo dbInfo) {
+        this.DB_INFO = dbInfo;
 	}
 	
 	
@@ -41,24 +41,23 @@ public class ReceiverDao {
 		System.out.println(sql1);
 		
 		int count = 0;
-		try(Connection connection = DriverManager.getConnection(dbInfo.getDbUrl(),dbInfo.getId(),dbInfo.getPwd()); 
-			Statement st = connection.createStatement();){
-			count+= st.executeUpdate(sql1);		
-		} catch (SQLException e) {
-			System.out.println("SQL 실행 오류");
-			e.printStackTrace(System.out);
-		}
 		
-		if(table2 != null) {
-			String sql2 = convertTextToSql(table2, data2);
-			System.out.println(sql2);
-			try(Connection connection = DriverManager.getConnection(dbInfo.getDbUrl(),dbInfo.getId(),dbInfo.getPwd()); 
-					Statement st = connection.createStatement();){
-					count+= st.executeUpdate(sql2);		
-				} catch (SQLException e) {
+		try(Connection connection = DriverManager.getConnection(DB_INFO.getDbUrl(),
+																DB_INFO.getId(),
+																DB_INFO.getPwd()); 
+			Statement st = connection.createStatement();
+			Statement st2 = connection.createStatement();){
+			
+			count+= st.executeUpdate(sql1);		
+			if(table2 != null) {
+				String sql2 = convertTextToSql(table2, data2);
+				System.out.println(sql2);
+				count+= st2.executeUpdate(sql2);
+								
+			}
+		} catch (SQLException e) {
 					System.out.println("SQL 실행 오류");
 					e.printStackTrace(System.out);
-				}			
 		}
 		return count;
 		
@@ -89,9 +88,5 @@ public class ReceiverDao {
 		
 		return sql.toString().replace("'SYSDATE'", "SYSDATE");
 	}
-	
-	
-	
-	
 }
 

@@ -6,7 +6,6 @@ import java.util.Properties;
 import com.thelightway.headquarter.receiver.dao.DBInfo;
 
 public class Setting {
-	private static final String SETTING_FILE_PATH = "hq.setting";
 	private static final int SERVER_PORT;
 	private static final int POLLING_TIME;
 	private static final String TESS_DATA_PATH;
@@ -30,8 +29,8 @@ public class Setting {
 
 	private static void printMsgNotFoundSetting() {
 		System.out.println("본부 설정 파일이 없거나 읽는데 오류가 발생했습니다.");
-		System.out.println("본부 설정 파일 경로: " + SETTING_FILE_PATH);
 	}
+	
 	public static int getServerPort() {
 		return SERVER_PORT;
 	}
