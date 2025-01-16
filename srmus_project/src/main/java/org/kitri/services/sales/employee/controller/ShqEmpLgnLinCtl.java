@@ -2,7 +2,7 @@ package org.kitri.services.sales.employee.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.kitri.services.common.login.login.SvcComLgnLin;
+import org.kitri.services.common.login.SvcComLgnLin;
 import org.kitri.services.sales.employee.dto.SvcComEmpDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
