@@ -19,4 +19,12 @@
          #{encryptedFields.address}, #{encryptedFields.contact}, 
          #{encryptedFields.email}, #{encryptedFields.grade}) ]]>
 </insert>
+	<select id="findCustomerAll"
+		resultType="org.kitri.services.store.repo.dto.SsmCusLgnDto">
+<![CDATA[ SELECT customer_id as id, customer_password as pwd, customer_name as name, customer_address as address, customer_contact as contact, customer_email as email, customer_grade as grade FROM tb_ssm_customer ]]>
+	</select>
+	<update id="updateCustomer"
+		parameterType="org.kitri.services.store.repo.dto.SsmCusLgnDto">
+<![CDATA[ UPDATE tb_ssm_customer SET customer_name = #{name, jdbcType=VARCHAR}, customer_address = #{address, jdbcType=VARCHAR}, customer_contact = #{contact, jdbcType=VARCHAR}, customer_email = #{email, jdbcType=VARCHAR} WHERE customer_id = #{id, jdbcType=VARCHAR} ]]>
+	</update>
 </mapper>
