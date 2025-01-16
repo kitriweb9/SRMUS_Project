@@ -10,22 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/*
- * Last update 2025-01-05 18:53S
- * **/
 
 @Controller
 public class SsmTxnPurRegCtrl {
 	@Autowired
 	public ISsmTxnPurRegSvc purRegSvc;
-	
-	
-//	@RequestMapping("goproc")
-//	public String registPurchaseTest() {
-//		return "store/purchase/goodstest";
-//	}
-	
-	
+		
 	@PostMapping("SsmTxnPurReg")
 	public String addPurchase(@ModelAttribute SsmTxnPurDto purDto,@RequestParam Map<String, String> goodsPrices) {
 		String goodsId = purDto.getGoodsId();

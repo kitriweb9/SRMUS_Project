@@ -25,22 +25,6 @@ public class SsmTxnSalAprCtrl {
 
 		return "redirect:/SsmTxnSalChk";
 	}
-//		
-//	@PostMapping("SsmTxnSalApr")
-//	public String changeSalStatus(String[] salesIds, String employeeId) {
-//		System.out.println("salesIds[0]: "+salesIds[0]);
-//		List<SsmTxnSalAprDto> salAprDtoList = new ArrayList<>();
-//		if(salesIds != null) {
-//			for(String salesId : salesIds) {
-//				salAprDtoList.add(new SsmTxnSalAprDto(salesId));	
-//				System.out.println("sales id: "+salesId);
-//			}
-//		}
-//		employeeId="EMP1234";
-//		salAprSvc.updateSalStatus(salAprDtoList, employeeId);
-//		System.out.println("sal status 변경");
-//		return "redirect:/SsmTxnSalChk";
-//	}
 			
 
 }

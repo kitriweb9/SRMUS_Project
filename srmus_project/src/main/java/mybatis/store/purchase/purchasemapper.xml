@@ -39,6 +39,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         END
     }
 </update>
+<select id="selectstockbygid" resultType="Integer">
+	SELECT STOCK_QUANTITY AS stockQuantity
+	FROM TB_SSM_STOCK
+	WHERE goods_id=#{goodsId}
+</select>
+<update id="applystock">
+    UPDATE TB_SSM_STOCK
+    SET
+        stock_quantity = #{stockQuantity}
+    WHERE goods_id = #{goodsId} AND store_id = #{storeId}
+</update>
+
 <!-- 구매 삭제  -->
 <delete id="deletepurchase">
     {call

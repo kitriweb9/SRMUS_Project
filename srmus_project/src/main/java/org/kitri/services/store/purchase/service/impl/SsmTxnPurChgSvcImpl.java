@@ -8,8 +8,6 @@ import org.kitri.services.store.repo.dto.SsmStkMgtChgDto;
 import org.kitri.services.store.repo.dto.SsmTxnPurDto;
 import org.kitri.services.store.sale.service.ISsmTxnSalChgSvc;
 import org.kitri.services.store.sale.service.ISsmTxnSalChkSvc;
-import org.kitri.services.store.stock.service.ISsmStkMgtChgSvc;
-import org.kitri.services.store.stock.service.ISsmStkMgtChkSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +19,6 @@ public class SsmTxnPurChgSvcImpl implements ISsmTxnPurChgSvc {
 	private ISsmTxnSalChkSvc salChkSvc;
 	@Autowired
 	private ISsmTxnSalChgSvc salChgSvc;
-	@Autowired
-	private ISsmStkMgtChgSvc stkChgSvc;
-	@Autowired
-	private ISsmStkMgtChkSvc stkChkSvc;
 
 	@Override
 	public void modifyPurchaseStatus(SsmTxnPurDto purDto) {
@@ -45,8 +39,8 @@ public class SsmTxnPurChgSvcImpl implements ISsmTxnPurChgSvc {
 			SsmStkMgtChgDto stockDto = new SsmStkMgtChgDto();
 			stockDto.setGoodsId(purDto.getGoodsId());
 			stockDto.setStoreId("ST001");
-			stockDto.setStockQuantity((stkChkSvc.getAllStocks().get(0).getStockQuantity())+purDto.getPurchaseQuantity());
-			stkChgSvc.updateStock(stockDto);
+			stockDto.setStockQuantity(purDao.getStockByGId(purDto.getGoodsId())+purDto.getPurchaseQuantity());
+			purDao.applyStock(stockDto);
 		}
 	}
 
@@ -54,5 +48,4 @@ public class SsmTxnPurChgSvcImpl implements ISsmTxnPurChgSvc {
 	public void deletePurchase(String purchaseId) {
 		purDao.deletePurchase(purchaseId);
 	}
-
 }

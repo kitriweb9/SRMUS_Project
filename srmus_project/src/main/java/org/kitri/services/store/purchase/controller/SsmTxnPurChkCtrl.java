@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SsmTxnPurChkCtrl {
 	@Autowired
-	public ISsmTxnPurChkSvc purchksvc;
+	public ISsmTxnPurChkSvc purChkSvc;
 	
 	// 구매 목록 보기
 	@GetMapping("SsmTxnPurChk")
 	public String showPurchaseList(HttpSession httpSession, SsmTxnPurDto purDto, Model model) {
 		SsmCusLgnDto ssmCusLgnDto = (SsmCusLgnDto) httpSession.getAttribute("user");
 		purDto.setCustomerId(ssmCusLgnDto.getId());
-		List<SsmTxnPurDto> purList = purchksvc.getPurchaseY(purDto);
+		List<SsmTxnPurDto> purList = purChkSvc.getPurchaseY(purDto);
 		model.addAttribute("purList", purList);
 		
 		return "store/purchase/SsmTxnPurChk";
@@ -33,7 +33,7 @@ public class SsmTxnPurChkCtrl {
 	public String showPurchaseCancleList(HttpSession httpSession, SsmTxnPurDto purDto, Model model) {
 		SsmCusLgnDto ssmCusLgnDto = (SsmCusLgnDto) httpSession.getAttribute("user");
 		purDto.setCustomerId(ssmCusLgnDto.getId());
-		List<SsmTxnPurDto> purList = purchksvc.getPurchaseN(purDto);
+		List<SsmTxnPurDto> purList = purChkSvc.getPurchaseN(purDto);
 		model.addAttribute("purList", purList);
 		
 		return "store/purchase/SsmTxnPurApr";
