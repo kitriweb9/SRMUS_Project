@@ -1,4 +1,4 @@
-package org.kitri.services.common.login.login;
+package org.kitri.services.common.login;
 
 import org.kitri.services.sales.employee.dao.ISvcComLgnEmpDao;
 import org.kitri.services.store.customer.dao.ISsmCusLgnCusDao;
