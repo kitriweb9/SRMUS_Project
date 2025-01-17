@@ -9,7 +9,6 @@ import org.kitri.services.sales.employee.dto.SvcComEmpDto;
 import org.kitri.services.sales.employee.service.ISvcComEmpInqSvc;
 import org.kitri.services.sales.repo.dto.SvcComEmpLgnDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
