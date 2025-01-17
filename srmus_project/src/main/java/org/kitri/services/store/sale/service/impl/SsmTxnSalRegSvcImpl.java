@@ -1,9 +1,6 @@
 package org.kitri.services.store.sale.service.impl;
 
-import java.util.List;
-
 import org.kitri.services.store.repo.dto.SsmTxnPurDto;
-import org.kitri.services.store.repo.dto.SsmTxnSalDto;
 import org.kitri.services.store.sale.dao.ISsmTxnSalDao;
 import org.kitri.services.store.sale.entity.Sales;
 import org.kitri.services.store.sale.entity.SalesDetail;
