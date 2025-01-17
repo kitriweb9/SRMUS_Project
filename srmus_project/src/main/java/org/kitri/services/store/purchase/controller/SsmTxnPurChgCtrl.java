@@ -15,10 +15,12 @@ public class SsmTxnPurChgCtrl {
 	private ISsmTxnPurChgSvc purChgSvc;
 
 	@PostMapping("SsmTxnPurChg")
-	public String changePStatusToN(SsmTxnPurDto purDto, @RequestParam Map<String, String> goodsIds) {
+	public String changePStatusToN(SsmTxnPurDto purDto, @RequestParam Map<String, String> goodsIds, @RequestParam Map<String, String> purQtys) {
 		String purchaseId = purDto.getPurchaseId();
         String goodsId = goodsIds.get("goodsId_"+purchaseId);
+        String purchaseQuantity = purQtys.get("purQty_"+purchaseId);
         purDto.setGoodsId(goodsId);
+        purDto.setPurchaseQuantity(Integer.parseInt(purchaseQuantity));
 		purChgSvc.modifyPurchaseStatus(purDto);
 		return "redirect:/SsmTxnPurApr";
 	}

@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </insert>
 
 <select id="selectlist" resultType="org.kitri.services.store.repo.dto.SsmTxnPurDto">
-	SELECT p.purchase_id AS purchaseId, p.purchase_date AS purchaseDate, p.purchase_amount AS purchaseAmount, g.goods_name AS goodsName, pd.purchase_quantity AS purchaseQuantity
+	SELECT p.purchase_id AS purchaseId, p.purchase_date AS purchaseDate, p.purchase_amount AS purchaseAmount, pd.goods_id AS goodsId, g.goods_name AS goodsName, pd.purchase_quantity AS purchaseQuantity
 	FROM tb_ssm_purchase p, tb_ssm_purchase_detail pd, tb_ssm_goods g
 	WHERE p.purchase_id=pd.purchase_id
   	AND pd.goods_id=g.goods_id

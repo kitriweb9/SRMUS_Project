@@ -44,11 +44,6 @@ public class SsmTxnPurDaoImpl implements ISsmTxnPurDao {
 	}
 
 	@Override
-	public void deletePurchase(String purchaseId) {
-		sqlSessionTemplate.delete("purchasemapper.deletepurchase", purchaseId);
-	}
-
-	@Override
 	public int getPurSeqNextVal() {
 		return sqlSessionTemplate.selectOne("purchasemapper.getssmpurseqnextval");
 	}

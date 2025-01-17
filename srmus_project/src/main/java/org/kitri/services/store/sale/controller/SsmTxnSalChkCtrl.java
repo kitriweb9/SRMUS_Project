@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SsmTxnSalChkCtrl {
 	@Autowired
-	public ISsmTxnSalChkSvc salChkSvc;
+	private ISsmTxnSalChkSvc salChkSvc;
 	
 	//판매 승인 대기 목록 보기
 	@GetMapping("SsmTxnSalAprList")
@@ -32,6 +32,16 @@ public class SsmTxnSalChkCtrl {
 		model.addAttribute("salList", salList);
 		
 		return "store/sale/SsmTxnSalChk";
+	}
+
+	// 판매 승인 불가 목록 보기(=구매 취소 목록 보기)
+	@GetMapping("SsmTxnSalChkCan")
+	public String showSalesCanceledList(SsmTxnSalDto salDto, Model model) {
+		salDto.setStoreId("ST001");
+		List<SsmTxnSalDto> salList = salChkSvc.getSalesCanceledList(salDto);
+		model.addAttribute("salList", salList);
+		
+		return "store/sale/SsmTxnSalChkCan";
 	}
 	
 	

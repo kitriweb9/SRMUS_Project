@@ -32,5 +32,11 @@ public class SsmTxnSalChkSvcImpl implements ISsmTxnSalChkSvc {
 		salDto.setSalesStatus("Y");
 		return salDao.getSalesList(salDto);
 	}	
-	
+
+	@Override
+	public List<SsmTxnSalDto> getSalesCanceledList(SsmTxnSalDto salDto) {
+		salDto.setStoreId("ST001");
+		salDto.setSalesStatus("N");
+		return salDao.getSalesCanceledList(salDto);
+	}
 }

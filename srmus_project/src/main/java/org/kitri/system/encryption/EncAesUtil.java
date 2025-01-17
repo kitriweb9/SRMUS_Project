@@ -19,8 +19,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class EncAesUtil {
-	public final String FIRST_KEY = "TKATLQDLQKDLXMZL32KEYVMFKDLQPDLX";
-	public final String SECOND_KEY = "TPZJSEMZLSMS1ZLFMFEOTLSGKSMS2ZLD";
+	private final String FIRST_KEY = "TKATLQDLQKDLXMZL32KEYVMFKDLQPDLX";
+	private final String SECOND_KEY = "TPZJSEMZLSMS1ZLFMFEOTLSGKSMS2ZLD";
 	private HexConverter hc = new HexConverter();
 
 	public String encAES256(String inputText) {

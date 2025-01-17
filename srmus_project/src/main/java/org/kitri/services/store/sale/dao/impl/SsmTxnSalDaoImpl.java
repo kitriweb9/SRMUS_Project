@@ -40,15 +40,21 @@ public class SsmTxnSalDaoImpl implements ISsmTxnSalDao {
 		List<SsmTxnSalDto> salList = sqlSessionTemplate.selectList("salesmapper.getsaleslist", salDto);
 		return salList;
 	}
+	
+	@Override
+	public List<SsmTxnSalDto> getSalesCanceledList(SsmTxnSalDto salDto) {
+		List<SsmTxnSalDto> salList = sqlSessionTemplate.selectList("salesmapper.getsalescanceledlist", salDto);
+		return salList;
+	}
+	
 	@Override
 	public void updateSalStatus(SsmTxnSalDto salDto) {
 		sqlSessionTemplate.update("salesmapper.updatesalstatus", salDto);
 		
 	}
-
 	@Override
-	public void deleteSales(String salesId) {
-		sqlSessionTemplate.update("salesmapper.deletesales", salesId);
+	public void updateSalStatusToN(SsmTxnSalDto salDto) {
+		sqlSessionTemplate.update("salesmapper.updatesalstatuston", salDto);
 		
 	}
 

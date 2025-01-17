@@ -16,7 +16,6 @@ public interface ISsmTxnPurDao {
 	public void addPurchaseDetail(PurchaseDetail purchaseDetail);
 	public List<SsmTxnPurDto> getPurchaseByCIdAndStatus(SsmTxnPurDto purDto);
 	public void modifyPurchaseStatus(SsmTxnPurDto purDto);
-	public void deletePurchase(String purchaseId);
 	public int getPurSeqNextVal();
 	public void applyStock(SsmStkMgtChgDto stockDto);
 	public Integer getStockByGId(String goodsId);

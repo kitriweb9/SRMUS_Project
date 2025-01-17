@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class SsmTxnPurRegCtrl {
 	@Autowired
-	public ISsmTxnPurRegSvc purRegSvc;
+	private ISsmTxnPurRegSvc purRegSvc;
 		
 	@PostMapping("SsmTxnPurReg")
 	public String addPurchase(@ModelAttribute SsmTxnPurDto purDto,@RequestParam Map<String, String> goodsPrices) {
