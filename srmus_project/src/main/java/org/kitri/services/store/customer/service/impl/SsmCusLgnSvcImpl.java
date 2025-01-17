@@ -4,7 +4,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.servlet.http.HttpSession;
 
-import org.kitri.services.common.login.login.SvcComLgnInf;
+import org.kitri.services.common.login.SvcComLgnInf;
 import org.kitri.services.store.customer.dao.ISsmCusLgnCusDao;
 import org.kitri.services.store.customer.service.ISsmCusLgnSvc;
 import org.kitri.services.store.repo.dto.SsmCusLgnDto;

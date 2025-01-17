@@ -1,4 +1,4 @@
-package org.kitri.services.common.login.login;
+package org.kitri.services.common.login;
 
 import javax.servlet.http.HttpSession;
 
