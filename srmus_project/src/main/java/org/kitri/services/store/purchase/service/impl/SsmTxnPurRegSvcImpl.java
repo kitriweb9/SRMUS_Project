@@ -31,8 +31,6 @@ public class SsmTxnPurRegSvcImpl implements ISsmTxnPurRegSvc {
 		purchase.setCustomerId(purDto.getCustomerId());
 		purchase.setStoreId("ST001");
 		purchase.setPurchaseAmount(purDto.getPurchaseQuantity()*purDto.getGoodsPrice());
-		System.out.println("get pur qty: "+purDto.getPurchaseQuantity());
-		System.out.println("get g price: "+purDto.getGoodsPrice());
 		purchase.setPurchaseDate(timestamp);
 		purDao.addPurchase(purchase);
 		

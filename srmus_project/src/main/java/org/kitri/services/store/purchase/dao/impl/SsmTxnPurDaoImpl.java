@@ -5,6 +5,7 @@ import java.util.List;
 import org.kitri.services.store.purchase.dao.ISsmTxnPurDao;
 import org.kitri.services.store.purchase.entity.Purchase;
 import org.kitri.services.store.purchase.entity.PurchaseDetail;
+import org.kitri.services.store.repo.dto.SsmStkMgtChgDto;
 import org.kitri.services.store.repo.dto.SsmTxnPurDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +33,14 @@ public class SsmTxnPurDaoImpl implements ISsmTxnPurDao {
 	}
 
 	@Override
-	public List<SsmTxnPurDto> getPurchaseByCIdAndStatus(SsmTxnPurDto pdto) {
-		List<SsmTxnPurDto> plist = sqlSessionTemplate.selectList("purchasemapper.selectlist", pdto);
-		return plist;
+	public List<SsmTxnPurDto> getPurchaseByCIdAndStatus(SsmTxnPurDto purDto) {
+		List<SsmTxnPurDto> purList = sqlSessionTemplate.selectList("purchasemapper.selectlist", purDto);
+		return purList;
 	}
 
 	@Override
-	public void modifyPurchaseStatus(SsmTxnPurDto pdto) {
-		sqlSessionTemplate.update("purchasemapper.updatestatus", pdto);
+	public void modifyPurchaseStatus(SsmTxnPurDto purDto) {
+		sqlSessionTemplate.update("purchasemapper.updatestatus", purDto);
 	}
 
 	@Override
@@ -50,6 +51,15 @@ public class SsmTxnPurDaoImpl implements ISsmTxnPurDao {
 	@Override
 	public int getPurSeqNextVal() {
 		return sqlSessionTemplate.selectOne("purchasemapper.getssmpurseqnextval");
+	}
+
+	@Override
+	public Integer getStockByGId(String goodsId) {
+		return sqlSessionTemplate.selectOne("purchasemapper.selectstockbygid", goodsId);
+	}
+	@Override
+	public void applyStock(SsmStkMgtChgDto stockDto) {
+		sqlSessionTemplate.update("purchasemapper.applystock", stockDto);
 	}
 
 }

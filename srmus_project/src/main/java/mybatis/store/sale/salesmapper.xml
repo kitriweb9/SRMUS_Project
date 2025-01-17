@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="salesmapper">
 	
 <select id="getssmsalseqnextval" resultType="int">
-	SELECT ssm_pur_seq.NEXTVAL FROM DUAL
+	SELECT ssm_sal_seq.NEXTVAL FROM DUAL
 </select>
 	<insert id="addsales">
 		INSERT INTO tb_ssm_sales(sales_id, purchase_id,
