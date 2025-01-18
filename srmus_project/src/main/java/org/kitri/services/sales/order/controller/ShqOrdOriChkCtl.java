@@ -27,7 +27,6 @@ public class ShqOrdOriChkCtl {
 	public String searchOrders(@RequestParam(required = false) String orderId, @RequestParam(required = false) String goodsName, Model model) {
 		List<ShqOrdOriChkDto> ordersList = iChkSvc.searchOrders(orderId, goodsName);
 		model.addAttribute("ordersList", ordersList);
-		System.out.println(ordersList);
 		return "/sales/order/orderlist";
 	}
 }

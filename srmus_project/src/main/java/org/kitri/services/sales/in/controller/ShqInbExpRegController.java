@@ -36,7 +36,6 @@ public class ShqInbExpRegController {
 									 @RequestParam(name="hqInboundDate")
 									 String hqInboundDate) {
 		storeSvc.addStoreInbound(storeInboudDto, hqInboundDate);
-		System.out.println(hqInboundDate);
 		return "sales/in/ShqInbExpReg";
 	}
 	

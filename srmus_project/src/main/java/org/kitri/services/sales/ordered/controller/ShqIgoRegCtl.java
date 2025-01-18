@@ -29,8 +29,7 @@ public class ShqIgoRegCtl {
 	
 	@PostMapping("/integrationorder")
 	public String integrationOrderRegistration(@RequestParam String orderId, HttpSession httpSession, Model model) {
-//		String employeeId = (String)httpSession.getAttribute("employeeId");
-		String employeeId = "11111";
+		String employeeId = (String) httpSession.getAttribute("employee");
 		String integrationResult = iRegSvc.integrationOrderRegistration(orderId, employeeId);
 		model.addAttribute("result", integrationResult);
 		return "/sales/ordered/orderedlist";
@@ -38,7 +37,6 @@ public class ShqIgoRegCtl {
 	
 	@PostMapping("/integrationserach")
 	public String integrationSerach(@RequestParam String inputDate, Model model) {
-		System.out.println(inputDate);
 		List<ShqIgoRegIIDto> integration = iRegSvc.integrationOrderInquiry(inputDate);
 		model.addAttribute("integration", integration);
 		return "/sales/ordered/orderedlist";
