@@ -3,12 +3,12 @@ package org.kitri.services.store.sale.entity;
 public class SalesDetail {
 	private String salesId;
 	private String goodsId;
-	private String salesQuantity;
+	private int salesQuantity;
 	private String salesStatus;
 	
 	public SalesDetail() {}
 
-	public SalesDetail(String salesId, String goodsId, String salesQuantity, String salesStatus) {
+	public SalesDetail(String salesId, String goodsId, int salesQuantity, String salesStatus) {
 		super();
 		this.salesId = salesId;
 		this.goodsId = goodsId;
@@ -32,11 +32,11 @@ public class SalesDetail {
 		this.goodsId = goodsId;
 	}
 
-	public String getSalesQuantity() {
+	public int getSalesQuantity() {
 		return salesQuantity;
 	}
 
-	public void setSalesQuantity(String salesQuantity) {
+	public void setSalesQuantity(int salesQuantity) {
 		this.salesQuantity = salesQuantity;
 	}
 

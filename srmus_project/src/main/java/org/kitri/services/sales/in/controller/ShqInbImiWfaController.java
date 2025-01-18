@@ -32,8 +32,6 @@ public class ShqInbImiWfaController {
 	@PostMapping("/update")
 	public String updatIncomingStocks(Model model,
 									  @ModelAttribute ShqInbImiDto reqDto){
-		System.out.println(reqDto);
-		System.out.println(reqDto.getInboundDate());
 		svc.updateIncomingStocks(reqDto);
 		model.addAttribute("goods", svc.getIncomingInbound());
 		return "sales/in/ShqInbImiWfa";

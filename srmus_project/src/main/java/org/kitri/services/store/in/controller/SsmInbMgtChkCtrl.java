@@ -2,6 +2,7 @@ package org.kitri.services.store.in.controller;
 
 import java.util.List;
 
+import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.store.in.service.ISsmInbMgtChkSvc;
 import org.kitri.services.store.repo.dto.SsmInbMgtChkDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class SsmInbMgtChkCtrl {
     private ISsmInbMgtChkSvc chkSvc;
 
     @GetMapping("/SsmInbMgtChk/list")
+    @RequiresAuthority("SsmInbMgtChk")
     public String list(Model model) {
         List<SsmInbMgtChkDto> list = chkSvc.getInboundConfirmed();
         model.addAttribute("confirmedList", list);

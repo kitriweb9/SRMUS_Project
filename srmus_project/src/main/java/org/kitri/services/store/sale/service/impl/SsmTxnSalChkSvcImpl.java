@@ -1,6 +1,5 @@
 package org.kitri.services.store.sale.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.kitri.services.store.repo.dto.SsmTxnSalDto;
@@ -12,25 +11,32 @@ import org.springframework.stereotype.Service;
 @Service
 public class SsmTxnSalChkSvcImpl implements ISsmTxnSalChkSvc {
 	@Autowired
-	public ISsmTxnSalDao sdao;
-
+	public ISsmTxnSalDao salDao;
+	
+	
 	@Override
-	public List<SsmTxnSalDto> getSalesList() {
-		List<SsmTxnSalDto> slist = new ArrayList<SsmTxnSalDto>();
-		return slist;
+	public SsmTxnSalDto getSales(String purchaseId) {
+		return salDao.getSales(purchaseId);
 	}
 
 	@Override
-	public List<SsmTxnSalDto> getSalesListByStore(String storeId) {
-		List<SsmTxnSalDto> slist = new ArrayList<SsmTxnSalDto>();
-		slist=sdao.getSalesListByStore(storeId);
-		return slist;
-	}
-
-	@Override
-	public String getSIdByPId(String purchaseId) {
-		String sid=sdao.getSIdByPId(purchaseId);
-		return sid;
+	public List<SsmTxnSalDto> getSalesListN(SsmTxnSalDto salDto) {
+		salDto.setStoreId("ST001");
+		salDto.setSalesStatus("N");
+		return salDao.getSalesList(salDto);
 	}
 	
+	@Override
+	public List<SsmTxnSalDto> getSalesListY(SsmTxnSalDto salDto) {
+		salDto.setStoreId("ST001");
+		salDto.setSalesStatus("Y");
+		return salDao.getSalesList(salDto);
+	}	
+
+	@Override
+	public List<SsmTxnSalDto> getSalesCanceledList(SsmTxnSalDto salDto) {
+		salDto.setStoreId("ST001");
+		salDto.setSalesStatus("N");
+		return salDao.getSalesCanceledList(salDto);
+	}
 }

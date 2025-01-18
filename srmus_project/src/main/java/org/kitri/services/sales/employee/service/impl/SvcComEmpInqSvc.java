@@ -41,7 +41,6 @@ public class SvcComEmpInqSvc implements ISvcComEmpInqSvc{
 		else if ((employeeId == null || employeeId.isEmpty()) && (positionId != null && !positionId.isEmpty()) && (roleId != null && !roleId.isEmpty()) && (departmentId != null && !departmentId.isEmpty())) {
         	inqDtos = iSvcComEmpInqDao.inquiryByPosRoleDepartId(positionId, roleId, departmentId);
         } else {
-        	System.out.println("ALl");
         	inqDtos = iSvcComEmpInqDao.inquiryOfAllEmp();
         }
         

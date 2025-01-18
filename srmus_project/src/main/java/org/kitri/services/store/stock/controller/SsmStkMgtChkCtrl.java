@@ -1,6 +1,8 @@
 package org.kitri.services.store.stock.controller;
 
 import java.util.List;
+
+import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.store.repo.dto.SsmStkMgtChkDto;
 import org.kitri.services.store.stock.service.ISsmStkMgtChkSvc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ public class SsmStkMgtChkCtrl {
 	private ISsmStkMgtChkSvc chkSvc;
 
 	@GetMapping("/SsmStkMgtChk/list")
+	@RequiresAuthority("SsmStkMgtChk")
 	public String listStock(Model model) {
 		List<SsmStkMgtChkDto> stockList = chkSvc.getAllStocks();
 		model.addAttribute("stockList", stockList);

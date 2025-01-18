@@ -40,10 +40,10 @@ public class ShqOrdOriChkSvc implements IShqOrdOriChkSvc {
 			String status = order.getOrderConfirmStatus();
 			switch (status) {
 			case "N":
-				order.setOrderConfirmStatus("수주");
+				order.setOrderConfirmStatus("승인 대기");
 				break;
 			case "Y":
-				order.setOrderConfirmStatus("발주 완료");
+				order.setOrderConfirmStatus("발주 승인");
 				break;
 			default:
 				order.setOrderConfirmStatus("미확인 상태");

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.store.order.service.ISsmOrdGdoRegSvc;
 import org.kitri.services.store.repo.dto.SsmOrdGdoRegDto;
 
@@ -14,6 +15,7 @@ public class SsmOrdGdoRegCtrl {
 	private ISsmOrdGdoRegSvc regSvc;
 
 	@GetMapping("/SsmOrdGdoReg/reg")
+	@RequiresAuthority("SsmOrdGdoReg")
 	public String showRegForm() {
 
 		return "store/order/SsmOrdGdoReg";

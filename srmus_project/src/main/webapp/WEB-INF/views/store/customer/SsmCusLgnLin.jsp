@@ -1,9 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>매장 로그인</title>
 <style>
     .login-body {
         font-family: Arial, sans-serif;
@@ -84,7 +85,13 @@
         text-decoration: underline;
         color: #0056b3;
     }
-
+    
+	.login-card .error-message {
+        font-size: small;
+        color: red;
+        text-align: center;
+    }
+    
     .login-footer {
         width: 100%;
         background-color: #f7f9fc;
@@ -95,10 +102,24 @@
         position: relative;
         margin-top: 20px;
     }
+
+    /* 로그인 유형 선택 부분을 아이디 입력 창 바로 위에 위치시킴 */
+    .login-type-selector {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 20px;
+    }
 </style>
 <script>
-    function setStoreLoginAction(actionUrl) {
+    function setLoginAction(actionUrl, loginType) {
         const form = document.getElementById("loginForm");
+        // hidden field 추가로 로그인 유형 전달
+        let loginTypeField = document.createElement("input");
+        loginTypeField.type = "hidden";
+        loginTypeField.name = "loginType";
+        loginTypeField.value = loginType;
+        form.appendChild(loginTypeField);
+        
         form.action = actionUrl;
         form.submit();
     }
@@ -107,11 +128,23 @@
 <body class="login-body">
     <div class="login-card">
         <h4>매장 로그인</h4>
-        <form id="loginForm" method="post">
+		<form action="${pageContext.request.contextPath}/customer/login" method="post">
+        <!-- 로그인 유형 선택 (아이디 입력창 바로 위) -->
+        <div class="login-type-selector">
+            <label><input type="radio" name="loginType" value="customer" checked> 고객 로그인</label>
+            <label><input type="radio" name="loginType" value="employee"> 직원 로그인</label>
+        </div>
+
+        
             <input type="text" name="id" placeholder="아이디를 입력하세요" required>
             <input type="password" name="pwd" placeholder="패스워드를 입력하세요" required>
-            <button type="button" class="store-login" onclick="setStoreLoginAction('${pageContext.request.contextPath}/customer/login')">로그인</button>
+            
+            <button type="submit" class="store-login" onclick="submitLoginForm()">로그인</button>
         </form>
+        <c:if test="${not empty message}">
+            <div class="error-message">${message}</div>
+            <br>
+        </c:if>
         <button type="button" class="hq-login" onclick="window.location.href='${pageContext.request.contextPath}/employee/login'">본부 로그인으로 이동</button>
         <a href="${pageContext.request.contextPath}/register" class="register-link">회원가입</a> <!-- 회원가입 링크 -->
     </div>
@@ -121,5 +154,18 @@
         <small class="text-muted">Font: Yejeong, Ham / Back: Yejeong, Ham</small><br>
         <small class="text-muted">&copy; 2024 Kitri Team Project. All rights reserved.</small>
     </footer>
+
+    <script>
+        function submitLoginForm() {
+            const form = document.getElementById("loginForm");
+            const loginType = form.querySelector('input[name="loginType"]:checked').value;
+
+            if (loginType === 'customer') {
+                setLoginAction('${pageContext.request.contextPath}/customer/login', 'customer');
+            } else {
+                setLoginAction('${pageContext.request.contextPath}/employee/login', 'employee');
+            }
+        }
+    </script>
 </body>
 </html>

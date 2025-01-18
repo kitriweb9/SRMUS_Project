@@ -5,10 +5,10 @@ import java.util.List;
 import org.kitri.services.store.repo.dto.SsmTxnSalDto;
 
 public interface ISsmTxnSalChkSvc {
-	public List<SsmTxnSalDto> getSalesList(); 
-	public List<SsmTxnSalDto> getSalesListByStore(String storeId);
-	public String getSIdByPId(String purchaseId);
-//	public int getSalSeqNextVal();
+	public SsmTxnSalDto getSales(String purchaseId);
+	public List<SsmTxnSalDto> getSalesListN(SsmTxnSalDto salDto);
+	public List<SsmTxnSalDto> getSalesListY(SsmTxnSalDto salDto);
+	public List<SsmTxnSalDto> getSalesCanceledList(SsmTxnSalDto salDto);
 	
 
 }

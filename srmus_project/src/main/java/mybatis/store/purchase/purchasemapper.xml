@@ -6,118 +6,60 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="purchasemapper">
 
-	<insert id="addpurchase" parameterType="org.kitri.services.store.repo.dto.SsmTxnPurRegDto">
-	    <selectKey keyProperty="purchaseId" resultType="string" order="BEFORE">
-	        SELECT 'PC' || LPAD(TO_CHAR(ssm_pur_seq.NEXTVAL), 3, '0') AS purchaseId FROM DUAL
-	    </selectKey>
-	
-	    INSERT INTO tb_ssm_purchase (
-	        purchase_id,
-	        customer_id,
-	        store_id,
-	        purchase_amount,
-	        purchase_date
-	    ) VALUES (
-	        #{purchaseId},
-	        #{customerId},
-	        'ST001',
-	        0,
-	        SYSDATE
-	    )
-	</insert>
+<select id="getssmpurseqnextval" resultType="int">
+	SELECT ssm_pur_seq.NEXTVAL FROM DUAL
+</select>
 
-	<insert id="addpurchasedetail"
-		parameterType="org.kitri.services.store.repo.dto.SsmTxnPurRegDto">
-		INSERT INTO tb_ssm_purchase_detail(purchase_id, goods_id,
-		purchase_quantity, purchase_payment_status)
-		VALUES ( #{purchaseId},
-		#{goodsId}, #{purchaseQuantity}, 'N')
-	</insert>
-	<select id="getpidbycid" resultType="String">
-		SELECT purchase_id AS purchaseId
-		FROM (select purchase_id,
-		customer_id, purchase_date, ROW_NUMBER()
-		OVER(ORDER BY purchase_date
-		DESC) AS d FROM tb_ssm_purchase where
-		customer_id=#{customerId})
-		WHERE d=1
-	</select>
-	<select id="getstatusbypid" parameterType="String" resultType="String">
-		SELECT purchase_payment_status AS purchasePaymentStatus
-		FROM (SELECT purchase_id, purchase_payment_status, ROW_NUMBER()
-		OVER(ORDER BY purchase_id DESC) AS d FROM tb_ssm_purchase_detail
-		WHERE
-		purchase_id=#{purchaseId})
-		WHERE d=1
-	</select>
-	<select id="getpidbycidwithdate" parameterType="String"
-		resultType="String">
-		SELECT purchase_id AS purchaseId
-		FROM (SELECT purchase_id,
-		customer_id, purchase_date, ROW_NUMBER()
-		OVER(ORDER BY purchase_date
-		DESC) AS d FROM tb_ssm_purchase
-		WHERE customer_id=#{customerId})
-		WHERE d=1
-	</select>
-	<select id="getgoodsqtybypidandgid"
-		parameterType="org.kitri.services.store.repo.dto.SsmTxnPurRegDto"
-		resultType="Integer">
-		SELECT purchase_quantity AS purchaseQuantity
-		FROM (SELECT
-		purchase_id, goods_id, purchase_quantity FROM tb_ssm_purchase_detail
-		WHERE
-		purchase_id=#{purchaseId})
-		WHERE goods_id=#{goodsId}
-	</select>
-	<select id="getpurchasebypid" parameterType="String" resultType="org.kitri.services.store.repo.dto.SsmTxnPurRegDto">
-		SELECT purchase_id AS purchaseId, customer_id AS customerId, store_id AS storeId, purchase_amount AS purchaseAmount, purchase_date AS purchaseDate
-		FROM tb_ssm_purchase
-		WHERE purchase_id = #{purchaseId}
-	</select>
-	<select id="getpurchasedetailbypid" parameterType="String" resultType="org.kitri.services.store.repo.dto.SsmTxnPurRegDto">
-		SELECT purchase_id AS purchaseId, goods_id AS goodsId, purchase_quantity AS purchaseQuantity, purchase_payment_status AS purchasePaymentStatus
-		FROM tb_ssm_purchase_detail
-		WHERE purchase_id = #{purchaseId}
-	</select>
-	<select id="getcartbypid" parameterType="String" resultType="org.kitri.services.store.repo.dto.SsmTxnPurRegDto">
-		SELECT gd.goods_name AS goodsName, gd.goods_price AS goodsPrice, pd.purchase_quantity AS purchaseQuantity
-		FROM tb_ssm_purchase p, tb_ssm_purchase_detail pd, tb_ssm_goods gd
-		WHERE p.purchase_id = pd.purchase_id
-		AND pd.goods_id = gd.goods_id
-		AND pd.purchase_id = #{purchaseId}
-		AND pd.purchase_quantity > 0
-	</select>
-	<update id="updategoodsqty"
-		parameterType="org.kitri.services.store.repo.dto.SsmTxnPurRegDto">
-		UPDATE tb_ssm_purchase_detail
-		SET purchase_quantity =
-		#{purchaseQuantity}
-		WHERE purchase_id = #{purchaseId}
-		AND goods_id =
-		#{goodsId}
-	</update>
-	<update id="updateamount"
-		parameterType="org.kitri.services.store.repo.dto.SsmTxnPurRegDto">
-		UPDATE tb_ssm_purchase
-		SET purchase_amount = (
-		SELECT SUM((goods_price*purchase_quantity))
-		FROM (
-		SELECT p.purchase_id, pd.purchase_quantity, gd.goods_price
-		FROM
-		tb_ssm_purchase p, tb_ssm_purchase_detail pd, tb_ssm_goods gd
-		WHERE p.purchase_id =
-		pd.purchase_id
-		AND pd.goods_id = gd.goods_id
-		)
-		WHERE purchase_id = #{purchaseId}
-		)
-		WHERE purchase_id = #{purchaseId}
-	</update>	
-	<update id="updatepstatus" parameterType="String">
-		UPDATE tb_ssm_purchase_detail
-		SET purchase_payment_status = 'Y'
-		WHERE purchase_id =
-		#{purchaseId}
-	</update>
+<insert id = "insertpurchase">
+	INSERT INTO tb_ssm_purchase(purchase_id, customer_id, store_id, purchase_amount, purchase_date)
+	VALUES(#{purchaseId}, #{customerId}, #{storeId}, #{purchaseAmount}, #{purchaseDate}
+	)
+</insert>
+<insert id = "insertpurchasedetail">	
+	INSERT INTO tb_ssm_purchase_detail(purchase_id, goods_id, purchase_quantity, purchase_payment_status)
+	VALUES(#{purchaseId}, #{goodsId}, #{purchaseQuantity}, #{purchasePaymentStatus}
+	)
+</insert>
+
+<select id="selectlist" resultType="org.kitri.services.store.repo.dto.SsmTxnPurDto">
+	SELECT p.purchase_id AS purchaseId, p.purchase_date AS purchaseDate, p.purchase_amount AS purchaseAmount, pd.goods_id AS goodsId, g.goods_name AS goodsName, pd.purchase_quantity AS purchaseQuantity
+	FROM tb_ssm_purchase p, tb_ssm_purchase_detail pd, tb_ssm_goods g
+	WHERE p.purchase_id=pd.purchase_id
+  	AND pd.goods_id=g.goods_id
+	AND p.customer_id = #{customerId}
+	AND pd.purchase_payment_status = #{purchasePaymentStatus}
+</select>
+
+<update id="updatestatus">
+    {call
+        DECLARE
+        BEGIN
+            UPDATE tb_ssm_purchase_detail SET purchase_payment_status=#{purchasePaymentStatus} WHERE purchase_id=#{purchaseId};
+            UPDATE tb_ssm_purchase SET purchase_date=#{purchaseDate} WHERE purchase_id=#{purchaseId};
+        END
+    }
+</update>
+<select id="selectstockbygid" resultType="Integer">
+	SELECT STOCK_QUANTITY AS stockQuantity
+	FROM TB_SSM_STOCK
+	WHERE goods_id=#{goodsId}
+</select>
+<update id="applystock">
+    UPDATE TB_SSM_STOCK
+    SET
+        stock_quantity = #{stockQuantity}
+    WHERE goods_id = #{goodsId} AND store_id = #{storeId}
+</update>
+
+<!-- 구매 삭제  -->
+<delete id="deletepurchase">
+    {call
+        DECLARE
+        BEGIN
+            DELETE FROM tb_ssm_purchase_detail WHERE purchase_id = #{purchaseId};
+            DELETE FROM tb_ssm_purchase WHERE purchase_id = #{purchaseId};
+        END
+    }
+</delete>
+
 </mapper>

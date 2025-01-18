@@ -42,7 +42,6 @@ public class ShqInbImiDaoImpl implements ShqInbImiDao {
 		return sqlSessionTemplate.selectList("hqinbound.findAll");
 	}
 
-
 	@Override
 	public List<IntegrationInbound> findByGoodsId(String goodsId) {
 		return sqlSessionTemplate.selectList("hqinbound.findByGoodsId", goodsId);

@@ -34,11 +34,13 @@
         // 폼 제출 시 체크된 체크박스와 수량만 전송
         function prepareForm() {
             const checkboxes = document.querySelectorAll("input[type='checkbox'][name='goodsId']");
+            const hiddenPrice = document.querySelectorAll("input[type='hidden'][name='goodsPrice']");
             const quantityInputs = document.querySelectorAll("input[type='number'][name='purchaseQuantity']");
 
             checkboxes.forEach((checkbox, index) => {
                 if (!checkbox.checked) {
                     checkbox.removeAttribute('name'); // 체크되지 않은 항목은 전송되지 않음
+                    hiddenPrice.removeAttribute('name');
                     quantityInputs[index].removeAttribute('name'); // 수량 필드도 제거
                 }
             });
@@ -57,7 +59,7 @@
                 <h1>상품목록</h1>
 
                 <!-- 상품 목록 폼 -->
-                <form method="post" action="${pageContext.request.contextPath}/purregtest" onsubmit="prepareForm()">
+                <form method="post" action="${pageContext.request.contextPath}/SsmTxnPurReg" onsubmit="prepareForm()">
                     <table class="table table-bordered align-middle">
                         <thead class="table-light">
                             <tr>
@@ -80,12 +82,12 @@
                                     <td>${goods.id}</td>
                                     <td>${goods.category}</td>
                                     <td>${goods.name}</td>
-                                    <td>${goods.price}</td>
+                                    <td>${goods.price}<input type="hidden" name="goodsPrice_${goods.id}" value="${goods.price}" /></td>
                                     <td>${goods.unit}</td>
                                     <td>${goods.factory}</td>
                                     <td>
                                         <input type="number" name="purchaseQuantity" value="1" min="1" style="width: 50px; text-align: center;" />
-                                    </td>
+                                    </td>                                       
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -93,7 +95,7 @@
                     
                     <!-- 고객/직원 판별 -->
                     <c:choose>
-                        <c:when test="${not empty sessionScope.user and sessionScope.userType == 'employee'}">
+                        <c:when test="${not empty sessionScope.employee and sessionScope.loginType == 'employee'}">
                             <!-- 직원일 경우 -->
                             <input type="hidden" name="customerId" value="" />
                             <script>
@@ -115,7 +117,7 @@
                     </c:choose>
                     
                     <div style="text-align: center; margin-top: 20px;">
-                        <input type="submit" value="장바구니에 담기" />
+                        <input type="submit" value="구매하기" />
                     </div>
                 </form>
             </div>
