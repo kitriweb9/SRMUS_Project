@@ -6,6 +6,7 @@ import org.kitri.services.common.login.SvcComLgnLin;
 import org.kitri.system.encryption.EncShaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,7 @@ public class SsmCusLgnLin {
 
 	@PostMapping("/customer/login")
 	public String login(HttpSession session, @RequestParam String id, @RequestParam String pwd,
-			@RequestParam String loginType) {
+			@RequestParam String loginType, Model model) {
 		if (id.isEmpty() || pwd.isEmpty()) {
 			return "store/customer/SsmCusLgnLin";
 		}
@@ -39,7 +40,7 @@ public class SsmCusLgnLin {
 		if (loginSvc.login(session, id, pwd, loginType)) {
 			return "redirect:/customer/goods";
 		}
-
+		model.addAttribute("message", "아이디 또는 비밀번호가 틀립니다.");
 		return "store/customer/SsmCusLgnLin";
 	}
 }

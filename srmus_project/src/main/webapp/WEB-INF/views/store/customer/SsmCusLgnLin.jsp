@@ -1,9 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>매장 로그인</title>
 <style>
     .login-body {
         font-family: Arial, sans-serif;
@@ -84,7 +85,13 @@
         text-decoration: underline;
         color: #0056b3;
     }
-
+    
+	.login-card .error-message {
+        font-size: small;
+        color: red;
+        text-align: center;
+    }
+    
     .login-footer {
         width: 100%;
         background-color: #f7f9fc;
@@ -134,6 +141,10 @@
             
             <button type="submit" class="store-login" onclick="submitLoginForm()">로그인</button>
         </form>
+        <c:if test="${not empty message}">
+            <div class="error-message">${message}</div>
+            <br>
+        </c:if>
         <button type="button" class="hq-login" onclick="window.location.href='${pageContext.request.contextPath}/employee/login'">본부 로그인으로 이동</button>
         <a href="${pageContext.request.contextPath}/register" class="register-link">회원가입</a> <!-- 회원가입 링크 -->
     </div>

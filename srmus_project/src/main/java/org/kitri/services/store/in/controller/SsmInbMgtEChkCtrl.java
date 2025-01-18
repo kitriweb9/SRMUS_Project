@@ -2,6 +2,7 @@ package org.kitri.services.store.in.controller;
 
 import java.util.List;
 
+import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.store.in.service.ISsmInbMgtEChkSvc;
 import org.kitri.services.store.repo.dto.SsmInbMgtEChkDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class SsmInbMgtEChkCtrl {
     private ISsmInbMgtEChkSvc eChkSvc;
 
     @GetMapping("/SsmInbMgtEChk/list")
+    @RequiresAuthority("SsmInbMgtEChk")
     public String list(Model model) {
         List<SsmInbMgtEChkDto> list = eChkSvc.getInboundAll();
         model.addAttribute("inboundList", list);
