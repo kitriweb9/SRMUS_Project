@@ -2,7 +2,6 @@ package org.kitri.services.store.sale.controller;
 
 import java.util.Map;
 
-import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.store.repo.dto.SsmTxnSalDto;
 import org.kitri.services.store.sale.service.ISsmTxnSalAprSvc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ public class SsmTxnSalAprCtrl {
 	public ISsmTxnSalAprSvc salAprSvc;
 	
 	@PostMapping("SsmTxnSalApr")
-	@RequiresAuthority("SsmTxnSalApr")
 	public String changeSalStatus(SsmTxnSalDto salDto, @RequestParam Map<String, String> goodsIds, @RequestParam Map<String, String> salesQuantities) {
 		String salesId=salDto.getSalesId();
 		String goodsId=goodsIds.get("goodsId_"+salesId);

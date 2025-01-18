@@ -88,3 +88,12 @@ SRMUS (Store Resource Management Unified System)는 매장 통합 관리 시스�
   기타 데이터는 AES-256으로 암호화 및 복호화 과정을 거쳐 안전하게 저장됩니다.
 - **HTTP 보안 강화**:  
   HTTPS가 적용되지 않은 환경에서 데이터의 안전한 전송을 보장하기 위해 암호화 모듈을 활용합니다.
+
+## 추가 첨부 문서
+
+[![업무 정의서](https://img.shields.io/badge/-업무%20정의서-blue?style=for-the-badge&link=https://)](#link)
+[![요구사항 명세서](https://img.shields.io/badge/-요구사항%20명세서-green?style=for-the-badge&link=https://)](#link)
+[![Class 다이어그램](https://img.shields.io/badge/-Class%20다이어그램-orange?style=for-the-badge&link=https://)](#link)
+[![Class 명세서](https://img.shields.io/badge/-Class%20명세서-red?style=for-the-badge&link=https://)](#link)
+[![Data Flow 다이어그램](https://img.shields.io/badge/-Data%20Flow%20흐름도-purple?style=for-the-badge&link=https://)](#link)
+[![Use Case 다이어그램](https://img.shields.io/badge/-Use%20Case%20다이어그램-teal?style=for-the-badge&link=https://)](#link)
