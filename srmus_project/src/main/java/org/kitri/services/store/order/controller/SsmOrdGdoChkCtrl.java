@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.kitri.services.common.pageauth.intercepter.RequiresAuthority;
 import org.kitri.services.store.order.service.ISsmOrdGdoChkSvc;
 import org.kitri.services.store.repo.dto.SsmOrdGdoChkDto;
 
@@ -16,6 +17,7 @@ public class SsmOrdGdoChkCtrl {
     private ISsmOrdGdoChkSvc chkSvc;
     
     @GetMapping("/SsmOrdGdoChk/list")
+    @RequiresAuthority("SsmOrdGdoChk")
     public String list(Model model) {
         List<SsmOrdGdoChkDto> orderList = chkSvc.getOrderList();
         model.addAttribute("orderList", orderList);
