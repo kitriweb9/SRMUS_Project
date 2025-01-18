@@ -74,8 +74,6 @@ public class SvcComPgcAcpImpl implements SvcComPgcAcp {
 	// 데이터베이스에 저장되어 있는지 체크
 	private boolean isAuthorized(SvcComEmpDto svcComEmpDto, String serviceId) {
 		try {
-			String group = svcComEmpDto.getServiceGroupId();
-			System.out.println("그룹아이디 조회= " + group);
 			List<String> serviceIds = svcComPgcRepos.findServiceOnlyByGroupId(svcComEmpDto.getServiceGroupId());
 			if (serviceIds != null && serviceIds.contains(serviceId)) {
 				author.put(svcComEmpDto.getEmployeeId(), serviceIds);

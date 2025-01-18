@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   i.GOODS_ID, i.STORE_INBOUND_QUANTITY, i.STORE_INBOUND_CONFIRM,
 			   s.STORE_NAME, g.GOODS_NAME
 		FROM
-			TB_SHQ_DECRYPTED_STORE_INBOUND i, TB_SHQ_GOODS g, TB_SHQ_STORE s
+			TB_SHQ_STORE_INBOUND i, TB_SHQ_GOODS g, TB_SHQ_STORE s
 		WHERE
 			i.GOODS_ID = g.GOODS_ID
 		AND
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   i.GOODS_ID, i.STORE_INBOUND_QUANTITY, i.STORE_INBOUND_CONFIRM,
 			   s.STORE_NAME, g.GOODS_NAME
 		FROM
-			TB_SHQ_DECRYPTED_STORE_INBOUND i, TB_SHQ_GOODS g, TB_SHQ_STORE s
+			TB_SHQ_STORE_INBOUND i, TB_SHQ_GOODS g, TB_SHQ_STORE s
 		WHERE
 			i.STORE_ID = #{value}
 		AND
@@ -53,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<update id="approve" parameterType="org.kitri.services.sales.in.entity.StoreInbound">
-		UPDATE "TB_SHQ_DECRYPTED_STORE_INBOUND"
+		UPDATE "TB_SHQ_STORE_INBOUND"
 		SET
 			STORE_INBOUND_CONFIRM = 'Y'
 		WHERE
@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<update id="update" parameterType="org.kitri.services.sales.in.entity.StoreInbound">
-		UPDATE "TB_SHQ_DECRYPTED_STORE_INBOUND"
+		UPDATE "TB_SHQ_STORE_INBOUND"
 		SET
 			STORE_INBOUND_DATE = #{inboundDate},
 			STORE_INBOUND_QUANTITY = #{inboundQuantity},
@@ -73,5 +73,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND
 			GOODS_ID = #{goodsId}
 	</update>
-
+	<insert id="save">
+		INSERT INTO "TB_SHQ_STORE_INBOUND" (
+			inbound_id,
+			store_id,
+			store_inbound_date,
+			goods_id,
+			store_inbound_quantity,
+			store_inbound_confirm
+		)
+		VALUES (
+			#{inboundId},
+			#{storeId},
+			SYSDATE,
+			#{goodsId},
+			#{inboundQuantity},
+			#{confirm}
+		)
+	</insert>
+	
+	<insert id="encryptSave">
+		INSERT INTO "TB_SHQ_STORE_INBOUND" (
+			inbound_id,
+			store_id,
+			store_inbound_date,
+			goods_id,
+			store_inbound_quantity,
+			store_inbound_confirm
+		)
+		VALUES (
+			#{encryptedFields.inboundId},
+			#{encryptedFields.storeId},
+			SYSDATE,
+			#{encryptedFields.goodsId},
+			#{encryptedFields.inboundQuantity},
+			#{encryptedFields.confirm}
+		)
+	</insert>
 </mapper>

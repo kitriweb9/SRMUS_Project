@@ -69,5 +69,10 @@ public class StoreInbound {
 		return this;
 	}
 	
-
+	@Override
+	public String toString() {
+		return "StoreInbound [inboundId=" + inboundId + ", storeId=" + storeId + ", storeName=" + storeName
+				+ ", inboundDate=" + inboundDate + ", goodsId=" + goodsId + ", goodsName=" + goodsName
+				+ ", inboundQuantity=" + inboundQuantity + ", confirm=" + confirm + "]";
+	}
 }

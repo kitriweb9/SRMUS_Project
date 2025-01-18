@@ -11,10 +11,14 @@ import org.kitri.services.sales.in.entity.IntegrationInbound;
 import org.kitri.services.sales.in.entity.StoreInbound;
 import org.kitri.services.sales.in.service.ShqInbExpService;
 import org.kitri.services.sales.repo.dto.ShqInbExpDto;
+import org.kitri.system.dualdata.core.IDualDataModule;
+import org.kitri.system.dualdata.dto.EncryptedDto;
+import org.kitri.system.dualdata.factory.IDualDataModuleFactory;
 import org.kitri.system.dualdata.shq.IShqDualDataModule;
 import org.kitri.system.dualdata.shq.IShqDualDataModuleFactory;
 import org.kitri.system.dualdata.shq.ShqEncryptedDto;
 import org.kitri.system.encryption.EncAesUtil;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +28,11 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 	private final ShqInbImiDao hqDao;
 	private final EncAesUtil aesUtil;
 	private final SvcComTti imageConverter;
-	private IShqDualDataModuleFactory moduleFactory;
+	private IDualDataModuleFactory moduleFactory;
 	
 	@Autowired
 	public ShqInbExpServiceImpl(ShqInbExpDao dao, ShqInbImiDao hqDao,
-			 					EncAesUtil aesUtil, IShqDualDataModuleFactory moduleFactory,
+			 					EncAesUtil aesUtil, IDualDataModuleFactory moduleFactory,
 			 					SvcComTti imageConverter) {
 		this.dao = dao;
 		this.hqDao = hqDao;
@@ -41,12 +45,22 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 	public boolean addStoreInbound(ShqInbExpDto inboundDto, String hqInboundDate) {
 		StoreInbound entity = toEntityFromDto(addTime(inboundDto));
 		entity.setConfirm("N");
-		ShqEncryptedDto encryptEntity = encryptEntity(entity);
 		String inboundId = dao.getId(entity.getStoreId());
 		entity.setInboundId(inboundId);
-		encryptEntity.setInboundId(inboundId);
-		IShqDualDataModule saveModule = moduleFactory.createModule(entity, encryptEntity);
-		saveModule.saveDualData();
+		
+		try (IDualDataModule module = moduleFactory.createModule(entity)) {
+			// DualDataModule에서 EncryptedDto 생성
+			EncryptedDto encryptedDto = module.modifyToDto();
+			SqlSessionTemplate sessionTemplate = module.getSqlSessionTemplate();
+			// 평문 데이터 저장
+			dao.save(entity);
+			// 암호화 데이터 저장
+			dao.encryptSave(sessionTemplate, encryptedDto);
+
+		} catch (Exception e) {
+			System.out.println("Exception: " + e.getMessage());
+		}
+		
 		hqDao.ship(new IntegrationInbound()
 						.setInboundDate(Timestamp.valueOf(hqInboundDate))
 						.setGoodsId(entity.getGoodsId()));

@@ -20,12 +20,9 @@ public class SvcComEmpRegSvc implements ISvcComEmpRegSvc {
 	
 	@Override
 	public String employeeRegistration(SvcComEmpDto svcComEmpRegDto) {
-		System.out.println("원래 입력 연락처 = " + svcComEmpRegDto.getEmployeeContact());
 		svcComEmpRegDto.setEmployeeName(
 						aes.decAES256(
 						toHex(svcComEmpRegDto.getEmployeeName())));
-		System.out.println("복호화 = " + aes.decAES256(
-							toHex(svcComEmpRegDto.getEmployeeContact())));
 		svcComEmpRegDto.setEmployeeContact(aes.decAES256(
 						toHex(svcComEmpRegDto.getEmployeeContact())));
 		svcComEmpRegDto.setEmployeeEmail(aes.decAES256(

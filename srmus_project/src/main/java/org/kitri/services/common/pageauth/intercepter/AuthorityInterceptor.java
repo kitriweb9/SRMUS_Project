@@ -1,5 +1,7 @@
 package org.kitri.services.common.pageauth.intercepter;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,10 +25,6 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 	@Autowired
 	private SvcComPgcAcp auth;
 
-	public AuthorityInterceptor() {
-		System.out.println("AuthorityInterceptor instance created.");
-	}
-
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -43,22 +41,26 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 
 		SvcComEmpLgnDto sessionEmployee = (SvcComEmpLgnDto) session.getAttribute("employee");
 		if (sessionEmployee == null) {
-			System.out.println("Session is null. Redirecting to login page.");
 			response.sendRedirect(request.getContextPath() + "/employee/login");
 			return false;
 		}
-
+		
+		String errorCtrlPath = null;
+		
+		if(requiresAuthority.value().toLowerCase().startsWith("ssm")) {
+			errorCtrlPath = request.getContextPath() + "storePermissionError";
+		} else {
+			errorCtrlPath = request.getContextPath() + "permissionError";
+		}
 		// 권한 체크 (value와 basicServiceId 동시에 검사)
 		if (requiresAuthority.value() != null && !permissionCheck(requiresAuthority.value(), sessionEmployee)) {
-			System.out.println("Permission denied for value: " + requiresAuthority.value());
-			response.sendRedirect(request.getContextPath() + "/permissionError");
+			redirectPage(response, errorCtrlPath);
 			return false;
 		}
 
 		if (requiresAuthority.basicServiceId() != null
 				&& !permissionCheck(requiresAuthority.basicServiceId(), sessionEmployee)) {
-			System.out.println("Permission denied for basicServiceId: " + requiresAuthority.basicServiceId());
-			response.sendRedirect(request.getContextPath() + "/permissionError");
+			redirectPage(response, errorCtrlPath);
 			return false;
 		}
 
@@ -68,6 +70,11 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 		}
 
 		return true;
+	}
+
+	private void redirectPage(HttpServletResponse response, String path)
+			throws IOException {
+		response.sendRedirect(path);
 	}
 
 	@Override
@@ -90,7 +97,6 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 		SvcComEmpDto svcComEmpDto = iInqSvc.employeeInquiryByFilters(sessionEmployee.getEmployeeId(), null, null, null)
 				.get(0);
 		boolean hasAuthority = auth.hasAuthority(svcComEmpDto, serviceId);
-		System.out.println("Permission check for serviceId: " + serviceId + " -> " + hasAuthority);
 		return hasAuthority;
 	}
 }

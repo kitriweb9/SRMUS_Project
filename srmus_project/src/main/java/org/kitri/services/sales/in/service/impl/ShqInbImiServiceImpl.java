@@ -28,7 +28,6 @@ public class ShqInbImiServiceImpl implements ShqInbImiService{
 		List<ShqInbImiDto> dto = new ArrayList<>();
 		
 		for (IntegrationInbound i : entity) {
-			System.out.println(i.getUpdateDate());
 			dto.add(new ShqInbImiDto()
 					.setInboundDate(i.getInboundDate())
 					.setGoodsId(i.getGoodsId())
@@ -47,7 +46,6 @@ public class ShqInbImiServiceImpl implements ShqInbImiService{
 		List<ShqInbImiDto> dto = new ArrayList<>();
 		
 		for (IntegrationInbound i : entity) {
-			System.out.println(i.getUpdateDate());
 			dto.add(new ShqInbImiDto()
 					.setInboundDate(i.getInboundDate())
 					.setGoodsId(i.getGoodsId())
@@ -92,7 +90,6 @@ public class ShqInbImiServiceImpl implements ShqInbImiService{
 		List<ShqInbImiDto> dto = new ArrayList<>();
 		
 		for (IntegrationInbound i : entity) {
-			System.out.println(i.getUpdateDate());
 			dto.add(new ShqInbImiDto()
 					.setInboundDate(i.getInboundDate())
 					.setGoodsId(i.getGoodsId())

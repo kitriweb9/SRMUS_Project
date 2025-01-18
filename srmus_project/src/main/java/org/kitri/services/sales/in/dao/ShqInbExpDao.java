@@ -3,6 +3,8 @@ package org.kitri.services.sales.in.dao;
 import java.util.List;
 
 import org.kitri.services.sales.in.entity.StoreInbound;
+import org.kitri.system.dualdata.dto.EncryptedDto;
+import org.mybatis.spring.SqlSessionTemplate;
 
 public interface ShqInbExpDao {
 
@@ -17,4 +19,6 @@ public interface ShqInbExpDao {
 	void update(StoreInbound inbound);
 
 	String getId(String storeId);
+
+	int encryptSave(SqlSessionTemplate sessionTemplate, EncryptedDto encryptedDto);
 }
