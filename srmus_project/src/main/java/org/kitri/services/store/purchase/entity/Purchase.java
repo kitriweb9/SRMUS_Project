@@ -1,6 +1,5 @@
 package org.kitri.services.store.purchase.entity;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class Purchase {

@@ -12,8 +12,6 @@ import javax.imageio.ImageIO;
 import org.kitri.services.common.Setting;
 import org.kitri.services.sales.repo.dto.ShqInbExpDto;
 import org.kitri.services.store.repo.dto.SsmOrdSndDto;
-import org.kitri.services.store.repo.dto.SsmRtnSndDto;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -42,9 +40,6 @@ public class SvcComTti {
 		if (object instanceof SsmOrdSndDto) {
 			SsmOrdSndDto ssmOrdSndDto = (SsmOrdSndDto) object;
 			filename = "o" + ssmOrdSndDto.getOrderId();
-		} else if (object instanceof SsmRtnSndDto) {
-			SsmRtnSndDto ssmRtnSndDto = (SsmRtnSndDto) object;
-			filename = "r" + ssmRtnSndDto.getReturnId();
 		} else if (object instanceof ShqInbExpDto) {
 			ShqInbExpDto shqInbExpDto = (ShqInbExpDto) object;
 			filename = "i" + shqInbExpDto.getInboundId();
@@ -68,8 +63,6 @@ public class SvcComTti {
 	private BufferedImage convertingTexttoImage(Object object) {
 		if (object instanceof SsmOrdSndDto) {
 			return convertingSsmOrdSndDtoTexttoImage((SsmOrdSndDto) object);
-		} else if (object instanceof SsmRtnSndDto) {
-			return convertingSsmRtnSndDtoTexttoImage((SsmOrdSndDto) object);
 		} else if (object instanceof ShqInbExpDto) {
 			return convertingShqInbExpDtoTexttoImage((ShqInbExpDto) object);
 		} else {
@@ -121,57 +114,6 @@ public class SvcComTti {
 		yPosition += 40;
 		yPosition += 40;
 		g2d.drawString("TABLE2_ORDER_QUANTITY = " + dto.getOrderQuantity(), 20, yPosition);
-		yPosition += 40;
-		yPosition += 40;
-		g2d.dispose();
-
-		return image;
-	}
-
-	private BufferedImage convertingSsmRtnSndDtoTexttoImage(Object object) {
-		SsmRtnSndDto dto = (SsmRtnSndDto) object;
-
-		int width = 800;
-		int height = 1000;
-
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-		Graphics2D g2d = image.createGraphics();
-
-		g2d.setColor(Color.lightGray);
-		g2d.fillRect(0, 0, width, height);
-		g2d.setColor(Color.black);
-		g2d.setFont(new Font("Noto Sans", Font.PLAIN, 24));
-		int yPosition = 50;
-		yPosition += 50;
-		g2d.drawString("TABLE1 = TB_SHQ_RETURN", 20, yPosition);
-		yPosition += 40;
-		yPosition += 40;
-		g2d.drawString("TABLE1_RETURN_ID = " + dto.getReturnId(), 20, yPosition);
-		yPosition += 40;
-		yPosition += 40;
-		g2d.drawString("TABLE1_STORE_ID = " + dto.getStoreId(), 20, yPosition);
-		yPosition += 40;
-		yPosition += 40;
-		g2d.drawString("TABLE1_EMPLOYEE_ID = " + dto.getEmployeeId(), 20, yPosition);
-		yPosition += 40;
-		yPosition += 40;
-		g2d.drawString("TABLE1_RETURN_REGISTER_DATE = SYSDATE", 20, yPosition);
-		yPosition += 40;
-		yPosition += 40;
-		g2d.drawString("TABLE1_RETURN_STATE = " + dto.getReturnState(), 20, yPosition);
-		yPosition += 40;
-		yPosition += 40;
-		g2d.drawString("TABLE2 = TB_SHQ_RETURN_DETAIL", 20, yPosition);
-		yPosition += 40;
-		yPosition += 40;
-		g2d.drawString("TABLE1_RETURN_ID = " + dto.getReturnId(), 20, yPosition);
-		yPosition += 40;
-		yPosition += 40;
-		g2d.drawString("TABLE1_GOODS_ID = " + dto.getGoodsId(), 20, yPosition);
-		yPosition += 40;
-		yPosition += 40;
-		g2d.drawString("TABLE1_RETURN_QUANTITY = " + dto.getReturnQuantity(), 20, yPosition);
 		yPosition += 40;
 		yPosition += 40;
 		g2d.dispose();

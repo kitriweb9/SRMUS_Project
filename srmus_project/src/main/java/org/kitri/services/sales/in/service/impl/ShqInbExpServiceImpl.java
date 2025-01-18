@@ -14,40 +14,33 @@ import org.kitri.services.sales.repo.dto.ShqInbExpDto;
 import org.kitri.system.dualdata.core.IDualDataModule;
 import org.kitri.system.dualdata.dto.EncryptedDto;
 import org.kitri.system.dualdata.factory.IDualDataModuleFactory;
-import org.kitri.system.dualdata.shq.IShqDualDataModule;
-import org.kitri.system.dualdata.shq.IShqDualDataModuleFactory;
-import org.kitri.system.dualdata.shq.ShqEncryptedDto;
-import org.kitri.system.encryption.EncAesUtil;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ShqInbExpServiceImpl implements ShqInbExpService{
+public class ShqInbExpServiceImpl implements ShqInbExpService {
 	private final ShqInbExpDao dao;
 	private final ShqInbImiDao hqDao;
-	private final EncAesUtil aesUtil;
 	private final SvcComTti imageConverter;
 	private IDualDataModuleFactory moduleFactory;
-	
+  
 	@Autowired
 	public ShqInbExpServiceImpl(ShqInbExpDao dao, ShqInbImiDao hqDao,
-			 					EncAesUtil aesUtil, IDualDataModuleFactory moduleFactory,
-			 					SvcComTti imageConverter) {
+			IDualDataModuleFactory moduleFactory, SvcComTti imageConverter) {
 		this.dao = dao;
 		this.hqDao = hqDao;
-		this.aesUtil = aesUtil;
 		this.moduleFactory = moduleFactory;
 		this.imageConverter = imageConverter;
 	}
-	
+
 	@Override
 	public boolean addStoreInbound(ShqInbExpDto inboundDto, String hqInboundDate) {
 		StoreInbound entity = toEntityFromDto(addTime(inboundDto));
 		entity.setConfirm("N");
 		String inboundId = dao.getId(entity.getStoreId());
 		entity.setInboundId(inboundId);
-		
+    
 		try (IDualDataModule module = moduleFactory.createModule(entity)) {
 			// DualDataModule에서 EncryptedDto 생성
 			EncryptedDto encryptedDto = module.modifyToDto();
@@ -60,16 +53,16 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 		} catch (Exception e) {
 			System.out.println("Exception: " + e.getMessage());
 		}
-		
-		hqDao.ship(new IntegrationInbound()
-						.setInboundDate(Timestamp.valueOf(hqInboundDate))
-						.setGoodsId(entity.getGoodsId()));
+
+		hqDao.ship(new IntegrationInbound().setInboundDate(Timestamp.valueOf(hqInboundDate))
+				.setGoodsId(entity.getGoodsId()));
+    
 		imageConverter.processTextToImage(toDtoFromEntity(entity), 0, inboundDto.getStoreId());
 		return true;
 	}
 
 	@Override
-	public List<ShqInbExpDto> findAll(){
+	public List<ShqInbExpDto> findAll() {
 		List<StoreInbound> entitys = dao.findAll();
 		List<ShqInbExpDto> dto = new ArrayList<>();
 		for (StoreInbound entity : entitys) {
@@ -78,9 +71,8 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 		return dto;
 	}
 
-
 	@Override
-	public List<ShqInbExpDto> findById(String storeId){
+	public List<ShqInbExpDto> findById(String storeId) {
 		List<StoreInbound> entitys = dao.findById(storeId);
 		List<ShqInbExpDto> dto = new ArrayList<>();
 		for (StoreInbound entity : entitys) {
@@ -88,11 +80,11 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 		}
 		return dto;
 	}
-	
+
 	@Override
 	public void approve(ShqInbExpDto dto) {
 		dao.approve(toEntityFromDto(dto));
-		
+
 	}
 
 	@Override
@@ -100,53 +92,25 @@ public class ShqInbExpServiceImpl implements ShqInbExpService{
 		dao.update(toEntityFromDto(dto));
 	}
 
-	private ShqEncryptedDto encryptEntity(StoreInbound inbound) {
-		ShqEncryptedDto encryptDto = new ShqEncryptedDto()
-								  .setInboundId(toEncrypt(inbound.getInboundId()))
-								  .setStoreId(toEncrypt(inbound.getStoreId()))
-								  .setStoreName(toEncrypt(inbound.getStoreName()))
-								  .setInboundDate(toEncrypt(inbound.getInboundDate().toString()))
-								  .setGoodsId(toEncrypt(inbound.getGoodsId()))
-								  .setGoodsName(toEncrypt(inbound.getGoodsName()))
-								  .setInboundQuantity(toEncrypt(Integer.toString(inbound.getInboundQuantity())))
-								  .setConfirm(toEncrypt(inbound.getConfirm()));
-		return encryptDto;
-	}
-	
-	private String toEncrypt(String text) {
-		if(text != null) {
-			return aesUtil.encAES256(text);
-		} else {
-			return null;
-		}
-	}
 	private ShqInbExpDto toDtoFromEntity(StoreInbound entity) {
-		return new ShqInbExpDto()
-				  .setInboundId(entity.getInboundId())
-				  .setStoreId(entity.getStoreId())
-				  .setStoreName(entity.getStoreName())
-				  .setInboundDate(entity.getInboundDate().toString())
-				  .setGoodsId(entity.getGoodsId())
-				  .setGoodsName(entity.getGoodsName())
-				  .setInboundQuantity(entity.getInboundQuantity())
-				  .setConfirm(entity.getConfirm());
+		return new ShqInbExpDto().setInboundId(entity.getInboundId()).setStoreId(entity.getStoreId())
+				.setStoreName(entity.getStoreName()).setInboundDate(entity.getInboundDate().toString())
+				.setGoodsId(entity.getGoodsId()).setGoodsName(entity.getGoodsName())
+				.setInboundQuantity(entity.getInboundQuantity()).setConfirm(entity.getConfirm());
 	}
 
 	private ShqInbExpDto addTime(ShqInbExpDto inboundDto) {
 		inboundDto.setInboundDate(inboundDto.getInboundDate() + " 00:00:00");
 		return inboundDto;
 	}
+
 	private StoreInbound toEntityFromDto(ShqInbExpDto inboundDto) {
 		Timestamp timestamp = null;
-		if(inboundDto.getInboundDate() != null) {
+		if (inboundDto.getInboundDate() != null) {
 			timestamp = Timestamp.valueOf(inboundDto.getInboundDate());
 		}
-		return new StoreInbound()
-								.setInboundId(inboundDto.getInboundId())
-								.setInboundDate(timestamp)
-								.setStoreId(inboundDto.getStoreId())
-								.setInboundQuantity(inboundDto.getInboundQuantity())
-								.setGoodsId(inboundDto.getGoodsId())
-								.setConfirm(inboundDto.getConfirm());
-	}	
+		return new StoreInbound().setInboundId(inboundDto.getInboundId()).setInboundDate(timestamp)
+				.setStoreId(inboundDto.getStoreId()).setInboundQuantity(inboundDto.getInboundQuantity())
+				.setGoodsId(inboundDto.getGoodsId()).setConfirm(inboundDto.getConfirm());
+	}
 }
