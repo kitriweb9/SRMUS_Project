@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.kitri.services.sales.in.dao.ShqInbExpDao;
 import org.kitri.services.sales.in.entity.StoreInbound;
+import org.kitri.system.dualdata.dto.EncryptedDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -47,5 +48,11 @@ public class ShqInbExpDaoImpl implements ShqInbExpDao {
 	@Override
 	public void update(StoreInbound inbound) {
 		sqlSessionTemplate.update("storeInbound.update", inbound);
+	}
+
+
+	@Override
+	public int encryptSave(SqlSessionTemplate encryptTemplate, EncryptedDto encryptedDto) {
+		return encryptTemplate.insert("storeInbound.encryptSave", encryptedDto);
 	}
 }
