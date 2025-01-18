@@ -93,9 +93,9 @@ SRMUS (Store Resource Management Unified System)는 매장 통합 관리 시스�
 
 [![업무 정의서](https://img.shields.io/badge/-업무%20정의서-blue?style=for-the-badge&link=https://)](#link)
 [![요구사항 명세서](https://img.shields.io/badge/-요구사항%20명세서-green?style=for-the-badge&link=https://)](#link)
-[![ER 다이어그램](https://img.shields.io/badge/-ER%20다이어그램-orange?style=for-the-badge&link=https://kitriweb9.gitbook.io/srmus/class/erd)](#link)
-[![Class 다이어그램](https://img.shields.io/badge/-Class%20다이어그램-yellow?style=for-the-badge&link=https://kitriweb9.gitbook.io/srmus/class/cld)](#link)
+[![ER 다이어그램](https://img.shields.io/badge/-ER%20다이어그램-orange?style=for-the-badge&link=https://kitriweb9.gitbook.io/srmus/class/erd)](https://kitriweb9.gitbook.io/srmus/class/erd)
+[![Class 다이어그램](https://img.shields.io/badge/-Class%20다이어그램-yellow?style=for-the-badge&link=https://kitriweb9.gitbook.io/srmus/class/cld)](https://kitriweb9.gitbook.io/srmus/class/cld)
 [![Class 명세서](https://img.shields.io/badge/-Class%20명세서-red?style=for-the-badge&link=https://)](#link)
-[![Data Flow 다이어그램](https://img.shields.io/badge/-Data%20Flow%20흐름도-purple?style=for-the-badge&link=https://kitriweb9.gitbook.io/srmus/dfd)](#link)
+[![Data Flow 다이어그램](https://img.shields.io/badge/-Data%20Flow%20흐름도-purple?style=for-the-badge&link=https://kitriweb9.gitbook.io/srmus/dfd)](https://kitriweb9.gitbook.io/srmus/dfd)
 [![Use Case 다이어그램](https://img.shields.io/badge/-Use%20Case%20다이어그램-teal?style=for-the-badge&link=https://)](#link)
 
