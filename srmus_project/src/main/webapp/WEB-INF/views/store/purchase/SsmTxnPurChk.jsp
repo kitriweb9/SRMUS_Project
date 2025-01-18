@@ -79,7 +79,7 @@
 											<td>${canpur.purchaseDate}</td>
 											<td>${canpur.goodsId}<input type="hidden" name="goodsId_${canpur.purchaseId}" value="${canpur.goodsId}"></td>
 											<td>${canpur.goodsName}</td>
-											<td>${canpur.purchaseQuantity}</td>
+											<td>${canpur.purchaseQuantity}<input type="hidden" name="purQty_${canpur.purchaseId}" value="${canpur.purchaseQuantity}"></td>
 											<td>${canpur.purchaseAmount}</td>
 										</tr>
 									</c:forEach>

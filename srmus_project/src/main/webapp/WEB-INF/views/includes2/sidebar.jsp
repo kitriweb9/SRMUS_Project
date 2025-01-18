@@ -41,6 +41,7 @@
                 <ul class="collapse list-unstyled ms-3" id="sales">
                     <li><a href="${pageContext.request.contextPath}/SsmTxnSalAprList" class="sidebar-link">판매 승인</a></li>
                     <li><a href="${pageContext.request.contextPath}/SsmTxnSalChk" class="sidebar-link">판매내역 조회</a></li>
+                    <li><a href="${pageContext.request.contextPath}/SsmTxnSalChkCan" class="sidebar-link">판매 취소 내역 조회</a></li>
                 </ul>
             </li>            
             <li class="sidebar-item">

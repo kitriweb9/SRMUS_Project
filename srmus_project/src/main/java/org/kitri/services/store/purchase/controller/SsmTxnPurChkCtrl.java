@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SsmTxnPurChkCtrl {
 	@Autowired
-	public ISsmTxnPurChkSvc purChkSvc;
+	private ISsmTxnPurChkSvc purChkSvc;
 	
 	// 구매 목록 보기
 	@GetMapping("SsmTxnPurChk")

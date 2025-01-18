@@ -39,4 +39,14 @@ public class SsmTxnSalAprSvcImpl implements ISsmTxnSalAprSvc {
 		purDao.applyStock(stockDto);
 		
 		}
+	@Override
+	public void updateSalStatusToN(String salesId) {
+		Long datetime = System.currentTimeMillis();
+		Timestamp timestamp = new Timestamp(datetime);
+		SsmTxnSalDto salDto = new SsmTxnSalDto();
+		salDto.setSalesId(salesId);
+		salDto.setSalesStatus("N");
+		salDto.setSalesDate(timestamp);
+		salDao.updateSalStatusToN(salDto);
+		}
 	}

@@ -30,6 +30,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND s.store_id=#{storeId}
 		AND sd.sales_status=#{salesStatus}
 	</select>
+	<select id="getsalescanceledlist" resultType="org.kitri.services.store.repo.dto.SsmTxnSalDto">
+		SELECT s.sales_id AS salesId, s.purchase_id AS purchaseId,
+		sd.goods_id AS goodsId, s.employee_id AS employeeId, s.sales_amount AS
+		salesAmount, s.sales_date AS salesDate, sd.sales_quantity AS salesQuantity
+		FROM tb_ssm_sales s, tb_ssm_sales_detail sd, tb_ssm_purchase_detail pd
+		WHERE s.sales_id=sd.sales_id
+		AND s.store_id=#{storeId}
+		AND sd.sales_status=#{salesStatus}
+		AND pd.purchase_id=s.purchase_id
+		AND pd.purchase_payment_status=#{salesStatus}
+	</select>
 	<select id="getsales" resultType="org.kitri.services.store.repo.dto.SsmTxnSalDto">
 		SELECT s.sales_id AS salesId, s.purchase_id AS purchaseId, sd.sales_quantity AS salesQuantity, sd.sales_status AS salesStatus
 		FROM tb_ssm_sales s, tb_ssm_sales_detail sd
@@ -45,6 +56,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         END
     }
 	</update>
+	<update id="updatesalstatuston" parameterType="org.kitri.services.store.repo.dto.SsmTxnSalDto">
+        UPDATE tb_ssm_sales_detail 
+        SET sales_status = #{salesStatus} 
+        WHERE sales_id = #{salesId};
+</update>
 <delete id="deletesales">
     {call
         DECLARE
