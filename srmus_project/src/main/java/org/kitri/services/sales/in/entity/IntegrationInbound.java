@@ -59,8 +59,9 @@ public class IntegrationInbound {
 		return goodsName;
 	}
 
-	public void setGoodsName(String goodsName) {
+	public IntegrationInbound setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
+		return this;
 	}
 
 }
