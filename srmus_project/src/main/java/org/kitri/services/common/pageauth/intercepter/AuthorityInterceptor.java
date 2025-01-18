@@ -48,9 +48,9 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 		String errorCtrlPath = null;
 		
 		if(requiresAuthority.value().toLowerCase().startsWith("ssm")) {
-			errorCtrlPath = request.getContextPath() + "storePermissionError";
+			errorCtrlPath = request.getContextPath() + "/storePermissionError";
 		} else {
-			errorCtrlPath = request.getContextPath() + "permissionError";
+			errorCtrlPath = request.getContextPath() + "/permissionError";
 		}
 		// 권한 체크 (value와 basicServiceId 동시에 검사)
 		if (requiresAuthority.value() != null && !permissionCheck(requiresAuthority.value(), sessionEmployee)) {
