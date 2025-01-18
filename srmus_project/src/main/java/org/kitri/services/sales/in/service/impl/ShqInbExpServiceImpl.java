@@ -24,7 +24,7 @@ public class ShqInbExpServiceImpl implements ShqInbExpService {
 	private final ShqInbImiDao hqDao;
 	private final SvcComTti imageConverter;
 	private IDualDataModuleFactory moduleFactory;
-
+  
 	@Autowired
 	public ShqInbExpServiceImpl(ShqInbExpDao dao, ShqInbImiDao hqDao,
 			IDualDataModuleFactory moduleFactory, SvcComTti imageConverter) {
@@ -40,7 +40,7 @@ public class ShqInbExpServiceImpl implements ShqInbExpService {
 		entity.setConfirm("N");
 		String inboundId = dao.getId(entity.getStoreId());
 		entity.setInboundId(inboundId);
-
+    
 		try (IDualDataModule module = moduleFactory.createModule(entity)) {
 			// DualDataModule에서 EncryptedDto 생성
 			EncryptedDto encryptedDto = module.modifyToDto();
@@ -56,6 +56,7 @@ public class ShqInbExpServiceImpl implements ShqInbExpService {
 
 		hqDao.ship(new IntegrationInbound().setInboundDate(Timestamp.valueOf(hqInboundDate))
 				.setGoodsId(entity.getGoodsId()));
+    
 		imageConverter.processTextToImage(toDtoFromEntity(entity), 0, inboundDto.getStoreId());
 		return true;
 	}
