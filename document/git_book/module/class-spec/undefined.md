@@ -1,10 +1,10 @@
 # 이미지 변환 모듈
 
-![Wrtier](https://img.shields.io/badge/Writer-%ED%95%A8%EC%98%88%EC%A0%95-blue) [![Repository](https://img.shields.io/badge/View-Repository-blue)](../../../../srmus_project/src/main/java/org/kitri/services/common/file/imgtotxt/SvcComItt.java)
+![Wrtier](https://img.shields.io/badge/Writer-%ED%95%A8%EC%98%88%EC%A0%95-blue)
 
 **패키지명:** org.kitri.services.common.file.imgtotxt
 
-**클래스명:** SvcComItt
+**클래스명:** SvcComItt  [![Repository](https://img.shields.io/badge/View-Repository-blue)](../../../../srmus_project/src/main/java/org/kitri/services/common/file/imgtotxt/SvcComItt.java)
 
 **클래스 타입:** Module
 
@@ -26,11 +26,9 @@
 
 
 
-[![Repository](https://img.shields.io/badge/View-Repository-blue)](../../../../srmus_project/src/main/java/org/kitri/services/common/file/txttoimg/SvcComTti.java)
-
 **패키지명:** org.kitri.services.common.file.txttoimg
 
-**클래스명:** SvcComTti
+**클래스명:** SvcComTti  [![Repository](https://img.shields.io/badge/View-Repository-blue)](../../../../srmus_project/src/main/java/org/kitri/services/common/file/txttoimg/SvcComTti.java)
 
 **클래스 타입:** Module
 
