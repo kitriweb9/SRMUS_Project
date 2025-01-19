@@ -4,7 +4,7 @@ description: '작성자: 현영은'
 
 # 16진수 변환기
 
-[![Repository](https://img.shields.io/badge/View-Repository-blue)](../../../../../srmus_project/src/main/java/org/kitri/system/encryption/HexConverter.java) [![Diagram](https://img.shields.io/badge/View-Class_Diagram-blue)](../../cld.md#encrypt) [![Use Case Diagram](https://img.shields.io/badge/View-Use_Case_Diagram-blue)](../../use-case.md#encrypt)
+![Wrtier](https://img.shields.io/badge/Writer-%ED%98%84%EC%98%81%EC%9D%80-blue) [![Repository](https://img.shields.io/badge/View-Repository-blue)](../../../../../srmus_project/src/main/java/org/kitri/system/encryption/HexConverter.java) [![Diagram](https://img.shields.io/badge/View-Class_Diagram-blue)](../../cld.md#encrypt) [![Use Case Diagram](https://img.shields.io/badge/View-Use_Case_Diagram-blue)](../../use-case.md#encrypt)
 
 **패키지명:** org.kitri.system.encryption
 

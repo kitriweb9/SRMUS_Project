@@ -1,6 +1,6 @@
 # 이중화 모듈
 
-![Repository](https://img.shields.io/badge/Writer-%EC%A0%95%EC%95%88%EC%8B%9D-blue) [![Repository](https://img.shields.io/badge/View-Repository-blue)](https://github.com/kitriweb9/SRMUS_Project/tree/master/srmus_project/src/main/java/org/kitri/system/dualdata/factory) [![Diagram](https://img.shields.io/badge/View-Class_Diagram-blue)](../cld.md#dual-data) [![Use Case Diagram](https://img.shields.io/badge/View-Use_Case_Diagram-blue)](../use-case.md#dual-data)
+![Wrtier](https://img.shields.io/badge/Writer-%EC%A0%95%EC%95%88%EC%8B%9D-blue) [![Repository](https://img.shields.io/badge/View-Repository-blue)](https://github.com/kitriweb9/SRMUS_Project/tree/master/srmus_project/src/main/java/org/kitri/system/dualdata/factory) [![Diagram](https://img.shields.io/badge/View-Class_Diagram-blue)](../cld.md#dual-data) [![Use Case Diagram](https://img.shields.io/badge/View-Use_Case_Diagram-blue)](../use-case.md#dual-data)
 
 ## 1. 팩토리 관련
 

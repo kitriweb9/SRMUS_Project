@@ -1,10 +1,6 @@
----
-description: '작성자: 함예정'
----
-
 # 이미지 변환 모듈
 
-[![Repository](https://img.shields.io/badge/View-Repository-blue)](../../../../srmus_project/src/main/java/org/kitri/services/common/file/imgtotxt/SvcComItt.java)
+![Wrtier](https://img.shields.io/badge/Writer-%ED%95%A8%EC%98%88%EC%A0%95-blue) [![Repository](https://img.shields.io/badge/View-Repository-blue)](../../../../srmus_project/src/main/java/org/kitri/services/common/file/imgtotxt/SvcComItt.java)
 
 **패키지명:** org.kitri.services.common.file.imgtotxt
 
