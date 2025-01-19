@@ -21,7 +21,7 @@ public class ShqPdtPdiRegSvcImpl implements ShqPdtPdiRegSvc {
 		if (shqPdtPdiRegDao.registGoodsInfo(shqPdtPdiChgDto) >= 1) {
 			return "상품 등록을 성공하였습니다.";
 		} else {
-			return "상품 등록을 성공하였습니다.";
+			return "상품 등록을 실패하였습니다.";
 		}
 	}
 

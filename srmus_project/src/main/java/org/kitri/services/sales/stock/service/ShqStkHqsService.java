@@ -3,7 +3,6 @@ package org.kitri.services.sales.stock.service;
 import java.util.List;
 
 import org.kitri.services.sales.repo.dto.ShqStkHqsDto;
-import org.kitri.services.sales.stock.entity.GoodsStock;
 import org.springframework.stereotype.Service;
 
 @Service

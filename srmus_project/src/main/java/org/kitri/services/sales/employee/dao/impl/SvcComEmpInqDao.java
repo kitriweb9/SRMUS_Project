@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.kitri.services.sales.employee.dao.ISvcComEmpInqDao;
 import org.kitri.services.sales.employee.dto.SvcComEmpDto;
-import org.kitri.services.sales.employee.dto.SvcComEmpInqDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
