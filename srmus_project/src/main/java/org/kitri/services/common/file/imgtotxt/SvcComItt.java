@@ -33,7 +33,6 @@ public class SvcComItt {
 		try {
 			text = tesseract.doOCR(imageFile);
 		} catch (TesseractException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return resultMap;
 		}

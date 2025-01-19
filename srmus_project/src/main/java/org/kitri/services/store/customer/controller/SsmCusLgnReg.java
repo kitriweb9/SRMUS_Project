@@ -35,7 +35,6 @@ public class SsmCusLgnReg {
 			return "store/customer/SsmCusLgnReg";
 			
 		} catch (SQLIntegrityConstraintViolationException e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			
 			return "store/customer/SsmCusLgnReg";

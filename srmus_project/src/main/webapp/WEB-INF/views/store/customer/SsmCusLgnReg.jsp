@@ -130,7 +130,8 @@
 
     <!-- 공용 푸터 -->
     <footer class="login-footer">
-        <small class="text-muted">Font: Yejeong, Ham / Back: Yejeong, Ham</small><br>
+        <small class="text-muted">Front: [Yejeong, Ham] [Ansik, Jung] [Yulkung, Kim]</small><br>
+		<small class="text-muted">Back: [Yejeong, Ham] [Ansik, Jung] [Yulkung, Kim] [YoungEun, Hyun] [Eunseo, Moon] [Siyeon, Park]</small><br>
         <small class="text-muted">&copy; 2024 Kitri Team Project. All rights reserved.</small>
     </footer>
 </body>

@@ -34,8 +34,6 @@ public class SsmCusLgnLot {
 			}
 		}
 
-		// 기본 동작
-		System.out.println("세션에 사용자 정보 없음 또는 로그아웃 실패");
 		return "store/customer/SsmCusLgnLin";
 	}
 }
