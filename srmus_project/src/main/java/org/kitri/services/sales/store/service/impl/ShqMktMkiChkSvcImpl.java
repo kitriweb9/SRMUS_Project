@@ -1,9 +1,7 @@
 package org.kitri.services.sales.store.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.kitri.services.sales.repo.dto.ShqMktMkiChkDto;
 import org.kitri.services.sales.store.dao.ShqMktMkiChkDao;
 import org.kitri.services.sales.store.entity.Store;
 import org.kitri.services.sales.store.service.ShqMktMkiChkSvc;
