@@ -6,7 +6,7 @@ icon: diagram-project
 
 ## 1. 이중화 모듈 <a href="#dual-data" id="dual-data"></a>
 
-[![Repository](https://img.shields.io/badge/View-Repository-blue)](https://github.com/kitriweb9/SRMUS_Project/tree/master/srmus_project/src/main/java/org/kitri/system/dualdata) [![Class Specification](https://img.shields.io/badge/View-Class_Specification-blue)](class-spec/dual-data.md) [![Use Case Diagram](https://img.shields.io/badge/View-Use_Case_Diagram-blue)](use-case.md#dual-data)
+![Repository](https://img.shields.io/badge/Writer-%EC%A0%95%EC%95%88%EC%8B%9D-blue) [![Repository](https://img.shields.io/badge/View-Repository-blue)](https://github.com/kitriweb9/SRMUS_Project/tree/master/srmus_project/src/main/java/org/kitri/system/dualdata) [![Class Specification](https://img.shields.io/badge/View-Class_Specification-blue)](class-spec/dual-data.md) [![Use Case Diagram](https://img.shields.io/badge/View-Use_Case_Diagram-blue)](use-case.md#dual-data)
 
 {% embed url="https://github.com/kitriweb9/SRMUS_Project/blob/master/document/class_diagram/module/dual_data_module.png?raw=true" %}
 
@@ -24,7 +24,7 @@ icon: diagram-project
 
 ## 4. 로그인 모듈 <a href="#login" id="login"></a>
 
-[![Repository](https://img.shields.io/badge/View-Repository-blue)](https://github.com/kitriweb9/SRMUS_Project/tree/master/srmus_project/src/main/java/org/kitri/services/common/login)
+![Repository](https://img.shields.io/badge/Writer-%EC%A0%95%EC%95%88%EC%8B%9D-blue) [![Repository](https://img.shields.io/badge/View-Repository-blue)](https://github.com/kitriweb9/SRMUS_Project/tree/master/srmus_project/src/main/java/org/kitri/services/common/login)
 
 {% embed url="https://github.com/kitriweb9/SRMUS_Project/blob/master/document/class_diagram/module/login_module.png?raw=true" %}
 

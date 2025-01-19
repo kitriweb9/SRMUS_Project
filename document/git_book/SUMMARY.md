@@ -1,6 +1,6 @@
 # Table of contents
 
-* [클래스 양식](tempfile.md)
+* [클래스 양식](README.md)
 
 ## 공통 모듈 <a href="#module" id="module"></a>
 
