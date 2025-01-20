@@ -31,15 +31,18 @@ SRMUS (Store Resource Management Unified System)는 본사와 매장 간 통합 
 
 
 ## 기술 스택  
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-    ![Eclipse](https://img.shields.io/badge/Eclipse-FE7A16.svg?style=for-the-badge&logo=Eclipse&logoColor=white)
-    ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
-    ![Gradle](https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white)
-    ![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white)
-    ![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-%23F8DC75.svg?style=for-the-badge&logo=apache-tomcat&logoColor=black)
-    ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-    ![Cent OS](https://img.shields.io/badge/cent%20os-002260?style=for-the-badge&logo=centos&logoColor=F0F0F0)
-    ![GitBook](https://img.shields.io/badge/GitBook-%23000000.svg?style=for-the-badge&logo=gitbook&logoColor=white)
+| 기술명          | 역할                          |
+|----------------|-------------------------------|
+| ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) | 백엔드 로직 구현 |
+| ![Eclipse](https://img.shields.io/badge/Eclipse-FE7A16.svg?style=for-the-badge&logo=Eclipse&logoColor=white) | IDE |
+| ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) | REST API와 비즈니스 로직 처리 |
+| ![Gradle](https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white) | 프로젝트 빌드 |
+| ![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white) | 데이터 저장 및 관리 |
+| ![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-%23F8DC75.svg?style=for-the-badge&logo=apache-tomcat&logoColor=black) | 웹 애플리케이션 서버 |
+| ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) | 애플리케이션 배포 및 컨테이너화 |
+| ![Cent OS](https://img.shields.io/badge/cent%20os-002260?style=for-the-badge&logo=centos&logoColor=F0F0F0) | 서버 운영 환경 |
+| ![GitBook](https://img.shields.io/badge/GitBook-%23000000.svg?style=for-the-badge&logo=gitbook&logoColor=white) | 문서화 도구 |
+
 
 ## 시스템 구성도
 ![System-diagram](https://raw.githubusercontent.com/kitriweb9/SRMUS_Project/master/document/system_diagram/system_diagram.png)
@@ -48,85 +51,85 @@ SRMUS (Store Resource Management Unified System)는 본사와 매장 간 통합 
 
 ### 주요 요구사항 및 기능
 
-**1. 공통 서비스**
+**1. 🌐 공통 서비스**
 
-- **페이지 권한 관리**:  
+- **🔒 페이지 권한 관리**:  
   - 권한 기반의 페이지 접근 제어  
   - 사용자의 권한 정보 등록 및 수정  
   - 권한 부족 시 오류 페이지 반환  
 
-- **파일 전송**:  
+- **📁 파일 전송**:  
   - 본사와 매장 간의 데이터 파일 전송 기능  
   - 발주 및 입고 데이터를 이미지 파일 형태로 변환 및 송수신  
 
-- **로그인**:  
+- **🔑 로그인**:  
   - 직원 및 고객 로그인 처리  
 
-**2. 영업 본부(본사) 서비스**
+**2. 🏢 영업 본부(본사) 서비스**
 
-- **마감 관리**:  
+- **📊 마감 관리**:  
   - 영업 마감 데이터를 생성 및 조회  
 
-- **직원 관리**:  
+- **👥 직원 관리**:  
   - 직원 정보 등록 및 조회  
   - 직원별 권한 및 역할 관리  
 
-- **상품 관리**:  
+- **📦 상품 관리**:  
   - 상품 등록, 수정, 삭제  
   - 상품 정보 조회  
 
-- **입고 관리**:  
+- **🚚 입고 관리**:  
   - 매장에서 전송된 입고 요청 데이터 확인  
   - 입고 요청 데이터를 처리하고 승인  
 
-- **발주 관리**:  
+- **📑 발주 관리**:  
   - 발주 요청 데이터를 관리  
   - 발주 데이터를 DB에 반영하고 매장에 전달  
 
-- **재고 관리**:  
+- **📈 재고 관리**:  
   - 본사 전체 재고 현황 조회  
 
-- **매장 관리**:  
+- **🏬 매장 관리**:  
   - 매장별 매출 및 운영 현황 모니터링  
   - 매장 데이터 수집 및 통합 관리  
 
-**3. 매장 서비스**
+**3. 🏪 매장 서비스**
 
-- **고객 관리**:  
+- **🙍 고객 관리**:  
   - 고객 회원가입 및 로그인 처리  
   - 고객별 구매 내역 조회  
 
-- **상품 관리**:  
+- **🛍️ 상품 관리**:  
   - 매장 내 상품 목록 조회 및 관리  
   - 상품별 재고 현황 확인  
 
-- **입고 관리**:  
+- **🚛 입고 관리**:  
   - 본사에서 승인된 입고 데이터를 확인  
   - 입고 데이터 수정 및 확정  
 
-- **발주 관리**:  
+- **📋 발주 관리**:  
   - 상품 발주 요청 생성 및 수정  
   - 발주 요청 상태 확인 및 본사로 데이터 전송  
 
-- **구매 관리**:  
+- **🛒 구매 관리**:  
   - 고객의 구매 요청 처리  
   - 구매 내역 기록 및 조회  
 
-- **판매 관리**:  
+- **💰 판매 관리**:  
   - 승인된 판매 내역 확정  
   - 판매 기록을 통해 재고 업데이트  
 
-- **재고 관리**:  
+- **📊 재고 관리**:  
   - 매장 재고 현황 조회 및 수정  
   - 안전 재고량 관리  
 
-**4. 시스템 서비스**
+**4. 💾 시스템 서비스**
 
-- **데이터 이중화**:  
+- **📂 데이터 이중화**:  
   - 주요 데이터는 평문 DB와 암호화 DB에 동기화 저장  
   - 장애 발생 시 데이터 손실 방지  
 
-- **암호화**:  
+- **🔐 암호화**:  
   - SHA-256으로 비밀번호 암호화 처리  
   - AES-256으로 민감한 데이터 암호화 및 복호화  
 
